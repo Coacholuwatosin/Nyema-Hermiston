@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Nyema Hermiston</title>
+  <meta name="description" content="Privacy policy for nyemahermiston.com.au — how we collect and use your information.">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="canonical" href="https://nyemahermiston.com.au/privacy.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0B2B'/><text x='16' y='23' text-anchor='middle' font-family='serif' font-weight='700' font-size='16' fill='%23C9952A'>NH</text></svg>">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0D0B2B">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/features.css">
+
+  <style>
+    .privacyHero {
+      background: var(--colorDeepNavy);
+      padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .privacyHero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(46, 23, 96, 0.5) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .privacyHeroContent {
+      position: relative;
+      z-index: 1;
+    }
+
+    .privacyHeroTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      color: var(--colorWhite);
+      line-height: var(--lineHeightDisplay);
+    }
+
+    .privacyBody {
+      background: var(--colorOffWhite);
+      padding: var(--spaceSection) 0;
+    }
+
+    .privacyContent {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .privacySection {
+      margin-bottom: var(--spaceLg);
+    }
+
+    .privacySectionTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+      font-weight: 600;
+      color: var(--colorTextPrimary);
+      margin-bottom: var(--spaceSm);
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(201, 149, 42, 0.25);
+    }
+
+    .privacyText {
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeBody);
+      color: var(--colorTextLight);
+      line-height: var(--lineHeightBody);
+    }
+
+    .privacyText + .privacyText {
+      margin-top: var(--spaceSm);
+    }
+
+    .privacyText a {
+      color: var(--colorGold);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .privacyText a:hover {
+      color: var(--colorDeepNavy);
+    }
+
+    .privacyList {
+      list-style: disc;
+      padding-left: var(--spaceMd);
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeBody);
+      color: var(--colorTextLight);
+      line-height: var(--lineHeightBody);
+    }
+
+    .privacyList li + li {
+      margin-top: 0.5rem;
+    }
+
+    .privacyDate {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorGold);
+      font-family: var(--fontBody);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--spaceLg);
+    }
+  </style>
+
+  <!-- Google Analytics GA4 — Replace G-XXXXXXXXXX with your Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skipToContent">Skip to main content</a>
+
+  <div class="scrollProgressBar" id="scrollProgressBar"></div>
+  <div class="customCursor" id="customCursor"></div>
+
+  <!-- Navigation -->
+  <nav class="siteNav scrolled" id="siteNav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navInner">
+        <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
+          <span class="navLogoName">Nyema Hermiston</span>
+          <span class="navLogoTagline">RN · ND · Homeopath · Author</span>
+        </a>
+        <ul class="navLinks" role="list">
+          <li><a href="index.html" class="navLink">Home</a></li>
+          <li><a href="about.html" class="navLink">About</a></li>
+          <li><a href="books.html" class="navLink">Books</a></li>
+          <li><a href="mediaPress.html" class="navLink">Media</a></li>
+          <li><a href="speaking.html" class="navLink">Speaking</a></li>
+          <li><a href="contact.html" class="navLink navCta btnPrimary">Contact</a></li>
+        </ul>
+        <button class="darkModeToggle" id="darkModeToggle" aria-label="Switch to light mode">
+          <i class="ri-sun-line" aria-hidden="true"></i>
+        </button>
+
+        <button class="navHamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="navOverlay" id="navOverlay" role="dialog" aria-modal="true">
+    <button class="navOverlayClose" id="navOverlayClose" aria-label="Close menu">&#10005;</button>
+    <div class="navOverlayInner">
+      <nav class="navOverlayLinks">
+        <a href="index.html" class="navOverlayLink">Home</a>
+        <a href="about.html" class="navOverlayLink">About</a>
+        <a href="books.html" class="navOverlayLink">Books</a>
+        <a href="mediaPress.html" class="navOverlayLink">Media</a>
+        <a href="speaking.html" class="navOverlayLink">Speaking</a>
+        <a href="contact.html" class="navOverlayLink">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <div class="privacyHero">
+      <div class="container privacyHeroContent">
+        <span class="sectionLabel">Legal</span>
+        <h1 class="privacyHeroTitle">Privacy Policy</h1>
+        <span class="goldUnderline"></span>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="privacyBody">
+      <div class="container">
+        <div class="privacyContent">
+
+          <span class="privacyDate">Last updated: 16 May 2026</span>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">About This Policy</h2>
+            <p class="privacyText">This website is operated by Nyema Hermiston (nyemahermiston.com.au). This Privacy Policy explains what information we collect when you visit this website, how we use it, and your rights in relation to that information. We are committed to handling your personal information with care and in accordance with the Australian Privacy Act 1988.</p>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">Information We Collect</h2>
+            <p class="privacyText">We collect information in the following ways:</p>
+            <ul class="privacyList">
+              <li><strong>Contact form submissions</strong> — When you complete the contact form on this site, we receive your name, email address, enquiry type, and message. This information is used solely to respond to your enquiry and is not shared with third parties.</li>
+              <li><strong>Newsletter sign-ups</strong> — If you subscribe to updates, we collect your email address to send you relevant news, book updates, and health insights. You may unsubscribe at any time using the link in any email we send.</li>
+              <li><strong>Website analytics</strong> — We use Google Analytics (GA4) to understand how visitors use this website. Google Analytics collects anonymised data about your device, browser, location (country level), and how you interact with the site. This data does not identify you personally. You can opt out of Google Analytics using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.</li>
+            </ul>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">How We Use Your Information</h2>
+            <p class="privacyText">We use your information only for the purpose it was provided:</p>
+            <ul class="privacyList">
+              <li>To respond to your enquiries, media requests, or speaking invitations</li>
+              <li>To send you book updates and news if you have subscribed</li>
+              <li>To improve this website based on aggregated, anonymous usage data</li>
+            </ul>
+            <p class="privacyText">We do not sell, rent, or share your personal information with any third party for marketing purposes.</p>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">Third-Party Services</h2>
+            <p class="privacyText">This website uses the following third-party services, each with their own privacy policies:</p>
+            <ul class="privacyList">
+              <li><strong>Google Analytics</strong> — For anonymised website analytics. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a></li>
+              <li><strong>Formspree</strong> — For processing contact form submissions. <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree Privacy Policy →</a></li>
+              <li><strong>Google Fonts</strong> — For typography. Fonts are loaded from Google's servers. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a></li>
+            </ul>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">Cookies</h2>
+            <p class="privacyText">This website uses cookies for website analytics (Google Analytics) only. No tracking cookies are used for advertising purposes. By continuing to use this website, you consent to the use of analytics cookies.</p>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">Your Rights</h2>
+            <p class="privacyText">Under the Australian Privacy Act 1988, you have the right to:</p>
+            <ul class="privacyList">
+              <li>Request access to any personal information we hold about you</li>
+              <li>Request that we correct inaccurate personal information</li>
+              <li>Request that we delete personal information we hold about you</li>
+              <li>Withdraw consent to receive communications from us at any time</li>
+            </ul>
+            <p class="privacyText">To exercise any of these rights, please contact us using the <a href="contact.html">contact form</a>.</p>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">External Links</h2>
+            <p class="privacyText">This website contains links to external websites (such as Amazon, Goodreads, The Aurum Project, and Facebook). We are not responsible for the privacy practices of those websites and encourage you to review their privacy policies.</p>
+          </div>
+
+          <div class="privacySection">
+            <h2 class="privacySectionTitle">Contact</h2>
+            <p class="privacyText">If you have any questions about this Privacy Policy or how your information is handled, please <a href="contact.html">get in touch</a> using the contact form on this website.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="siteFooter" role="contentinfo">
+    <div class="container">
+      <div class="footerGrid">
+        <div class="footerBrand">
+          <a href="index.html"><span class="footerLogoName">Nyema Hermiston</span></a>
+          <span class="footerLogoTagline">RN · ND · Homeopath · Author</span>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <span class="footerColHeading">Navigate</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="index.html" class="footerLink">Home</a></li>
+            <li><a href="about.html" class="footerLink">About</a></li>
+            <li><a href="books.html" class="footerLink">Books</a></li>
+            <li><a href="mediaPress.html" class="footerLink">Media &amp; Press</a></li>
+            <li><a href="speaking.html" class="footerLink">Speaking</a></li>
+            <li><a href="contact.html" class="footerLink">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <span class="footerColHeading">Connect</span>
+          <div class="footerSocial">
+            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <i class="ri-instagram-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <i class="ri-facebook-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads">
+              <i class="ri-book-open-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon">
+              <i class="ri-amazon-fill" aria-hidden="true"></i>
+            </a>
+          </div>
+          <ul class="footerLinks" role="list">
+            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
+            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <span class="footerCopyright">© 2026 Nyema Hermiston. All rights reserved.</span>
+        <div class="footerLegal">
+          <a href="privacy.html" class="footerLegalLink">Privacy Policy</a>
+          <span class="footerLegalSep" aria-hidden="true"></span>
+          <a href="https://tubedra.com" class="footerLegalLink" target="_blank" rel="noopener noreferrer">Site by Tubedra</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="backToTop" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/navScroll.js"></script>
+  <script src="assets/js/features.js"></script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookieBanner" id="cookieBanner" role="region" aria-label="Cookie consent">
+    <p class="cookieBannerHeading">We use cookies</p>
+    <p class="cookieBannerText">
+      This site uses cookies to improve your experience and analyse anonymous traffic.
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookieBannerActions">
+      <button class="cookieBannerAccept">Accept All</button>
+      <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+/* ===================================================
+   ENDORSEMENTS.CSS — Professional Endorsements
+   =================================================== */
+
+.endorsementsSection {
+  position: relative;
+  background: var(--colorDeepNavy);
+  padding: var(--spaceSection) 0;
+  overflow: hidden;
+}
+
+/* Multi-layer background */
+.endorsementsSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(46, 23, 96, 0.65) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 90%, rgba(201, 149, 42, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle dot grid texture */
+.endorsementsSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(201, 149, 42, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.endorsementsSectionHeader {
+  text-align: center;
+  margin-bottom: var(--spaceLg);
+  position: relative;
+  z-index: 1;
+}
+
+.endorsementsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spaceMd);
+  position: relative;
+  z-index: 1;
+}
+
+/* Endorsement Card — rich glassmorphism */
+.endorsementCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--colorGold);
+  border-bottom: 1px solid rgba(201, 149, 42, 0.15);
+  padding: var(--spaceLg) var(--spaceMd) var(--spaceMd);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.endorsementCard:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(201, 149, 42, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Large decorative quote mark overhanging the top */
+.endorsementQuoteIcon {
+  position: absolute;
+  top: -10px;
+  left: var(--spaceSm);
+  font-family: var(--fontDisplay);
+  font-size: clamp(5rem, 8vw, 8rem);
+  line-height: 1;
+  color: var(--colorGold);
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
+}
+
+.endorsementQuote {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.75;
+  margin-bottom: var(--spaceMd);
+  position: relative;
+  z-index: 1;
+}
+
+.endorsementAttribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-top: var(--spaceSm);
+  border-top: 1px solid rgba(201, 149, 42, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.endorsementName {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  font-weight: 500;
+  color: var(--colorGold);
+  letter-spacing: 0.05em;
+}
+
+.endorsementCredentials {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  color: rgba(232, 228, 240, 0.45);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

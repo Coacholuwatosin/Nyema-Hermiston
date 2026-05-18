@@ -1,0 +1,300 @@
+/* ===================================================
+   NAV.CSS — Navigation Bar
+   =================================================== */
+
+.siteNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--spaceSm) 0;
+  transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+}
+
+.siteNav.scrolled {
+  background: rgba(13, 11, 43, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(201, 149, 42, 0.12);
+  padding: 0.75rem 0;
+}
+
+.navInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spaceMd);
+}
+
+/* Logo */
+.navLogo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-decoration: none;
+  min-height: 0;
+}
+
+.navLogoName {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--colorGold);
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.navLogoTagline {
+  font-family: var(--fontBody);
+  font-size: clamp(0.625rem, 0.9vw, 0.75rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* Desktop Nav Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceMd);
+}
+
+.navLink {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.3s ease;
+  min-height: 0;
+  display: inline-block;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--colorGold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.navLink:hover,
+.navLink.active {
+  color: var(--colorWhite);
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  transform: scaleX(1);
+}
+
+.navCta {
+  margin-left: var(--spaceXs);
+}
+
+/* Hamburger */
+.navHamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  min-height: 0;
+}
+
+body.hasCursor .navHamburger {
+  cursor: none;
+}
+
+.navHamburgerLine {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--colorWhite);
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  transform-origin: center;
+}
+
+.navHamburger.open .navHamburgerLine:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navHamburger.open .navHamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.navHamburger.open .navHamburgerLine:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Nav Overlay — Glassmorphism redesign */
+.navOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 3, 15, 0.78);
+  backdrop-filter: blur(36px) saturate(160%);
+  -webkit-backdrop-filter: blur(36px) saturate(160%);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.38s ease, visibility 0.38s ease;
+}
+
+.navOverlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navOverlayInner {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--colorGold);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 0 0 1px rgba(201, 149, 42, 0.07);
+  padding: 2.5rem 2.75rem 2rem;
+  width: min(88vw, 400px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Glass sheen line */
+.navOverlayInner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 149, 42, 0.55), transparent);
+  pointer-events: none;
+}
+
+/* Purple aurora blob inside card */
+.navOverlayInner::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(46, 23, 96, 0.5) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Brand label at top */
+.navOverlayLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Brand divider at top */
+.navOverlayLinks::before {
+  content: 'Nyema Hermiston';
+  display: block;
+  font-family: var(--fontBody);
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: var(--colorGold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding-bottom: 1.25rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.navOverlayLink {
+  font-family: var(--fontBody);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(232, 228, 240, 0.7);
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  transition: color 0.22s ease, gap 0.22s ease;
+  min-height: 0;
+}
+
+.navOverlayLink:last-child {
+  border-bottom: none;
+}
+
+.navOverlayLink::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--colorGold);
+  flex-shrink: 0;
+  opacity: 0.45;
+  transition: width 0.22s ease, opacity 0.22s ease;
+}
+
+.navOverlayLink:hover {
+  color: var(--colorGold);
+  gap: 1.2rem;
+}
+
+.navOverlayLink:hover::before {
+  width: 26px;
+  opacity: 1;
+}
+
+.navOverlayClose {
+  position: absolute;
+  top: 0.875rem;
+  right: 0.875rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8125rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  min-height: 0;
+  z-index: 10;
+}
+
+.navOverlayClose:hover {
+  color: var(--colorGold);
+  border-color: rgba(201, 149, 42, 0.4);
+  background: rgba(201, 149, 42, 0.08);
+}
+
+body.hasCursor .navOverlayClose {
+  cursor: none;
+}

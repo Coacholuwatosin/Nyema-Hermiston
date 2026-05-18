@@ -1,0 +1,586 @@
+/* ===================================================
+   HERO.CSS — Complete Redesign
+   =================================================== */
+
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--colorDeepNavy);
+  background-image: url('../images/author%20hero%20background.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+/* === Background overlays: text protection + purple sweep + gold glow === */
+.heroSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(13, 11, 43, 0.92) 0%, rgba(13, 11, 43, 0.65) 42%, rgba(13, 11, 43, 0.22) 100%),
+    linear-gradient(to bottom, rgba(13, 11, 43, 0.6) 0%, transparent 22%),
+    linear-gradient(148deg, transparent 25%, rgba(46, 23, 96, 0.92) 100%),
+    radial-gradient(ellipse at 18% 88%, rgba(201, 149, 42, 0.12) 0%, transparent 48%),
+    radial-gradient(ellipse at 75% 30%, rgba(46, 23, 96, 0.4) 0%, transparent 40%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Geometric decorative lines */
+.heroGeometry {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heroGeomLine {
+  position: absolute;
+  background: rgba(201, 149, 42, 0.07);
+}
+
+.heroGeomLine1 {
+  width: 1px;
+  height: 180%;
+  top: -40%;
+  right: 44%;
+  transform: rotate(-14deg);
+  transform-origin: top center;
+}
+
+.heroGeomLine2 {
+  width: 25%;
+  height: 1px;
+  bottom: 22%;
+  right: 0;
+}
+
+.heroGeomLine3 {
+  width: 1px;
+  height: 35%;
+  top: 0;
+  right: 44%;
+  background: rgba(201, 149, 42, 0.12);
+}
+
+/* === Inner Wrapper === */
+.heroInner {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-top: calc(90px + var(--spaceLg));
+  padding-bottom: calc(var(--spaceLg) + 60px);
+  width: 100%;
+}
+
+/* === Content Grid: 54 / 46 === */
+.heroContent {
+  display: grid;
+  grid-template-columns: 54% 46%;
+  align-items: center;
+  width: 100%;
+  gap: var(--spaceLg);
+}
+
+/* ===========================
+   LEFT COLUMN
+=========================== */
+.heroLeft {
+  padding-right: var(--spaceMd);
+  position: relative;
+}
+
+/* Vertical gold bar — far left of the column */
+.heroLeft::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--spaceMd));
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 130px;
+  background: linear-gradient(to bottom, transparent, var(--colorGold) 50%, transparent);
+}
+
+/* Label row: line + text */
+.heroLabelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceSm);
+  margin-bottom: var(--spaceMd);
+}
+
+.heroLabelLine {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--colorGold);
+  flex-shrink: 0;
+}
+
+.heroCredentialLabel {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  color: var(--colorGold);
+  white-space: nowrap;
+  background: rgba(201, 149, 42, 0.08);
+  border: 1px solid rgba(201, 149, 42, 0.22);
+  padding: 0.3rem 0.875rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Headline — 3-layer typographic treatment */
+.heroHeadline {
+  margin-bottom: var(--spaceMd);
+  line-height: 1;
+}
+
+.heroHeadlineItalic {
+  display: block;
+  font-family: var(--fontDisplay);
+  font-size: clamp(2.25rem, 4.5vw, 4.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.heroHeadlineBold {
+  display: block;
+  font-family: var(--fontDisplay);
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #eedcb0 40%, var(--colorGold) 62%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.heroHeadlineSub {
+  display: block;
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.125rem, 2.2vw, 1.875rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--colorGold);
+  line-height: 1.4;
+  margin-top: 0.625rem;
+  letter-spacing: 0.03em;
+}
+
+/* Subheading with left gold rule */
+.heroSubheading {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeBody);
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(232, 228, 240, 0.8);
+  margin-bottom: var(--spaceLg);
+  max-width: 480px;
+  padding-left: var(--spaceSm);
+  border-left: 2px solid rgba(201, 149, 42, 0.35);
+}
+
+.heroCtas {
+  display: flex;
+  gap: var(--spaceSm);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: var(--spaceLg);
+}
+
+/* Stats Row — glass card */
+.heroStats {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceMd);
+  padding: var(--spaceSm) var(--spaceMd);
+  margin-top: var(--spaceSm);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-left: 3px solid rgba(201, 149, 42, 0.5);
+}
+
+/* Social proof footnote below stats */
+.heroStatNote {
+  font-family: var(--fontBody);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.28);
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.heroStatNote::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: rgba(201, 149, 42, 0.4);
+  flex-shrink: 0;
+}
+
+.heroStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.heroStatNumber {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  color: var(--colorGold);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.heroStatLabel {
+  font-family: var(--fontBody);
+  font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.heroStatDivider {
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+/* ===========================
+   RIGHT COLUMN
+=========================== */
+.heroRight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(500px, 60vh, 700px);
+}
+
+/* Book Stage */
+.heroBookStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(300px, 42vw, 500px);
+  height: clamp(300px, 42vw, 500px);
+}
+
+/* Atmospheric glow */
+.heroBookGlow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(46, 23, 96, 0.9) 0%, rgba(13, 11, 43, 0.3) 60%, transparent 75%);
+  z-index: 0;
+}
+
+/* Outer decorative ring — slow rotation */
+.heroBookStage::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px dashed rgba(201, 149, 42, 0.22);
+  z-index: 0;
+  animation: ringRotate 40s linear infinite;
+}
+
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Inner ring */
+.heroBookStage::after {
+  content: '';
+  position: absolute;
+  inset: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 149, 42, 0.07);
+  z-index: 0;
+}
+
+/* Gold dot accent top-right of stage */
+.heroBookStageAccent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--colorGold);
+  z-index: 4;
+  box-shadow: 0 0 20px rgba(201, 149, 42, 0.5);
+}
+
+/* Book mockup */
+.heroBookMockup {
+  position: relative;
+  z-index: 2;
+  animation: bookFloat 5s ease-in-out infinite;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7));
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+/* Light sweep shimmer across the cover */
+.heroBookMockup::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.11) 50%,
+    transparent 100%
+  );
+  animation: bookShimmer 9s ease-in-out infinite 2s;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes bookShimmer {
+  0%    { left: -70%; }
+  18%   { left: 120%; }
+  100%  { left: 120%; }
+}
+
+@keyframes bookFloat {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-18px) rotate(-3deg); }
+}
+
+.heroBookImage {
+  width: clamp(190px, 22vw, 300px);
+  height: auto;
+  display: block;
+  border-radius: 3px;
+}
+
+/* CSS-only book placeholder (when image is missing) */
+.heroBookPlaceholder {
+  width: clamp(160px, 18vw, 250px);
+  height: clamp(213px, 24vw, 333px);
+  background: linear-gradient(160deg, #2a1558 0%, #120b35 50%, #0d0b2b 100%);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 1.25rem;
+  box-shadow:
+    inset -8px 0 16px rgba(0, 0, 0, 0.45),
+    4px 0 0 rgba(255,255,255,0.04),
+    8px 0 0 rgba(255,255,255,0.025),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBookPlaceholder::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -5%;
+  width: 1px;
+  height: 160%;
+  background: linear-gradient(to bottom, transparent, rgba(201, 149, 42, 0.2), transparent);
+  transform: rotate(8deg);
+}
+
+.heroBookPlaceholder::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--colorGold);
+}
+
+.heroBookPlaceholderAuthor {
+  font-family: var(--fontBody);
+  font-size: 0.625rem;
+  font-weight: 500;
+  color: rgba(201, 149, 42, 0.7);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.heroBookPlaceholderTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(0.875rem, 1.4vw, 1.125rem);
+  font-weight: 600;
+  color: var(--colorWhite);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  display: block;
+  flex: 1;
+  padding: 0.75rem 0;
+}
+
+.heroBookPlaceholderLine {
+  display: block;
+  width: 36px;
+  height: 2px;
+  background: var(--colorGold);
+}
+
+/* === Floating Badges === */
+.heroBadge {
+  position: absolute;
+  background: rgba(13, 11, 43, 0.82);
+  border: 1px solid rgba(201, 149, 42, 0.28);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 0.75rem 1rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  animation: badgePulse 4s ease-in-out infinite;
+  min-width: 155px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.heroBadgeLeft {
+  bottom: 10%;
+  left: -12%;
+  animation-delay: 0.5s;
+}
+
+.heroBadgeRight {
+  top: 10%;
+  right: -12%;
+}
+
+.heroBadgeIcon {
+  font-size: 1.125rem;
+  color: var(--colorGold);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.heroBadgeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.heroBadgeValue {
+  font-family: var(--fontDisplay);
+  font-size: clamp(0.9rem, 1.3vw, 1.125rem);
+  font-weight: 600;
+  color: var(--colorGold);
+  line-height: 1;
+}
+
+.heroBadgeLabel {
+  font-family: var(--fontBody);
+  font-size: 0.5625rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(201, 149, 42, 0); }
+  50% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 5px rgba(201, 149, 42, 0.06); }
+}
+
+/* Scroll Indicator — animated mouse icon */
+.heroScrollIndicator {
+  position: absolute;
+  bottom: var(--spaceSm);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.heroScrollMouse {
+  width: 24px;
+  height: 38px;
+  border: 1px solid rgba(201, 149, 42, 0.45);
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+  opacity: 0.7;
+}
+
+.heroScrollWheel {
+  display: block;
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--colorGold);
+  animation: mouseWheel 2.2s ease-in-out infinite;
+}
+
+@keyframes mouseWheel {
+  0%   { transform: translateY(0);    opacity: 1; }
+  55%  { transform: translateY(10px); opacity: 0; }
+  56%  { transform: translateY(0);    opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+.heroScrollLabel {
+  font-family: var(--fontBody);
+  font-size: 0.5rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}

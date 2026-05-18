@@ -1,0 +1,887 @@
+/* ===================================================
+   BOOKS.CSS — Books Showcase Section & Books Page
+   =================================================== */
+
+/* --- Homepage Books Section --- */
+.booksSection {
+  position: relative;
+  background: var(--colorDeepNavy);
+  padding: var(--spaceSection) 0;
+  overflow: hidden;
+}
+
+/* Aurora blobs + subtle grid */
+.booksSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(46, 23, 96, 0.55) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, rgba(201, 149, 42, 0.07) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 90%, rgba(46, 23, 96, 0.35) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+.booksSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201, 149, 42, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 149, 42, 0.02) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.booksSectionHeader {
+  text-align: center;
+  margin-bottom: var(--spaceLg);
+  position: relative;
+  z-index: 2;
+}
+
+.booksSectionHeader .goldUnderlineCentered {
+  margin-bottom: 0;
+}
+
+/* Books Grid */
+.booksGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spaceSm);
+  margin-top: var(--spaceLg);
+  position: relative;
+  z-index: 2;
+}
+
+/* Book Card — modernised glassmorphism */
+.bookCard {
+  position: relative;
+  background: rgba(7, 6, 23, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-top: 2px solid rgba(201, 149, 42, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+}
+
+.bookCard:hover {
+  transform: translateY(-12px);
+  box-shadow:
+    0 0 0 1px rgba(201, 149, 42, 0.3),
+    0 25px 70px rgba(0, 0, 0, 0.55),
+    0 0 60px rgba(201, 149, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-top-color: var(--colorGold);
+}
+
+/* Genre badge */
+.bookCard::after {
+  content: attr(data-genre);
+  position: absolute;
+  top: var(--spaceSm);
+  left: var(--spaceSm);
+  background: rgba(201, 149, 42, 0.9);
+  color: var(--colorDeepNavy);
+  font-family: var(--fontBody);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.625rem;
+  z-index: 3;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Card number watermark */
+.bookCard::before {
+  content: attr(data-number);
+  position: absolute;
+  bottom: -10px;
+  right: -5px;
+  font-family: var(--fontDisplay);
+  font-size: 7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.025);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  transition: color 0.4s ease;
+}
+
+.bookCard:hover::before {
+  color: rgba(201, 149, 42, 0.06);
+}
+
+.bookCardCover {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: linear-gradient(160deg, var(--colorRichPurple), var(--colorDeepNavy));
+}
+
+/* Gradient overlay — bottom fade for editorial feel */
+.bookCardCover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7, 6, 23, 0.88) 0%,
+    rgba(7, 6, 23, 0.2) 40%,
+    transparent 70%
+  );
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.bookCard:hover .bookCardCover::after {
+  opacity: 0.7;
+}
+
+.bookCardCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: block;
+}
+
+.bookCard:hover .bookCardCover img {
+  transform: scale(1.07);
+}
+
+/* Placeholder cover when no image */
+.bookCardCoverPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #2a1558 0%, #1a0f3d 50%, #0d0b2b 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--spaceMd) var(--spaceSm);
+  position: relative;
+  overflow: hidden;
+}
+
+.bookCardCoverPlaceholder::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--colorGold);
+}
+
+.bookCardCoverPlaceholder::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: 10%;
+  width: 1px;
+  height: 150%;
+  background: rgba(201, 149, 42, 0.12);
+  transform: rotate(12deg);
+}
+
+.bookCardCoverPlaceholderText {
+  font-family: var(--fontDisplay);
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  font-weight: 600;
+  color: var(--colorWhite);
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.bookCardCoverAuthor {
+  font-family: var(--fontBody);
+  font-size: 0.5625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(201, 149, 42, 0.7);
+  position: relative;
+  z-index: 1;
+}
+
+.bookCardBody {
+  padding: var(--spaceSm);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--spaceXs);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(7, 6, 23, 0.95), rgba(13, 11, 43, 0.98));
+  border-top: 1px solid rgba(201, 149, 42, 0.18);
+}
+
+.bookCardTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 600;
+  color: var(--colorWhite);
+  line-height: 1.3;
+  letter-spacing: var(--letterSpacingTitle);
+  transition: color 0.3s ease;
+}
+
+.bookCard:hover .bookCardTitle {
+  color: var(--colorGold);
+}
+
+.bookCardDesc {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  color: rgba(232, 228, 240, 0.55);
+  line-height: var(--lineHeightBody);
+  flex: 1;
+}
+
+.bookCardAction {
+  margin-top: var(--spaceXs);
+  padding-top: var(--spaceXs);
+  border-top: 1px solid rgba(201, 149, 42, 0.12);
+}
+
+.bookCardAction .btnPrimary {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: block;
+  padding: 0.625rem 1rem;
+}
+
+/* ===================================================
+   FEATURED BOOK — Hero spotlight layout
+=================================================== */
+
+.booksFeatured {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--spaceLg);
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--colorGold);
+  padding: var(--spaceLg);
+  margin-top: var(--spaceLg);
+  margin-bottom: var(--spaceLg);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, background 0.4s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Large number watermark behind featured card */
+.booksFeatured::before {
+  content: '01';
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  font-family: var(--fontDisplay);
+  font-size: clamp(10rem, 18vw, 16rem);
+  font-weight: 700;
+  color: rgba(201, 149, 42, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Diagonal shine sweep */
+.booksFeatured::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(201, 149, 42, 0.25), transparent);
+  pointer-events: none;
+}
+
+.booksFeatured:hover {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 149, 42, 0.18);
+}
+
+/* Cover */
+.booksFeaturedCover {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booksFeaturedCover img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 24px 56px rgba(0, 0, 0, 0.75));
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.booksFeaturedCover:hover img {
+  transform: translateY(-10px) rotate(-1.5deg);
+  filter: drop-shadow(0 36px 70px rgba(0, 0, 0, 0.8));
+}
+
+/* Content side */
+.booksFeaturedContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceSm);
+}
+
+/* Number + tag row */
+.booksFeaturedMeta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spaceSm);
+}
+
+.booksFeaturedNum {
+  font-family: var(--fontDisplay);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: rgba(201, 149, 42, 0.2);
+  line-height: 1;
+}
+
+.booksFeaturedTag {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--colorDeepNavy);
+  background: linear-gradient(135deg, var(--colorGold), var(--colorGoldLight));
+  padding: 0.2rem 0.75rem;
+}
+
+/* Title */
+.booksFeaturedTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  color: var(--colorWhite);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+/* Stars */
+.booksFeaturedStars {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--colorGold);
+}
+
+.booksFeaturedStarsLabel {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  letter-spacing: 0.06em;
+  color: rgba(232, 228, 240, 0.45);
+  text-transform: none;
+}
+
+/* Description */
+.booksFeaturedDesc {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeBody);
+  color: rgba(232, 228, 240, 0.7);
+  line-height: var(--lineHeightBody);
+  max-width: 600px;
+}
+
+/* Bullet points */
+.booksFeaturedBullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.booksFeaturedBullet {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  color: rgba(232, 228, 240, 0.58);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.booksFeaturedBullet::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(to right, var(--colorGold), rgba(201, 149, 42, 0.3));
+  flex-shrink: 0;
+}
+
+/* CTA row */
+.booksFeaturedActions {
+  display: flex;
+  gap: var(--spaceSm);
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: var(--spaceXs);
+}
+
+.booksFeaturedActions .btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ===================================================
+   COMPACT BOOK ROW — Books 02, 03, 04
+=================================================== */
+
+.booksRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spaceSm);
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--spaceMd);
+}
+
+/* Horizontal compact card */
+.bookCardCompact {
+  display: flex;
+  gap: var(--spaceSm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-top: 2px solid rgba(201, 149, 42, 0.35);
+  padding: var(--spaceSm);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.bookCardCompact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.bookCardCompact:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-top-color: var(--colorGold);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(201, 149, 42, 0.14);
+  transform: translateY(-5px);
+}
+
+/* Cover thumbnail */
+.bookCardCompactCover {
+  width: 105px;
+  flex-shrink: 0;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(160deg, rgba(46, 23, 96, 0.6), rgba(13, 11, 43, 0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookCardCompactCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.65));
+  transition: transform 0.4s ease;
+}
+
+.bookCardCompact:hover .bookCardCompactCover img {
+  transform: scale(1.05);
+}
+
+/* Content */
+.bookCardCompactBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  padding: 0.25rem 0;
+}
+
+.bookCardCompactNum {
+  font-family: var(--fontDisplay);
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: rgba(201, 149, 42, 0.4);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.bookCardCompactTag {
+  font-family: var(--fontBody);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--colorGold);
+  display: block;
+}
+
+.bookCardCompactTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 600;
+  color: var(--colorWhite);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  flex: 1;
+  transition: color 0.3s ease;
+}
+
+.bookCardCompact:hover .bookCardCompactTitle {
+  color: var(--colorGold);
+}
+
+.bookCardCompactDesc {
+  font-family: var(--fontBody);
+  font-size: 0.8125rem;
+  color: rgba(232, 228, 240, 0.5);
+  line-height: 1.6;
+}
+
+.bookCardCompactBtn {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+}
+
+/* "View All Books" CTA row */
+.booksSectionCta {
+  text-align: center;
+  margin-top: var(--spaceLg);
+  position: relative;
+  z-index: 2;
+}
+
+.booksSectionCta .btnSecondary {
+  border-color: rgba(201, 149, 42, 0.5);
+  color: var(--colorGold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.booksSectionCta .btnSecondary:hover {
+  background: rgba(201, 149, 42, 0.1);
+  border-color: var(--colorGold);
+  color: var(--colorGold);
+}
+
+/* =====================================================
+   FULL BOOKS PAGE
+===================================================== */
+
+.booksPageHero {
+  background: var(--colorDeepNavy);
+  padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.booksPageHero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(46, 23, 96, 0.6) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.booksPageHero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.booksPageHeroTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  color: var(--colorWhite);
+  line-height: var(--lineHeightDisplay);
+}
+
+.booksPageHeroSub {
+  font-size: var(--fontSizeBody);
+  color: rgba(232, 228, 240, 0.7);
+  max-width: 580px;
+  margin: var(--spaceSm) auto 0;
+  line-height: var(--lineHeightBody);
+}
+
+/* Individual Book Entry */
+.bookEntry {
+  padding: var(--spaceSection) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.bookEntry:nth-child(odd) {
+  background: var(--colorOffWhite);
+}
+
+.bookEntry:nth-child(even) {
+  background: var(--colorDeepNavy);
+}
+
+/* Alternating diagonal clip-path */
+.bookEntry:nth-child(odd) {
+  clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+  padding-bottom: calc(var(--spaceSection) + 4rem);
+}
+
+.bookEntry:nth-child(even) {
+  clip-path: polygon(0 3%, 100% 0, 100% 100%, 0 97%);
+  margin-top: -3rem;
+  padding-top: calc(var(--spaceSection) + 3rem);
+}
+
+.bookEntryGrid {
+  display: grid;
+  grid-template-columns: 38% 62%;
+  gap: var(--spaceLg);
+  align-items: center;
+}
+
+.bookEntry:nth-child(even) .bookEntryGrid {
+  direction: rtl;
+}
+
+.bookEntry:nth-child(even) .bookEntryGrid > * {
+  direction: ltr;
+}
+
+.bookEntryCover {
+  position: relative;
+}
+
+.bookEntryCover img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: cover;
+  filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.35));
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.bookEntryCover:hover img {
+  transform: translateY(-8px) rotate(-1deg);
+  filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.4));
+}
+
+.bookEntryContent {
+  padding: var(--spaceMd);
+}
+
+.bookEntryNumber {
+  font-family: var(--fontDisplay);
+  font-size: clamp(5rem, 10vw, 10rem);
+  font-weight: 700;
+  line-height: 0.8;
+  display: block;
+  margin-bottom: calc(-1 * var(--spaceXs));
+}
+
+.bookEntry:nth-child(odd) .bookEntryNumber {
+  color: rgba(13, 11, 43, 0.06);
+}
+
+.bookEntry:nth-child(even) .bookEntryNumber {
+  color: rgba(201, 149, 42, 0.08);
+}
+
+.bookEntryTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: var(--lineHeightDisplay);
+  letter-spacing: var(--letterSpacingTitle);
+  margin-bottom: var(--spaceSm);
+}
+
+.bookEntry:nth-child(odd) .bookEntryTitle {
+  color: var(--colorTextPrimary);
+}
+
+.bookEntry:nth-child(even) .bookEntryTitle {
+  color: var(--colorWhite);
+}
+
+.bookEntryMeta {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  color: var(--colorGold);
+  margin-bottom: var(--spaceSm);
+  display: flex;
+  align-items: center;
+  gap: var(--spaceSm);
+}
+
+.bookEntryMeta::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--colorGold);
+  flex-shrink: 0;
+}
+
+.bookEntryDesc {
+  font-size: var(--fontSizeBody);
+  line-height: var(--lineHeightBody);
+  margin-bottom: var(--spaceSm);
+}
+
+.bookEntry:nth-child(odd) .bookEntryDesc {
+  color: var(--colorTextLight);
+}
+
+.bookEntry:nth-child(even) .bookEntryDesc {
+  color: rgba(232, 228, 240, 0.75);
+}
+
+.bookEntryTopics {
+  margin-bottom: var(--spaceMd);
+}
+
+.bookEntryTopicsTitle {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--colorGold);
+  margin-bottom: var(--spaceXs);
+}
+
+.bookEntryTopicsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceXs);
+}
+
+.bookEntryTopic {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  padding: 0.3rem 0.875rem;
+  border: 1px solid rgba(201, 149, 42, 0.4);
+  color: var(--colorGold);
+  letter-spacing: 0.04em;
+  transition: background 0.3s ease;
+}
+
+.bookEntryTopic:hover {
+  background: rgba(201, 149, 42, 0.1);
+}
+
+.bookEntryFormats {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  margin-bottom: var(--spaceMd);
+}
+
+.bookEntry:nth-child(odd) .bookEntryFormats {
+  color: var(--colorTextLight);
+}
+
+.bookEntry:nth-child(even) .bookEntryFormats {
+  color: rgba(232, 228, 240, 0.6);
+}
+
+.bookEntryActions {
+  display: flex;
+  gap: var(--spaceSm);
+  flex-wrap: wrap;
+}
+
+/* Second description paragraph spacing */
+.bookEntryDescSpaced {
+  margin-top: var(--spaceSm);
+}
+
+/* === Context-aware buttons: ODD entries sit on offwhite — white buttons are invisible there === */
+/* Odd entries = Books 02 and 04 = light/offwhite background */
+.bookEntry:nth-child(odd) .bookEntryActions .btnSecondary {
+  border-color: var(--colorDeepNavy);
+  color: var(--colorDeepNavy);
+}
+
+.bookEntry:nth-child(odd) .bookEntryActions .btnSecondary:hover {
+  background: var(--colorDeepNavy);
+  color: var(--colorWhite);
+}
+
+/* Even entries = Books 01 and 03 = dark navy background — white buttons are correct */
+.bookEntry:nth-child(even) .bookEntryActions .btnSecondary {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bookEntry:nth-child(even) .bookEntryActions .btnSecondary:hover {
+  background: var(--colorWhite);
+  color: var(--colorDeepNavy);
+}
+
+/* Ensure topics look right on both backgrounds */
+.bookEntry:nth-child(odd) .bookEntryTopic {
+  border-color: rgba(201, 149, 42, 0.5);
+  color: var(--colorGold);
+}
+
+/* Cover glow on hover for dark entries */
+.bookEntry:nth-child(even) .bookEntryCover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(201, 149, 42, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.bookEntry:nth-child(even) .bookEntryCover:hover::after {
+  opacity: 1;
+}

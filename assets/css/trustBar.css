@@ -1,0 +1,72 @@
+/* ===================================================
+   TRUSTBAR.CSS — Scrolling Trust Indicators Bar
+   =================================================== */
+
+.trustBarSection {
+  position: relative;
+  background: var(--colorGold);
+  overflow: hidden;
+  padding: var(--spaceSm) 0;
+  z-index: 10;
+}
+
+/* Fade edges left and right */
+.trustBarSection::before,
+.trustBarSection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.trustBarSection::before {
+  left: 0;
+  background: linear-gradient(to right, var(--colorGold), transparent);
+}
+
+.trustBarSection::after {
+  right: 0;
+  background: linear-gradient(to left, var(--colorGold), transparent);
+}
+
+.trustBarTrack {
+  display: flex;
+  width: max-content;
+  animation: trustBarScroll 40s linear infinite;
+}
+
+.trustBarTrack:hover {
+  animation-play-state: paused;
+}
+
+.trustBarContent {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+}
+
+.trustBarItem {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  color: var(--colorDeepNavy);
+  padding: 0 var(--spaceSm);
+}
+
+.trustBarDiamond {
+  color: var(--colorDeepNavy);
+  opacity: 0.5;
+  font-size: 0.5rem;
+  flex-shrink: 0;
+}
+
+@keyframes trustBarScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

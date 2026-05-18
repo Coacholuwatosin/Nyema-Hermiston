@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media &amp; Press — Nyema Hermiston</title>
+  <meta name="description" content="Media resources for journalists and press. Download Nyema Hermiston's author bio, high-resolution photos, book cover images, and press kit.">
+
+  <meta property="og:title" content="Media &amp; Press — Nyema Hermiston">
+  <meta property="og:description" content="Press kit, author bio, and high-resolution media resources for journalists.">
+  <meta property="og:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+  <meta property="og:url" content="https://nyemahermiston.com.au/mediaPress.html">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Media &amp; Press — Nyema Hermiston">
+  <meta name="twitter:description" content="Press kit and media resources.">
+  <meta name="twitter:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+
+  <link rel="canonical" href="https://nyemahermiston.com.au/mediaPress.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0B2B'/><text x='16' y='23' text-anchor='middle' font-family='serif' font-weight='700' font-size='16' fill='%23C9952A'>NH</text></svg>">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0D0B2B">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/features.css">
+
+  <style>
+    .mediaPressHero {
+      background: var(--colorDeepNavy);
+      padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
+      position: relative;
+      overflow: hidden;
+    }
+    .mediaPressHero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(46,23,96,0.6) 0%, transparent 65%);
+    }
+    .mediaPressHeroContent { position: relative; z-index: 1; }
+    .mediaPressHeroTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      color: var(--colorWhite);
+      line-height: var(--lineHeightDisplay);
+    }
+    .mediaPressSection {
+      padding: var(--spaceSection) 0;
+    }
+    .mediaPressSection:nth-child(odd) { background: var(--colorOffWhite); }
+    .mediaPressSection:nth-child(even) { background: var(--colorDeepNavy); }
+    .mediaResourceCard {
+      background: var(--colorWhite);
+      border: 1px solid var(--colorBorderLight);
+      border-top: 3px solid var(--colorGold);
+      padding: var(--spaceMd);
+      box-shadow: 0 4px 20px rgba(13,11,43,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .mediaResourceCard:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(13,11,43,0.1);
+    }
+    .mediaResourceTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      font-weight: 600;
+      color: var(--colorTextPrimary);
+      margin-bottom: var(--spaceXs);
+    }
+    .mediaResourceDesc {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorTextLight);
+      line-height: var(--lineHeightBody);
+      margin-bottom: var(--spaceSm);
+    }
+    .mediaResourceGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spaceMd);
+    }
+    .pressQuoteBlock {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 4px solid var(--colorGold);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: var(--spaceMd);
+      margin-bottom: var(--spaceSm);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .pressQuoteText {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-style: italic;
+      color: rgba(232, 228, 240, 0.9);
+      line-height: 1.85;
+    }
+    .pressQuoteText.pressQuoteTextPlain {
+      font-style: normal;
+    }
+    .pressQuoteSource {
+      font-size: var(--fontSizeCredential);
+      color: var(--colorGold);
+      margin-top: var(--spaceXs);
+      letter-spacing: 0.05em;
+    }
+    .pressBioSection {
+      background: var(--colorDeepNavy) !important;
+      position: relative;
+    }
+    .pressBioSection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 50%, rgba(46,23,96,0.5) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    @media (max-width: 992px) {
+      .mediaResourceGrid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 576px) {
+      .mediaResourceGrid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Google Analytics GA4 — Replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skipToContent">Skip to main content</a>
+
+  <div class="pageLoader" id="pageLoader">
+    <span class="pageLoaderText">Nyema Hermiston</span>
+  </div>
+
+  <div class="scrollProgressBar" id="scrollProgressBar"></div>
+  <div class="customCursor" id="customCursor"></div>
+
+  <!-- Navigation -->
+  <nav class="siteNav scrolled" id="siteNav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navInner">
+        <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
+          <span class="navLogoName">Nyema Hermiston</span>
+          <span class="navLogoTagline">RN · ND · Homeopath · Author</span>
+        </a>
+        <ul class="navLinks" role="list">
+          <li><a href="index.html" class="navLink">Home</a></li>
+          <li><a href="about.html" class="navLink">About</a></li>
+          <li><a href="books.html" class="navLink">Books</a></li>
+          <li><a href="mediaPress.html" class="navLink active">Media</a></li>
+          <li><a href="speaking.html" class="navLink">Speaking</a></li>
+          <li><a href="contact.html" class="navLink navCta btnPrimary">Contact</a></li>
+        </ul>
+        <button class="darkModeToggle" id="darkModeToggle" aria-label="Switch to light mode">
+          <i class="ri-sun-line" aria-hidden="true"></i>
+        </button>
+
+        <button class="navHamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="navOverlay" id="navOverlay" role="dialog" aria-modal="true">
+    <button class="navOverlayClose" id="navOverlayClose" aria-label="Close menu">&#10005;</button>
+    <div class="navOverlayInner">
+      <nav class="navOverlayLinks">
+        <a href="index.html" class="navOverlayLink">Home</a>
+        <a href="about.html" class="navOverlayLink">About</a>
+        <a href="books.html" class="navOverlayLink">Books</a>
+        <a href="mediaPress.html" class="navOverlayLink">Media</a>
+        <a href="speaking.html" class="navOverlayLink">Speaking</a>
+        <a href="contact.html" class="navOverlayLink">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <div class="mediaPressHero">
+      <div class="container mediaPressHeroContent" data-aos="fade-up">
+        <span class="sectionLabel">Journalists &amp; Media</span>
+        <h1 class="mediaPressHeroTitle">Media &amp; Press</h1>
+        <span class="goldUnderlineSpaced"></span>
+        <p class="mediaPressHeroDesc">
+          Resources for journalists, producers, and publications. Download the press kit, author bio, and high-resolution images below, or contact Nyema directly for interview requests and media enquiries.
+        </p>
+        <div class="mediaPressHeroCta">
+          <a href="contact.html" class="btnPrimary">Media Enquiry</a>
+          <a href="#pressKit" class="btnSecondary">Download Press Kit</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Press Kit Download -->
+    <section class="mediaPressSection" id="pressKit" aria-labelledby="pressKitTitle">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <span class="sectionLabel">Resources</span>
+          <h2 class="sectionTitle sectionTitleDark" id="pressKitTitle">Press Kit &amp; Downloads</h2>
+          <span class="goldUnderlineCentered"></span>
+        </div>
+
+        <div class="mediaResourceGrid">
+
+          <div class="mediaResourceCard" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="mediaResourceTitle">Full Press Kit (PDF)</h3>
+            <p class="mediaResourceDesc">Complete press kit including author bio, book synopses, credential overview, and media talking points.</p>
+            <a href="contact.html" class="btnPrimary btnSm">Request Press Kit</a>
+          </div>
+
+          <div class="mediaResourceCard" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="mediaResourceTitle">Author Photo (Hi-Res)</h3>
+            <p class="mediaResourceDesc">Professional high-resolution author photograph cleared for editorial use. Available in multiple formats.</p>
+            <a href="contact.html" class="btnPrimary btnSm">Request Photo</a>
+          </div>
+
+          <div class="mediaResourceCard" data-aos="fade-up" data-aos-delay="300">
+            <h3 class="mediaResourceTitle">Book Cover Images</h3>
+            <p class="mediaResourceDesc">High-resolution book cover artwork for all four published titles, cleared for editorial use.</p>
+            <a href="contact.html" class="btnPrimary btnSm">Request Images</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Author Bio for Press -->
+    <section class="mediaPressSection pressBioSection" aria-labelledby="pressBioTitle">
+      <div class="container">
+        <div data-aos="fade-up">
+          <span class="sectionLabel">For Publication</span>
+          <h2 class="sectionTitle sectionTitleLight sectionTitleSpaced" id="pressBioTitle">Author Bio for Press</h2>
+          <span class="goldUnderlineLargeSpaced"></span>
+
+          <div class="pressBioBody">
+            <div class="pressQuoteBlock">
+              <p class="pressQuoteText pressQuoteTextPlain">
+                Nyema Hermiston is a Registered Nurse, Naturopath, and Homeopath with over 30 years of clinical experience. She holds a Bachelor of Science with Honours from Middlesex University, London, and serves as President of The Aurum Project — a charitable organisation dedicated to advancing homeopathic research worldwide. She is the author of four published books on natural health, neurodevelopment, and evidence-based parenting, including <em>Planning Parenthood in the Age of Autism</em>. Her work has been described by medical professionals as "rigorous," "compassionate," and "exactly what parents and practitioners need."
+              </p>
+            </div>
+
+            <p class="pressFootnote">Short bio (50 words) and long bio (200 words) available in the full press kit. Contact for alternative bio lengths or formats.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Media Contact -->
+    <section class="mediaPressSection" aria-labelledby="mediaContactTitle">
+      <div class="container">
+        <div class="text-center" data-aos="fade-up">
+          <span class="sectionLabel">Contact</span>
+          <h2 class="sectionTitle sectionTitleDark sectionTitleSpaced" id="mediaContactTitle">Media Enquiries</h2>
+          <span class="goldUnderlineCenteredLargeSpaced"></span>
+          <p class="mediaContactDesc">For interview requests, media appearances, podcast invitations, and publication features, please use the contact form and select "Media" as your enquiry type.</p>
+          <a href="contact.html" class="btnPrimary">Send Media Enquiry</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="siteFooter" role="contentinfo">
+    <div class="container">
+      <div class="footerGrid">
+        <div class="footerBrand">
+          <a href="index.html"><span class="footerLogoName">Nyema Hermiston</span></a>
+          <span class="footerLogoTagline">RN · ND · Homeopath · Author</span>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <span class="footerColHeading">Navigate</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="index.html" class="footerLink">Home</a></li>
+            <li><a href="about.html" class="footerLink">About</a></li>
+            <li><a href="books.html" class="footerLink">Books</a></li>
+            <li><a href="mediaPress.html" class="footerLink">Media &amp; Press</a></li>
+            <li><a href="speaking.html" class="footerLink">Speaking</a></li>
+            <li><a href="contact.html" class="footerLink">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <span class="footerColHeading">Connect</span>
+          <div class="footerSocial">
+            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <i class="ri-instagram-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <i class="ri-facebook-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads">
+              <i class="ri-book-open-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon">
+              <i class="ri-amazon-fill" aria-hidden="true"></i>
+            </a>
+          </div>
+          <ul class="footerLinks" role="list">
+            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
+            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <span class="footerCopyright">© 2026 Nyema Hermiston. All rights reserved.</span>
+        <div class="footerLegal">
+          <a href="privacy.html" class="footerLegalLink">Privacy Policy</a>
+          <span class="footerLegalSep" aria-hidden="true"></span>
+          <a href="https://tubedra.com" class="footerLegalLink" target="_blank" rel="noopener noreferrer">Site by Tubedra</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="backToTop" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/navScroll.js"></script>
+  <script src="assets/js/features.js"></script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookieBanner" id="cookieBanner" role="region" aria-label="Cookie consent">
+    <p class="cookieBannerHeading">We use cookies</p>
+    <p class="cookieBannerText">
+      This site uses cookies to improve your experience and analyse anonymous traffic.
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookieBannerActions">
+      <button class="cookieBannerAccept">Accept All</button>
+      <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+/* ===================================================
+   FOOTER.CSS — Site Footer
+   =================================================== */
+
+.siteFooter {
+  background: #070617;
+  padding: var(--spaceXl) 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top border */
+.siteFooter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--colorGold), transparent);
+  opacity: 0.3;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--spaceLg);
+  padding-bottom: var(--spaceXl);
+}
+
+/* Column 1 */
+.footerLogoName {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.375rem, 2.5vw, 1.875rem);
+  font-weight: 700;
+  color: var(--colorGold);
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.375rem;
+}
+
+.footerLogoTagline {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 400;
+  color: var(--colorLightLavender);
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--spaceSm);
+}
+
+.footerTagline {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  color: rgba(255, 255, 255, 0.4);
+  line-height: var(--lineHeightBody);
+  max-width: 280px;
+}
+
+/* Column 2 & 3 */
+.footerColHeading {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: var(--letterSpacingWide);
+  text-transform: uppercase;
+  color: var(--colorGold);
+  margin-bottom: var(--spaceMd);
+  display: block;
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceXs);
+}
+
+.footerLink {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.3s ease, padding-left 0.3s ease;
+  display: block;
+  min-height: 0;
+}
+
+.footerLink:hover {
+  color: var(--colorGold);
+  padding-left: 6px;
+}
+
+/* Social Icon Buttons */
+.footerSocial {
+  display: flex;
+  gap: var(--spaceXs);
+  margin-bottom: var(--spaceMd);
+  flex-wrap: wrap;
+}
+
+.footerSocialLink {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 149, 42, 0.08);
+  border: 1px solid rgba(201, 149, 42, 0.22);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.125rem;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+
+.footerSocialLink:hover {
+  background: var(--colorGold);
+  border-color: var(--colorGold);
+  color: var(--colorDeepNavy);
+  transform: translateY(-3px);
+}
+
+body.hasCursor .footerSocialLink {
+  cursor: none;
+}
+
+/* Bottom bar */
+.footerBottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: var(--spaceSm) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spaceXs);
+}
+
+.footerCopyright {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footerLegal {
+  display: flex;
+  gap: var(--spaceSm);
+  align-items: center;
+}
+
+.footerLegalLink {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  color: rgba(255, 255, 255, 0.3);
+  transition: color 0.3s ease;
+}
+
+.footerLegalLink:hover {
+  color: var(--colorGold);
+}
+
+.footerLegalSep {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.15);
+}

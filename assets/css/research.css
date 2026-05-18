@@ -1,0 +1,169 @@
+/* ===================================================
+   RESEARCH.CSS — Research Behind The Work Section
+   =================================================== */
+
+.researchSection {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 95% 10%, rgba(201, 149, 42, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse at 5% 90%, rgba(232, 228, 240, 0.9) 0%, transparent 50%),
+    var(--colorOffWhite);
+  padding: var(--spaceSection) 0;
+  overflow: hidden;
+}
+
+/* RESEARCH watermark */
+.researchSection::before {
+  content: 'RESEARCH';
+  position: absolute;
+  font-family: var(--fontDisplay);
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 300;
+  color: var(--colorDeepNavy);
+  opacity: 0.035;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: -0.02em;
+  z-index: 0;
+}
+
+.researchContent {
+  position: relative;
+  z-index: 1;
+}
+
+.researchGrid {
+  display: grid;
+  grid-template-columns: 42% 58%;
+  gap: var(--spaceLg);
+  align-items: start;
+  margin-top: var(--spaceLg);
+}
+
+/* === Pull Quote Side === */
+.researchPullQuote {
+  padding-right: var(--spaceMd);
+  position: relative;
+}
+
+/* Decorative left bar */
+.researchPullQuoteBar {
+  display: block;
+  width: 4px;
+  height: 90px;
+  background: linear-gradient(to bottom, var(--colorGold), var(--colorGoldLight));
+  margin-bottom: var(--spaceMd);
+}
+
+.researchQuoteText {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.5rem, 2.8vw, 2.375rem);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--colorTextPrimary);
+  line-height: 1.45;
+  letter-spacing: var(--letterSpacingTitle);
+  margin-bottom: var(--spaceSm);
+  position: relative;
+}
+
+/* Large decorative opening quote */
+.researchQuoteText::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.4em;
+  left: -0.35em;
+  font-size: 4em;
+  color: var(--colorGold);
+  opacity: 0.12;
+  font-style: normal;
+  line-height: 1;
+}
+
+.researchQuoteAttribution {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  color: var(--colorGold);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--spaceXs);
+}
+
+.researchQuoteAttribution::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--colorGold);
+  flex-shrink: 0;
+}
+
+/* === Body Text Side === */
+.researchBody {
+  font-size: var(--fontSizeBody);
+  line-height: var(--lineHeightBody);
+  color: var(--colorTextLight);
+}
+
+.researchBody p + p {
+  margin-top: var(--spaceMd);
+}
+
+.researchBody strong {
+  color: var(--colorTextPrimary);
+  font-weight: 500;
+}
+
+/* === Stats Row === */
+.researchStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spaceMd);
+  margin-top: var(--spaceLg);
+  padding-top: var(--spaceLg);
+  border-top: 1px solid var(--colorBorderLight);
+}
+
+.researchStat {
+  text-align: center;
+  padding: var(--spaceMd) var(--spaceSm);
+  position: relative;
+  background: var(--colorWhite);
+  border: 1px solid var(--colorBorderLight);
+  border-top: 3px solid var(--colorGold);
+  box-shadow: 0 4px 20px rgba(13, 11, 43, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.researchStat:hover {
+  box-shadow: 0 10px 40px rgba(13, 11, 43, 0.1);
+  transform: translateY(-3px);
+}
+
+.researchStat::after {
+  display: none;
+}
+
+.researchStatNumber {
+  font-family: var(--fontDisplay);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  color: var(--colorGold);
+  line-height: 1;
+  display: block;
+}
+
+.researchStatLabel {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  color: var(--colorTextLight);
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+  display: block;
+  line-height: 1.4;
+}

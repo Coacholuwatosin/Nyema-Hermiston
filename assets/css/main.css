@@ -1,0 +1,584 @@
+/* ===================================================
+   MAIN.CSS — Global Variables, Reset, Base Styles
+   =================================================== */
+
+/* --- Color Palette --- */
+:root {
+  --colorDeepNavy: #0D0B2B;
+  --colorRichPurple: #2E1760;
+  --colorGold: #C9952A;
+  --colorGoldLight: #E8B84B;
+  --colorWhite: #FFFFFF;
+  --colorOffWhite: #F8F6F2;
+  --colorLightLavender: #E8E4F0;
+  --colorTextPrimary: #0D0B2B;
+  --colorTextLight: #6B6480;
+  --colorBorderLight: #E0DBF0;
+
+  /* --- Typography --- */
+  --fontDisplay: 'Cormorant Garamond', Georgia, serif;
+  --fontBody: 'DM Sans', sans-serif;
+
+  --fontSizeHeroTitle: clamp(3rem, 7vw, 6.5rem);
+  --fontSizeSectionTitle: clamp(2rem, 4vw, 3.5rem);
+  --fontSizeSubTitle: clamp(1.25rem, 2.5vw, 1.75rem);
+  --fontSizeBody: clamp(1rem, 1.5vw, 1.125rem);
+  --fontSizeSmall: clamp(0.875rem, 1.2vw, 1rem);
+  --fontSizeCredential: clamp(0.75rem, 1vw, 0.875rem);
+
+  --lineHeightDisplay: 1.1;
+  --lineHeightBody: 1.75;
+
+  --letterSpacingWide: 0.12em;
+  --letterSpacingTitle: 0.04em;
+
+  /* --- Spacing --- */
+  --spaceXs: clamp(0.5rem, 1vw, 0.75rem);
+  --spaceSm: clamp(1rem, 2vw, 1.5rem);
+  --spaceMd: clamp(1.5rem, 3vw, 2.5rem);
+  --spaceLg: clamp(3rem, 6vw, 5rem);
+  --spaceXl: clamp(5rem, 10vw, 8rem);
+  --spaceSection: clamp(6rem, 12vw, 10rem);
+
+  /* --- Breakpoints (reference) --- */
+  --breakpointXl: 1400px;
+  --breakpointLg: 1200px;
+  --breakpointMd: 992px;
+  --breakpointSm: 768px;
+  --breakpointXs: 576px;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--fontBody);
+  font-weight: 400;
+  color: var(--colorTextPrimary);
+  background-color: var(--colorDeepNavy);
+  line-height: var(--lineHeightBody);
+  overflow-x: hidden;
+}
+
+body.hasCursor {
+  cursor: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+  font-family: var(--fontBody);
+}
+
+body.hasCursor button {
+  cursor: none;
+}
+
+/* --- Scroll Progress Bar --- */
+.scrollProgressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--colorGold);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+/* --- Page Loader --- */
+.pageLoader {
+  position: fixed;
+  inset: 0;
+  background: var(--colorDeepNavy);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.pageLoader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pageLoaderText {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: var(--letterSpacingWide);
+  color: var(--colorGold);
+  text-transform: uppercase;
+  animation: loaderFade 1s ease forwards;
+}
+
+@keyframes loaderFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  50% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Custom Cursor --- */
+.customCursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--colorGold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: normal;
+}
+
+.customCursor.hovered {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 2px solid var(--colorGold);
+}
+
+/* --- Buttons --- */
+.btnPrimary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--colorGold) 0%, var(--colorGoldLight) 55%, #d4a030 100%);
+  background-size: 200% 100%;
+  background-position: left center;
+  color: var(--colorDeepNavy);
+  padding: 0.875rem 2.5rem;
+  border-radius: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--fontBody);
+  font-weight: 600;
+  font-size: var(--fontSizeSmall);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(201, 149, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.btnPrimary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.22) 50%, transparent 70%);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+body.hasCursor .btnPrimary {
+  cursor: none;
+}
+
+.btnPrimary:hover {
+  background-position: right center;
+  color: var(--colorDeepNavy);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(201, 149, 42, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btnPrimary:hover::before {
+  left: 160%;
+}
+
+.btnSecondary {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--colorWhite);
+  padding: 0.875rem 2.5rem;
+  border-radius: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--fontBody);
+  font-weight: 500;
+  font-size: var(--fontSizeSmall);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 18px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.btnSecondary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+body.hasCursor .btnSecondary {
+  cursor: none;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--colorWhite);
+  transform: translateY(-3px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 10px 32px rgba(0, 0, 0, 0.3);
+}
+
+.btnDark {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--colorDeepNavy) 0%, var(--colorRichPurple) 100%);
+  color: var(--colorWhite);
+  padding: 0.875rem 2.5rem;
+  border-radius: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--fontBody);
+  font-weight: 500;
+  font-size: var(--fontSizeSmall);
+  border: 1px solid rgba(201, 149, 42, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+body.hasCursor .btnDark {
+  cursor: none;
+}
+
+.btnDark:hover {
+  color: var(--colorWhite);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(46, 23, 96, 0.55), 0 0 0 1px rgba(201, 149, 42, 0.35);
+  border-color: rgba(201, 149, 42, 0.5);
+}
+
+/* --- Section Label --- */
+.sectionLabel {
+  display: inline-block;
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--colorGold);
+  margin-bottom: var(--spaceSm);
+  padding: 0.2rem 0.75rem;
+  border: 1px solid rgba(201, 149, 42, 0.25);
+  background: rgba(201, 149, 42, 0.06);
+}
+
+/* --- Section Title --- */
+.sectionTitle {
+  font-family: var(--fontDisplay);
+  font-size: var(--fontSizeSectionTitle);
+  font-weight: 600;
+  line-height: var(--lineHeightDisplay);
+  letter-spacing: var(--letterSpacingTitle);
+}
+
+.sectionTitleLight {
+  color: var(--colorWhite);
+}
+
+.sectionTitleDark {
+  color: var(--colorTextPrimary);
+}
+
+/* --- Gold Underline Decoration --- */
+.goldUnderline {
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, var(--colorGold), var(--colorGoldLight), rgba(201, 149, 42, 0.1));
+  margin-top: var(--spaceXs);
+}
+
+.goldUnderlineCentered {
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(201, 149, 42, 0.1), var(--colorGold), rgba(201, 149, 42, 0.1));
+  margin: var(--spaceXs) auto 0;
+}
+
+/* --- Diagonal Divider --- */
+.diagonalDividerDown {
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  padding-bottom: 6rem;
+}
+
+.diagonalDividerUp {
+  clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 100%);
+  padding-top: 6rem;
+}
+
+/* --- Gold Link --- */
+.goldLink {
+  color: var(--colorGold);
+  font-family: var(--fontBody);
+  font-weight: 500;
+  font-size: var(--fontSizeSmall);
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.goldLink:hover {
+  color: var(--colorGoldLight);
+  gap: 0.75rem;
+}
+
+/* --- Container overrides --- */
+.container, .container-fluid {
+  padding-left: var(--spaceMd);
+  padding-right: var(--spaceMd);
+}
+
+/* --- Utility: visually hidden --- */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* --- Full-width block button --- */
+.btnBlock {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Gold underline with bottom spacing --- */
+.goldUnderlineSpaced {
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, var(--colorGold), var(--colorGoldLight), rgba(201, 149, 42, 0.1));
+  margin-top: var(--spaceXs);
+  margin-bottom: var(--spaceMd);
+}
+
+.goldUnderlineCenteredSpaced {
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(201, 149, 42, 0.1), var(--colorGold), rgba(201, 149, 42, 0.1));
+  margin: var(--spaceXs) auto var(--spaceMd);
+}
+
+.goldUnderlineLargeSpaced {
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, var(--colorGold), var(--colorGoldLight), rgba(201, 149, 42, 0.1));
+  margin-top: var(--spaceXs);
+  margin-bottom: var(--spaceLg);
+}
+
+.goldUnderlineCenteredLargeSpaced {
+  display: block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(201, 149, 42, 0.1), var(--colorGold), rgba(201, 149, 42, 0.1));
+  margin: var(--spaceXs) auto var(--spaceLg);
+}
+
+/* --- Spaced section title --- */
+.sectionTitleSpaced {
+  margin-bottom: var(--spaceMd);
+}
+
+/* --- Small button modifier --- */
+.btnSm {
+  font-size: var(--fontSizeCredential);
+  padding: 0.625rem 1.25rem;
+  letter-spacing: 0.1em;
+}
+
+/* --- Touch target minimum --- */
+a, button, input, select, textarea {
+  min-height: 0;
+}
+
+@media (max-width: 768px) {
+  a, button, [role="button"] {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* --- Focus Visible (accessibility) --- */
+:focus-visible {
+  outline: 2px solid var(--colorGold);
+  outline-offset: 3px;
+}
+
+/* --- Skip to Content Link --- */
+.skipToContent {
+  position: absolute;
+  top: -100%;
+  left: var(--spaceSm);
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  z-index: 99999;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: top 0.2s ease;
+}
+
+.skipToContent:focus {
+  top: var(--spaceSm);
+}
+
+/* --- Aurum Project Section --- */
+.aurumSection {
+  background: var(--colorGold);
+  padding: var(--spaceSection) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.aurumSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.aurumSectionLabel {
+  color: var(--colorDeepNavy);
+  display: block;
+  margin-bottom: var(--spaceSm);
+}
+
+.aurumSectionTitle {
+  color: var(--colorDeepNavy);
+  margin-bottom: var(--spaceMd);
+}
+
+.aurumSectionDesc {
+  font-size: var(--fontSizeBody);
+  color: rgba(13, 11, 43, 0.75);
+  max-width: 620px;
+  margin: 0 auto var(--spaceLg);
+  line-height: var(--lineHeightBody);
+}
+
+.aurumLogo {
+  height: 80px;
+  width: auto;
+  margin: 0 auto var(--spaceMd);
+  object-fit: contain;
+  display: block;
+}
+
+/* --- Featured In Section --- */
+.featuredInSection {
+  background: var(--colorOffWhite);
+  padding: var(--spaceLg) 0;
+}
+
+.featuredInTitle {
+  margin-bottom: var(--spaceLg);
+}
+
+.featuredInRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spaceLg);
+}
+
+.featuredInName {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--colorTextLight);
+  letter-spacing: 0.06em;
+}
+
+.featuredInDiamond {
+  color: var(--colorGold);
+  font-size: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* --- Back to Top Button --- */
+.backToTop {
+  position: fixed;
+  bottom: var(--spaceMd);
+  right: var(--spaceMd);
+  width: 48px;
+  height: 48px;
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.backToTop.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.backToTop:hover {
+  background: var(--colorGoldLight);
+}
+
+body.hasCursor .backToTop {
+  cursor: none;
+}

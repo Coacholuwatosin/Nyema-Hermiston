@@ -1,0 +1,192 @@
+/* ===================================================
+   REVIEWS.CSS — Reader Reviews Carousel
+   =================================================== */
+
+.reviewsSection {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(232, 228, 240, 0.85) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 30%, rgba(201, 149, 42, 0.05) 0%, transparent 45%),
+    var(--colorOffWhite);
+  padding: var(--spaceSection) 0;
+  clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+  padding-top: calc(var(--spaceSection) + 3rem);
+  padding-bottom: calc(var(--spaceSection) + 3rem);
+  overflow: hidden;
+}
+
+.reviewsSectionHeader {
+  text-align: center;
+  margin-bottom: var(--spaceLg);
+}
+
+/* Carousel Container */
+.reviewsCarouselWrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.reviewsCarouselWrap::before,
+.reviewsCarouselWrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.reviewsCarouselWrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--colorOffWhite), transparent);
+}
+
+.reviewsCarouselWrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--colorOffWhite), transparent);
+}
+
+.reviewsTrack {
+  display: flex;
+  gap: var(--spaceMd);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Review Card */
+.reviewCard {
+  flex: 0 0 clamp(300px, 38vw, 480px);
+  background: var(--colorWhite);
+  padding: var(--spaceMd);
+  border: 1px solid var(--colorBorderLight);
+  border-top: 3px solid rgba(201, 149, 42, 0.22);
+  border-left: 3px solid transparent;
+  box-shadow: 0 6px 40px rgba(13, 11, 43, 0.07);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-top-color 0.4s ease, border-left-color 0.4s ease;
+}
+
+.reviewCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 60px rgba(13, 11, 43, 0.12);
+  border-top-color: var(--colorGold);
+  border-left-color: var(--colorGold);
+}
+
+.reviewCardQuoteMark {
+  font-family: var(--fontDisplay);
+  font-size: clamp(5rem, 8vw, 7.5rem);
+  line-height: 0.4;
+  color: var(--colorGold);
+  opacity: 0.55;
+  display: block;
+  margin-bottom: var(--spaceSm);
+  transition: opacity 0.4s ease;
+}
+
+.reviewCard:hover .reviewCardQuoteMark {
+  opacity: 1;
+}
+
+.reviewCardText {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--colorTextPrimary);
+  line-height: 1.7;
+  margin-bottom: var(--spaceMd);
+}
+
+.reviewCardAttribution {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceXs);
+  padding-top: var(--spaceSm);
+  border-top: 1px solid var(--colorBorderLight);
+}
+
+.reviewCardName {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  font-weight: 500;
+  color: var(--colorTextPrimary);
+}
+
+.reviewCardDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--colorGold);
+  flex-shrink: 0;
+}
+
+.reviewCardPlatform {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  color: var(--colorTextLight);
+}
+
+/* Carousel Controls */
+.reviewsControls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spaceSm);
+  margin-top: var(--spaceMd);
+}
+
+.reviewsBtn {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--colorBorderLight);
+  background: transparent;
+  color: var(--colorTextPrimary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1.125rem;
+  min-height: 48px;
+}
+
+body.hasCursor .reviewsBtn {
+  cursor: none;
+}
+
+.reviewsBtn:hover {
+  border-color: var(--colorGold);
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
+}
+
+/* Dots */
+.reviewsDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: var(--spaceSm);
+  padding: 0.5rem 0;
+}
+
+.reviewsDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(13, 11, 43, 0.18);
+  border: 1px solid rgba(13, 11, 43, 0.1);
+  transition: background 0.3s ease, width 0.35s ease, border-radius 0.35s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+body.hasCursor .reviewsDot {
+  cursor: none;
+}
+
+.reviewsDot.active {
+  background: var(--colorGold);
+  border-color: var(--colorGold);
+  width: 22px;
+  border-radius: 3px;
+  transform: none;
+  box-shadow: 0 0 8px rgba(201, 149, 42, 0.4);
+}
