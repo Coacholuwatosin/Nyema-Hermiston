@@ -9,15 +9,37 @@
   right: 0;
   z-index: 1000;
   padding: var(--spaceSm) 0;
-  transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
+  transition: background 0.45s ease, box-shadow 0.45s ease, padding 0.45s ease, border-color 0.45s ease;
+  border-bottom: 1px solid transparent;
+}
+
+/* Subtle gold line that appears at the very top when scrolled */
+.siteNav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(201, 149, 42, 0.5) 30%, rgba(201, 149, 42, 0.5) 70%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
 }
 
 .siteNav.scrolled {
-  background: rgba(13, 11, 43, 0.82);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(201, 149, 42, 0.12);
-  padding: 0.75rem 0;
+  background: rgba(8, 6, 28, 0.92);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(201, 149, 42, 0.1);
+  padding: 0.625rem 0;
+  border-bottom-color: rgba(201, 149, 42, 0.1);
+}
+
+.siteNav.scrolled::before {
+  opacity: 1;
 }
 
 .navInner {
@@ -27,20 +49,52 @@
   gap: var(--spaceMd);
 }
 
-/* Logo */
+/* ===========================
+   LOGO
+=========================== */
 .navLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  min-height: 0;
+  flex-shrink: 0;
+}
+
+/* NH Monogram badge */
+.navLogo::before {
+  content: 'NH';
+  font-family: var(--fontBody);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--colorGold);
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(201, 149, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.navLogo:hover::before {
+  background: rgba(201, 149, 42, 0.08);
+  border-color: var(--colorGold);
+}
+
+.navLogoText {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
-  text-decoration: none;
-  min-height: 0;
 }
 
 .navLogoName {
   font-family: var(--fontDisplay);
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 1.8vw, 1.375rem);
   font-weight: 700;
-  color: var(--colorGold);
+  color: var(--colorWhite);
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
   line-height: 1;
@@ -48,19 +102,21 @@
 
 .navLogoTagline {
   font-family: var(--fontBody);
-  font-size: clamp(0.625rem, 0.9vw, 0.75rem);
+  font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: var(--letterSpacingWide);
+  color: rgba(201, 149, 42, 0.7);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-top: 0.25rem;
 }
 
-/* Desktop Nav Links */
+/* ===========================
+   DESKTOP NAV LINKS
+=========================== */
 .navLinks {
   display: flex;
   align-items: center;
-  gap: var(--spaceMd);
+  gap: 0.125rem;
 }
 
 .navLink {
@@ -69,21 +125,22 @@
   font-weight: 500;
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   position: relative;
-  padding-bottom: 3px;
+  padding: 0.35rem 0.75rem;
   transition: color 0.3s ease;
   min-height: 0;
   display: inline-block;
+  border-radius: 100px;
 }
 
 .navLink::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 2px;
+  left: 0.75rem;
+  right: 0.75rem;
   height: 1px;
   background: var(--colorGold);
   transform: scaleX(0);
@@ -91,29 +148,83 @@
   transition: transform 0.3s ease;
 }
 
-.navLink:hover,
-.navLink.active {
+.navLink:hover {
   color: var(--colorWhite);
 }
 
-.navLink:hover::after,
-.navLink.active::after {
+.navLink:hover::after {
   transform: scaleX(1);
 }
 
-.navCta {
-  margin-left: var(--spaceXs);
+/* Active link — pill highlight */
+.navLink.active {
+  color: var(--colorGold);
+  background: rgba(201, 149, 42, 0.09);
+  border: 1px solid rgba(201, 149, 42, 0.2);
 }
 
-/* Hamburger */
+.navLink.active::after {
+  display: none;
+}
+
+/* CTA separator */
+.navCta {
+  margin-left: var(--spaceSm);
+  padding: 0.45rem 1.25rem;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+}
+
+/* ===========================
+   DARK MODE TOGGLE — circular
+=========================== */
+.darkModeToggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9375rem;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.darkModeToggle:hover {
+  border-color: var(--colorGold);
+  color: var(--colorGold);
+  background: rgba(201, 149, 42, 0.07);
+  transform: rotate(20deg);
+}
+
+body.hasCursor .darkModeToggle {
+  cursor: none;
+}
+
+/* ===========================
+   HAMBURGER
+=========================== */
 .navHamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   padding: 0.5rem;
   background: none;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
   min-height: 0;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease;
+}
+
+.navHamburger:hover {
+  border-color: rgba(201, 149, 42, 0.4);
 }
 
 body.hasCursor .navHamburger {
@@ -122,15 +233,17 @@ body.hasCursor .navHamburger {
 
 .navHamburgerLine {
   display: block;
-  width: 26px;
-  height: 2px;
-  background: var(--colorWhite);
+  width: 20px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
   transform-origin: center;
 }
 
 .navHamburger.open .navHamburgerLine:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(6.5px) rotate(45deg);
+  background: var(--colorGold);
 }
 
 .navHamburger.open .navHamburgerLine:nth-child(2) {
@@ -138,10 +251,13 @@ body.hasCursor .navHamburger {
 }
 
 .navHamburger.open .navHamburgerLine:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-6.5px) rotate(-45deg);
+  background: var(--colorGold);
 }
 
-/* Mobile Nav Overlay — Glassmorphism redesign */
+/* ===========================
+   MOBILE NAV OVERLAY
+=========================== */
 .navOverlay {
   display: none;
   position: fixed;
@@ -181,7 +297,6 @@ body.hasCursor .navHamburger {
   gap: 0;
 }
 
-/* Glass sheen line */
 .navOverlayInner::before {
   content: '';
   position: absolute;
@@ -193,7 +308,6 @@ body.hasCursor .navHamburger {
   pointer-events: none;
 }
 
-/* Purple aurora blob inside card */
 .navOverlayInner::after {
   content: '';
   position: absolute;
@@ -206,7 +320,6 @@ body.hasCursor .navHamburger {
   z-index: 0;
 }
 
-/* Brand label at top */
 .navOverlayLinks {
   display: flex;
   flex-direction: column;
@@ -215,7 +328,6 @@ body.hasCursor .navHamburger {
   z-index: 1;
 }
 
-/* Brand divider at top */
 .navOverlayLinks::before {
   content: 'Nyema Hermiston';
   display: block;
@@ -279,6 +391,7 @@ body.hasCursor .navHamburger {
   font-size: 0.8125rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
   width: 34px;
   height: 34px;
   display: flex;

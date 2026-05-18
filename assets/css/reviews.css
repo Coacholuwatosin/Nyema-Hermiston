@@ -53,83 +53,142 @@
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Review Card */
+/* ===========================
+   REVIEW CARD — Clean modern
+=========================== */
 .reviewCard {
-  flex: 0 0 clamp(300px, 38vw, 480px);
+  flex: 0 0 clamp(300px, 38vw, 460px);
   background: var(--colorWhite);
-  padding: var(--spaceMd);
-  border: 1px solid var(--colorBorderLight);
-  border-top: 3px solid rgba(201, 149, 42, 0.22);
-  border-left: 3px solid transparent;
-  box-shadow: 0 6px 40px rgba(13, 11, 43, 0.07);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-top-color 0.4s ease, border-left-color 0.4s ease;
+  border: 1px solid rgba(13, 11, 43, 0.09);
+  border-radius: 2px;
+  box-shadow: 0 2px 20px rgba(13, 11, 43, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .reviewCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 60px rgba(13, 11, 43, 0.12);
-  border-top-color: var(--colorGold);
-  border-left-color: var(--colorGold);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(13, 11, 43, 0.1);
 }
 
-.reviewCardQuoteMark {
-  font-family: var(--fontDisplay);
-  font-size: clamp(5rem, 8vw, 7.5rem);
-  line-height: 0.4;
-  color: var(--colorGold);
-  opacity: 0.55;
+/* Gold top accent bar */
+.reviewCard::before {
+  content: '';
   display: block;
-  margin-bottom: var(--spaceSm);
-  transition: opacity 0.4s ease;
+  height: 3px;
+  background: linear-gradient(to right, var(--colorGold), rgba(201, 149, 42, 0.25));
+  flex-shrink: 0;
 }
 
-.reviewCard:hover .reviewCardQuoteMark {
-  opacity: 1;
+/* Card body padding wrapper */
+.reviewCardBody {
+  padding: 1.5rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+  min-height: 240px;
 }
 
+/* Header: stars left, platform tag right */
+.reviewCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.reviewCardStars {
+  color: var(--colorGold);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.reviewCardPlatformTag {
+  font-family: var(--fontBody);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(13, 11, 43, 0.32);
+  border: 1px solid rgba(13, 11, 43, 0.1);
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Review text — clean body font, fully readable */
 .reviewCardText {
-  font-family: var(--fontDisplay);
-  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
-  font-style: italic;
+  font-family: var(--fontBody);
+  font-size: 0.9375rem;
+  font-style: normal;
   font-weight: 400;
-  color: var(--colorTextPrimary);
-  line-height: 1.7;
-  margin-bottom: var(--spaceMd);
+  color: rgba(13, 11, 43, 0.78);
+  line-height: 1.78;
+  flex: 1;
+  margin: 0;
 }
 
+/* Attribution row */
 .reviewCardAttribution {
   display: flex;
   align-items: center;
-  gap: var(--spaceXs);
-  padding-top: var(--spaceSm);
-  border-top: 1px solid var(--colorBorderLight);
+  gap: 0.625rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid rgba(13, 11, 43, 0.07);
+  margin-top: auto;
+}
+
+/* Initials avatar circle */
+.reviewCardAvatar {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--colorDeepNavy) 0%, var(--colorRichPurple) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fontBody);
+  font-size: 0.5625rem;
+  font-weight: 700;
+  color: var(--colorGold);
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+.reviewCardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
 }
 
 .reviewCardName {
   font-family: var(--fontBody);
-  font-size: var(--fontSizeSmall);
-  font-weight: 500;
+  font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--colorTextPrimary);
+  line-height: 1;
 }
 
-.reviewCardDot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--colorGold);
-  flex-shrink: 0;
-}
-
-.reviewCardPlatform {
+.reviewCardSource {
   font-family: var(--fontBody);
-  font-size: var(--fontSizeCredential);
-  color: var(--colorTextLight);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: rgba(13, 11, 43, 0.38);
+  line-height: 1;
 }
 
 /* Carousel Controls */
 .reviewsControls {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: var(--spaceSm);
   margin-top: var(--spaceMd);
 }
@@ -137,15 +196,18 @@
 .reviewsBtn {
   width: 48px;
   height: 48px;
-  border: 2px solid var(--colorBorderLight);
-  background: transparent;
+  border: 1px solid rgba(13, 11, 43, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--colorTextPrimary);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  font-size: 1.125rem;
+  font-size: 1rem;
   min-height: 48px;
+  box-shadow: 0 2px 12px rgba(13, 11, 43, 0.06);
 }
 
 body.hasCursor .reviewsBtn {
@@ -155,7 +217,8 @@ body.hasCursor .reviewsBtn {
 .reviewsBtn:hover {
   border-color: var(--colorGold);
   background: var(--colorGold);
-  color: var(--colorDeepNavy);
+  color: var(--colorWhite);
+  box-shadow: 0 4px 20px rgba(201, 149, 42, 0.3);
 }
 
 /* Dots */
@@ -163,18 +226,27 @@ body.hasCursor .reviewsBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.625rem;
-  margin-top: var(--spaceSm);
-  padding: 0.5rem 0;
+  gap: 0.5rem;
+  margin-top: var(--spaceXs);
+  padding: 0.25rem 0;
 }
 
 .reviewsDot {
-  width: 6px;
-  height: 6px;
+  /* Reset browser button defaults */
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+  line-height: 0;
+  /* Dot dimensions */
+  display: block;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: rgba(13, 11, 43, 0.18);
   border: 1px solid rgba(13, 11, 43, 0.1);
-  transition: background 0.3s ease, width 0.35s ease, border-radius 0.35s ease, transform 0.3s ease;
+  transition: background 0.3s ease, width 0.35s ease, border-radius 0.35s ease;
   flex-shrink: 0;
 }
 
@@ -185,8 +257,8 @@ body.hasCursor .reviewsDot {
 .reviewsDot.active {
   background: var(--colorGold);
   border-color: var(--colorGold);
-  width: 22px;
-  border-radius: 3px;
-  transform: none;
-  box-shadow: 0 0 8px rgba(201, 149, 42, 0.4);
+  width: 20px;
+  height: 7px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(201, 149, 42, 0.35);
 }

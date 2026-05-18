@@ -40,29 +40,6 @@
   background: var(--colorTextPrimary);
 }
 
-/* Dark mode toggle button */
-.darkModeToggle {
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 1rem;
-  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
-  flex-shrink: 0;
-}
-
-.darkModeToggle:hover {
-  border-color: var(--colorGold);
-  color: var(--colorGold);
-}
-
-body.hasCursor .darkModeToggle {
-  cursor: none;
-}
 
 [data-theme="light"] .darkModeToggle {
   border-color: rgba(13, 11, 43, 0.2);

@@ -159,6 +159,13 @@ body.hasCursor button {
   mix-blend-mode: normal;
 }
 
+/* Never show custom cursor on touch/mobile devices */
+@media (pointer: coarse) {
+  .customCursor {
+    display: none !important;
+  }
+}
+
 .customCursor.hovered {
   width: 28px;
   height: 28px;
@@ -517,33 +524,99 @@ a, button, input, select, textarea {
 
 /* --- Featured In Section --- */
 .featuredInSection {
-  background: var(--colorOffWhite);
-  padding: var(--spaceLg) 0;
+  background: var(--colorDeepNavy);
+  padding: var(--spaceSection) 0;
+  position: relative;
+  overflow: hidden;
 }
 
-.featuredInTitle {
+.featuredInSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(46, 23, 96, 0.5) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(201, 149, 42, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.featuredInHeader {
+  text-align: center;
   margin-bottom: var(--spaceLg);
+  position: relative;
+  z-index: 1;
 }
 
-.featuredInRow {
+/* 5-column grid of publication cards */
+.featuredInGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(201, 149, 42, 0.15);
+}
+
+.featuredInCard {
+  background: rgba(255, 255, 255, 0.03);
+  border-right: 1px solid rgba(201, 149, 42, 0.12);
+  padding: 2rem 1.25rem 1.75rem;
+  text-align: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--spaceLg);
+  gap: 0.6rem;
+  transition: background 0.35s ease;
+  position: relative;
 }
 
-.featuredInName {
+.featuredInCard:last-child {
+  border-right: none;
+}
+
+.featuredInCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 2px;
+  background: var(--colorGold);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.featuredInCard:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.featuredInCard:hover::before {
+  opacity: 1;
+}
+
+.featuredInCardIcon {
+  font-size: 1.125rem;
+  color: rgba(201, 149, 42, 0.5);
+  line-height: 1;
+}
+
+.featuredInCardName {
   font-family: var(--fontDisplay);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: var(--colorTextLight);
-  letter-spacing: 0.06em;
+  font-size: clamp(0.875rem, 1.2vw, 1.0625rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.82);
+  letter-spacing: 0.01em;
+  line-height: 1.35;
 }
 
-.featuredInDiamond {
-  color: var(--colorGold);
+.featuredInCardType {
+  font-family: var(--fontBody);
   font-size: 0.5rem;
-  flex-shrink: 0;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(201, 149, 42, 0.55);
 }
 
 /* --- Back to Top Button --- */

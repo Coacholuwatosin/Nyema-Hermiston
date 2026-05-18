@@ -56,6 +56,13 @@
 
   .heroStats {
     justify-content: center;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .heroStatNote {
+    justify-content: center;
   }
 
   .heroRight {
@@ -179,11 +186,15 @@
   }
 
   .booksFeaturedBullets {
-    align-items: center;
+    align-items: flex-start;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .booksFeaturedBullet {
-    justify-content: center;
+    text-align: left;
+    justify-content: flex-start;
   }
 
   .booksFeaturedActions {
@@ -265,6 +276,27 @@
 
   .researchPullQuote {
     padding-right: 0;
+    text-align: center;
+  }
+
+  /* Vertical bar becomes a short horizontal accent on mobile */
+  .researchPullQuoteBar {
+    width: 40px;
+    height: 3px;
+    margin: 0 auto var(--spaceMd);
+  }
+
+  /* Hide the large floating quote mark that breaks centered layout */
+  .researchQuoteText::before {
+    display: none;
+  }
+
+  .researchQuoteAttribution {
+    justify-content: center;
+  }
+
+  .researchQuoteAttribution::before {
+    display: none;
   }
 
   .researchStats {
@@ -350,18 +382,50 @@
   }
 }
 
-/* ========== REVIEWS — Mobile dots ========== */
+/* ========== REVIEWS — Mobile ========== */
 @media (max-width: 768px) {
   .reviewsDots {
-    gap: 0.75rem;
-    padding: 0.5rem 0;
+    gap: 0.4rem;
+    padding: 0.25rem 0;
   }
 
-  .reviewsDot {
-    width: 10px;
-    height: 10px;
-    padding: 4px;
-    box-sizing: content-box;
+  .reviewCard {
+    flex: 0 0 88vw;
+  }
+
+  /* Reduce fade edges so they don't cover card text */
+  .reviewsCarouselWrap::before,
+  .reviewsCarouselWrap::after {
+    width: 24px;
+  }
+}
+
+/* ========== FEATURED IN ========== */
+@media (max-width: 992px) {
+  .featuredInGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .featuredInCard:nth-child(3) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .featuredInGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featuredInCard {
+    padding: 1.5rem 1rem 1.25rem;
+  }
+
+  .featuredInCard:nth-child(2n) {
+    border-right: none;
+  }
+
+  .featuredInCard:nth-child(3) {
+    border-right: 1px solid rgba(201, 149, 42, 0.12);
   }
 }
 
