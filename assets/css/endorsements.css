@@ -83,15 +83,16 @@
 }
 
 .endorsementQuote {
-  font-family: var(--fontDisplay);
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
-  font-style: italic;
+  font-family: var(--fontBody);
+  font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+  font-style: normal;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.75;
+  color: rgba(232, 228, 240, 0.88);
+  line-height: 1.85;
   margin-bottom: var(--spaceMd);
   position: relative;
   z-index: 1;
+  letter-spacing: 0.01em;
 }
 
 .endorsementAttribution {

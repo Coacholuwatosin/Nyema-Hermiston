@@ -363,6 +363,20 @@
 }
 
 @media (max-width: 576px) {
+  .footerMission {
+    gap: var(--spaceSm);
+  }
+
+  .footerMissionQuote {
+    white-space: normal;
+    font-size: 0.8125rem;
+    text-align: center;
+  }
+
+  .footerMissionLine {
+    display: none;
+  }
+
   .footerGrid {
     grid-template-columns: 1fr;
   }

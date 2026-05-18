@@ -12,10 +12,11 @@
   const dotsContainer = document.getElementById('reviewsDots');
 
   let currentIndex = 0;
-  let autoPlayInterval;
-  let isDragging = false;
-  let startX = 0;
-  let dragOffset = 0;
+  let autoPlayTimer = null;
+  let isVisible = true;
+  let isPausedByHover = false;
+
+  const AUTO_DELAY = 4500;
 
   const getCardWidth = () => {
     const card = cards[0];
@@ -32,7 +33,7 @@
       const dot = document.createElement('button');
       dot.className = 'reviewsDot' + (i === 0 ? ' active' : '');
       dot.setAttribute('aria-label', `Review ${i + 1}`);
-      dot.addEventListener('click', () => goTo(i));
+      dot.addEventListener('click', () => { goTo(i); resetAutoPlay(); });
       dotsContainer.appendChild(dot);
     });
   }
@@ -45,43 +46,55 @@
   };
 
   const goTo = (index) => {
-    currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
-    const offset = -currentIndex * getCardWidth();
-    track.style.transform = `translateX(${offset}px)`;
+    currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+    track.style.transform = `translateX(${-currentIndex * getCardWidth()}px)`;
     updateDots();
   };
 
-  const next = () => goTo(currentIndex < totalSlides - 1 ? currentIndex + 1 : 0);
-  const prev = () => goTo(currentIndex > 0 ? currentIndex - 1 : totalSlides - 1);
+  const next = () => goTo(currentIndex + 1);
+  const prev = () => goTo(currentIndex - 1);
+
+  /* Always clear before setting — prevents stacked intervals */
+  const startAutoPlay = () => {
+    clearTimeout(autoPlayTimer);
+    if (!isVisible || isPausedByHover) return;
+    autoPlayTimer = setTimeout(() => {
+      next();
+      startAutoPlay();
+    }, AUTO_DELAY);
+  };
+
+  const stopAutoPlay = () => clearTimeout(autoPlayTimer);
+
+  const resetAutoPlay = () => {
+    stopAutoPlay();
+    startAutoPlay();
+  };
 
   if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetAutoPlay(); });
   if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetAutoPlay(); });
 
-  /* Auto-play */
-  const startAutoPlay = () => {
-    autoPlayInterval = setInterval(next, 5000);
-  };
-
-  const resetAutoPlay = () => {
-    clearInterval(autoPlayInterval);
-    startAutoPlay();
-  };
-
-  startAutoPlay();
-
   /* Pause on hover */
-  track.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-  track.addEventListener('mouseleave', startAutoPlay);
+  track.addEventListener('mouseenter', () => {
+    isPausedByHover = true;
+    stopAutoPlay();
+  });
+  track.addEventListener('mouseleave', () => {
+    isPausedByHover = false;
+    startAutoPlay();
+  });
 
-  /* Touch / swipe support */
+  /* Touch / swipe — pause during drag, resume after */
+  let startX = 0;
+  let dragOffset = 0;
+
   track.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
-    isDragging = true;
-    clearInterval(autoPlayInterval);
+    dragOffset = 0;
+    stopAutoPlay();
   }, { passive: true });
 
   track.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
     dragOffset = e.touches[0].clientX - startX;
   }, { passive: true });
 
@@ -89,14 +102,28 @@
     if (Math.abs(dragOffset) > 50) {
       dragOffset > 0 ? prev() : next();
     }
-    isDragging = false;
-    dragOffset = 0;
     startAutoPlay();
   });
 
-  /* Recalculate on resize */
-  window.addEventListener('resize', () => {
-    goTo(currentIndex);
+  /* Pause when section scrolls out of view */
+  if ('IntersectionObserver' in window) {
+    const section = track.closest('section') || track;
+    const observer = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+      isVisible ? startAutoPlay() : stopAutoPlay();
+    }, { threshold: 0.2 });
+    observer.observe(section);
+  }
+
+  /* Pause when tab is hidden */
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stopAutoPlay() : startAutoPlay();
   });
+
+  /* Recalculate position on resize */
+  window.addEventListener('resize', () => goTo(currentIndex));
+
+  /* Kick off */
+  startAutoPlay();
 
 })();

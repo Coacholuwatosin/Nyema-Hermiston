@@ -3,32 +3,94 @@
    =================================================== */
 
 .siteFooter {
-  background: #070617;
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(46, 23, 96, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 100%, rgba(201, 149, 42, 0.05) 0%, transparent 45%),
+    linear-gradient(180deg, #0b0820 0%, #060414 100%);
   padding: var(--spaceXl) 0 0;
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle top border */
+/* Gold gradient top border */
 .siteFooter::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--colorGold), transparent);
-  opacity: 0.3;
+  height: 2px;
+  background: linear-gradient(to right, transparent 0%, var(--colorGold) 25%, var(--colorGold) 75%, transparent 100%);
+  opacity: 0.55;
 }
 
+/* Dot grid texture */
+.siteFooter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(201, 149, 42, 0.045) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===========================
+   MISSION STRIP
+=========================== */
+.footerMission {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceMd);
+  padding-bottom: var(--spaceLg);
+  border-bottom: 1px solid rgba(201, 149, 42, 0.1);
+  margin-bottom: var(--spaceLg);
+  position: relative;
+  z-index: 1;
+}
+
+.footerMissionLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 149, 42, 0.28));
+}
+
+.footerMissionLine:last-child {
+  background: linear-gradient(to left, transparent, rgba(201, 149, 42, 0.28));
+}
+
+.footerMissionQuote {
+  font-family: var(--fontDisplay);
+  font-style: italic;
+  font-size: clamp(0.875rem, 1.3vw, 1.0625rem);
+  color: rgba(201, 149, 42, 0.6);
+  letter-spacing: 0.03em;
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===========================
+   GRID
+=========================== */
 .footerGrid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: var(--spaceLg);
   padding-bottom: var(--spaceXl);
+  position: relative;
+  z-index: 1;
 }
 
-/* Column 1 */
+/* ===========================
+   BRAND COLUMN
+=========================== */
+.footerBrand {
+  position: relative;
+  padding-left: 1.25rem;
+  border-left: 2px solid rgba(201, 149, 42, 0.28);
+}
+
 .footerLogoName {
   font-family: var(--fontDisplay);
   font-size: clamp(1.375rem, 2.5vw, 1.875rem);
@@ -45,7 +107,7 @@
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
   font-weight: 400;
-  color: var(--colorLightLavender);
+  color: rgba(232, 228, 240, 0.4);
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
   display: block;
@@ -55,62 +117,89 @@
 .footerTagline {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.35);
   line-height: var(--lineHeightBody);
-  max-width: 280px;
+  max-width: 260px;
 }
 
-/* Column 2 & 3 */
+/* ===========================
+   COLUMN HEADINGS
+=========================== */
 .footerColHeading {
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  font-weight: 500;
-  letter-spacing: var(--letterSpacingWide);
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--colorGold);
   margin-bottom: var(--spaceMd);
   display: block;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(201, 149, 42, 0.18);
 }
 
+/* ===========================
+   NAV LINKS
+=========================== */
 .footerLinks {
   display: flex;
   flex-direction: column;
-  gap: var(--spaceXs);
+  gap: 0.125rem;
 }
 
 .footerLink {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: rgba(255, 255, 255, 0.55);
-  transition: color 0.3s ease, padding-left 0.3s ease;
-  display: block;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
   min-height: 0;
+  text-decoration: none;
+}
+
+.footerLink::before {
+  content: '';
+  width: 0;
+  height: 1px;
+  background: var(--colorGold);
+  transition: width 0.25s ease;
+  flex-shrink: 0;
 }
 
 .footerLink:hover {
-  color: var(--colorGold);
-  padding-left: 6px;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Social Icon Buttons */
+.footerLink:hover::before {
+  width: 14px;
+}
+
+/* ===========================
+   SOCIAL ICONS
+=========================== */
 .footerSocial {
   display: flex;
-  gap: var(--spaceXs);
+  gap: 0.5rem;
   margin-bottom: var(--spaceMd);
   flex-wrap: wrap;
 }
 
 .footerSocialLink {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
+  min-height: 38px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(201, 149, 42, 0.08);
-  border: 1px solid rgba(201, 149, 42, 0.22);
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.125rem;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 149, 42, 0.2);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1rem;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
 }
 
@@ -119,27 +208,33 @@
   border-color: var(--colorGold);
   color: var(--colorDeepNavy);
   transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(201, 149, 42, 0.3);
 }
 
 body.hasCursor .footerSocialLink {
   cursor: none;
 }
 
-/* Bottom bar */
+/* ===========================
+   BOTTOM BAR
+=========================== */
 .footerBottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: var(--spaceSm) 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--spaceXs);
+  position: relative;
+  z-index: 1;
 }
 
 .footerCopyright {
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.22);
+  letter-spacing: 0.04em;
 }
 
 .footerLegal {
@@ -151,8 +246,10 @@ body.hasCursor .footerSocialLink {
 .footerLegalLink {
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.22);
   transition: color 0.3s ease;
+  text-decoration: none;
+  letter-spacing: 0.04em;
 }
 
 .footerLegalLink:hover {
@@ -162,5 +259,5 @@ body.hasCursor .footerSocialLink {
 .footerLegalSep {
   width: 1px;
   height: 12px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
 }
