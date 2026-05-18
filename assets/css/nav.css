@@ -204,6 +204,16 @@ body.hasCursor .darkModeToggle {
   cursor: none;
 }
 
+/* Force perfect circle on mobile — overrides global button min-height: 48px rule */
+@media (max-width: 768px) {
+  .darkModeToggle {
+    min-height: 36px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+  }
+}
+
 /* ===========================
    HAMBURGER
 =========================== */

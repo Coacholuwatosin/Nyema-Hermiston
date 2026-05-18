@@ -35,6 +35,10 @@
     display: none;
   }
 
+  .heroLabelLine {
+    display: none;
+  }
+
   .heroLabelRow {
     justify-content: center;
   }
