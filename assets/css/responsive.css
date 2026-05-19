@@ -43,15 +43,26 @@
     justify-content: center;
   }
 
+  /* Center the glass subheading wrapper */
+  .heroSubheadingWrap {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
   .heroSubheading {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
     border-left: none;
-    border-top: 2px solid var(--colorPrimary);
     padding-left: 0;
-    padding-top: var(--spaceXs);
     text-align: center;
+  }
+
+  /* Hide diagonal/vertical geometry lines — designed for 2-col layout */
+  .heroGeomLine1,
+  .heroGeomLine3 {
+    display: none;
   }
 
   .heroCtas {
