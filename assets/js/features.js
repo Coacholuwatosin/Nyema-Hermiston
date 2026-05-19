@@ -16,27 +16,28 @@
 
     const html = document.documentElement;
     const stored = localStorage.getItem('nhTheme');
-    if (stored === 'light') {
-      html.setAttribute('data-theme', 'light');
-      toggle.setAttribute('aria-label', 'Switch to dark mode');
-      toggle.innerHTML = '<i class="ri-moon-line"></i>';
-    } else {
+    if (stored === 'dark') {
+      html.setAttribute('data-theme', 'dark');
       toggle.setAttribute('aria-label', 'Switch to light mode');
       toggle.innerHTML = '<i class="ri-sun-line"></i>';
+    } else {
+      html.removeAttribute('data-theme');
+      toggle.setAttribute('aria-label', 'Switch to dark mode');
+      toggle.innerHTML = '<i class="ri-moon-line"></i>';
     }
 
     toggle.addEventListener('click', function () {
-      const isLight = html.getAttribute('data-theme') === 'light';
-      if (isLight) {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if (isDark) {
         html.removeAttribute('data-theme');
-        localStorage.setItem('nhTheme', 'dark');
-        toggle.innerHTML = '<i class="ri-sun-line"></i>';
-        toggle.setAttribute('aria-label', 'Switch to light mode');
-      } else {
-        html.setAttribute('data-theme', 'light');
         localStorage.setItem('nhTheme', 'light');
         toggle.innerHTML = '<i class="ri-moon-line"></i>';
         toggle.setAttribute('aria-label', 'Switch to dark mode');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('nhTheme', 'dark');
+        toggle.innerHTML = '<i class="ri-sun-line"></i>';
+        toggle.setAttribute('aria-label', 'Switch to light mode');
       }
     });
   }

@@ -4,26 +4,30 @@
 
 .endorsementsSection {
   position: relative;
-  background: var(--colorBackground);
-  padding: var(--spaceSection) 0 calc(var(--spaceSection) * 0.75);
+  background: var(--colorOffWhite);
+  padding: var(--spaceSection) 0;
   overflow: hidden;
 }
 
+/* Multi-layer background — soft lavender blobs */
 .endorsementsSection::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(88,98,163,0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background:
+    radial-gradient(ellipse at 10% 30%, rgba(107, 95, 160, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 70%, rgba(221, 184, 46, 0.05) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
 
+/* Subtle dot grid texture */
 .endorsementsSection::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: none;
+  background-image: radial-gradient(rgba(107, 95, 160, 0.055) 1px, transparent 1px);
+  background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
 }
@@ -43,43 +47,36 @@
   z-index: 1;
 }
 
-/* Endorsement Card — floating glass on light canvas */
+/* Endorsement Card — real white glassmorphism */
 .endorsementCard {
   position: relative;
-  background: rgba(255,255,255,0.82);
-  border: 1px solid rgba(88,98,163,0.10);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-left: 4px solid var(--colorRichPurple);
   padding: var(--spaceLg) var(--spaceMd) var(--spaceMd);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow:
-    0 2px 6px rgba(88,98,163,0.06),
-    0 8px 24px rgba(88,98,163,0.09),
-    0 24px 56px rgba(88,98,163,0.07),
-    0 1px 0 rgba(255,255,255,0.92) inset;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 4px 28px rgba(13, 11, 43, 0.07), inset 0 1px 0 rgba(255, 255, 255, 1);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 2px;
 }
 
 .endorsementCard:hover {
-  transform: translateY(-10px);
-  box-shadow:
-    0 4px 12px rgba(88,98,163,0.08),
-    0 16px 40px rgba(88,98,163,0.13),
-    0 40px 80px rgba(88,98,163,0.10),
-    0 1px 0 rgba(255,255,255,0.96) inset;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(107, 95, 160, 0.16), 0 0 0 1px rgba(107, 95, 160, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 /* Large decorative quote mark */
 .endorsementQuoteIcon {
   position: absolute;
-  top: -8px;
+  top: -10px;
   left: var(--spaceSm);
   font-family: var(--fontDisplay);
   font-size: clamp(5rem, 8vw, 8rem);
   line-height: 1;
-  color: var(--colorPrimary);
-  opacity: 0.07;
+  color: var(--colorRichPurple);
+  opacity: 0.10;
   pointer-events: none;
   user-select: none;
 }
@@ -89,8 +86,8 @@
   font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
   font-style: normal;
   font-weight: 400;
-  color: var(--colorTextOnLight);
-  line-height: 1.9;
+  color: rgba(13, 11, 43, 0.78);
+  line-height: 1.85;
   margin-bottom: var(--spaceMd);
   position: relative;
   z-index: 1;
@@ -102,7 +99,7 @@
   flex-direction: column;
   gap: 0.2rem;
   padding-top: var(--spaceSm);
-  border-top: 1px solid rgba(88,98,163,0.10);
+  border-top: 1px solid rgba(107, 95, 160, 0.12);
   position: relative;
   z-index: 1;
 }
@@ -111,16 +108,15 @@
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
   font-weight: 600;
-  color: var(--colorPrimary);
+  color: var(--colorPurpleDark);
   letter-spacing: 0.05em;
 }
 
 .endorsementCredentials {
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  color: var(--colorTextOnLight);
-  font-weight: 400;
+  color: rgba(13, 11, 43, 0.42);
+  font-weight: 300;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0.7;
 }

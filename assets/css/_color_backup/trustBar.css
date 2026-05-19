@@ -4,13 +4,13 @@
 
 .trustBarSection {
   position: relative;
-  background: var(--colorBackgroundDark);
+  background: var(--colorGold);
   overflow: hidden;
   padding: var(--spaceSm) 0;
   z-index: 10;
 }
 
-/* Fade edges — removed gradients per palette rules */
+/* Fade edges left and right */
 .trustBarSection::before,
 .trustBarSection::after {
   content: '';
@@ -24,12 +24,12 @@
 
 .trustBarSection::before {
   left: 0;
-  background: none;
+  background: linear-gradient(to right, var(--colorGold), transparent);
 }
 
 .trustBarSection::after {
   right: 0;
-  background: none;
+  background: linear-gradient(to left, var(--colorGold), transparent);
 }
 
 .trustBarTrack {
@@ -55,12 +55,12 @@
   font-weight: 500;
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
-  color: var(--colorAccentText);
+  color: var(--colorDeepNavy);
   padding: 0 var(--spaceSm);
 }
 
 .trustBarDiamond {
-  color: var(--colorAccentText);
+  color: var(--colorDeepNavy);
   opacity: 0.5;
   font-size: 0.5rem;
   flex-shrink: 0;

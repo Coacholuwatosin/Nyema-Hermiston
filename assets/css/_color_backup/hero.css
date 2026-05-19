@@ -1,5 +1,5 @@
 /* ===================================================
-   HERO.CSS — Unified Fluid Canvas (2026 Overhaul)
+   HERO.CSS — Complete Redesign
    =================================================== */
 
 .heroSection {
@@ -8,23 +8,34 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--colorBackground);
+  background-color: var(--colorRichPurple);
 }
 
-/* Full-canvas dot grid texture */
+/* === Background overlays: periwinkle from left, image shows softly on right === */
 .heroSection::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(88,98,163,0.11) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background:
+    linear-gradient(to right, rgba(110, 114, 184, 0.96) 0%, rgba(110, 114, 184, 0.88) 38%, rgba(110, 114, 184, 0.58) 62%, rgba(110, 114, 184, 0.20) 100%),
+    radial-gradient(ellipse at 20% 85%, rgba(48, 100, 232, 0.513) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 15%, rgba(255, 255, 255, 0.06) 0%, transparent 45%);
   z-index: 1;
   pointer-events: none;
 }
 
-/* ===========================
-   AMBIENT GLOW ORBS
-=========================== */
+.heroSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Geometric decorative lines */
 .heroGeometry {
   position: absolute;
   inset: 0;
@@ -33,37 +44,9 @@
   overflow: hidden;
 }
 
-/* Large blue ambient glow — right side, behind the book */
-.heroGeomBlob {
-  position: absolute;
-  right: -8%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(420px, 55vw, 720px);
-  height: clamp(420px, 55vw, 720px);
-  border-radius: 50%;
-  background: rgba(88,98,163,0.12);
-  filter: blur(80px);
-  pointer-events: none;
-}
-
-/* Yellow ambient glow — top left corner */
-.heroGeomBlobAlt {
-  position: absolute;
-  left: -8%;
-  top: -20%;
-  width: clamp(280px, 32vw, 460px);
-  height: clamp(280px, 32vw, 460px);
-  border-radius: 50%;
-  background: rgba(255,236,150,0.32);
-  filter: blur(64px);
-  pointer-events: none;
-}
-
 .heroGeomLine {
   position: absolute;
-  background: var(--colorPrimary);
-  opacity: 0.10;
+  background: rgba(201, 149, 42, 0.07);
 }
 
 .heroGeomLine1 {
@@ -82,14 +65,12 @@
   right: 0;
 }
 
-/* Vertical yellow accent line */
 .heroGeomLine3 {
   width: 1px;
   height: 35%;
   top: 0;
   right: 44%;
-  background: var(--colorSecondary);
-  opacity: 0.65;
+  background: rgba(201, 149, 42, 0.12);
 }
 
 /* === Inner Wrapper === */
@@ -121,12 +102,19 @@
   position: relative;
 }
 
-/* Vertical accent bar removed — glass subheading wrap provides depth instead */
+/* Vertical gold bar — far left of the column */
 .heroLeft::before {
-  content: none;
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--spaceMd));
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 130px;
+  background: linear-gradient(to bottom, transparent, var(--colorGold) 50%, transparent);
 }
 
-/* Label row */
+/* Label row: line + text */
 .heroLabelRow {
   display: flex;
   align-items: center;
@@ -138,26 +126,24 @@
   display: block;
   width: 36px;
   height: 1px;
-  background: var(--colorPrimary);
+  background: var(--colorGold);
   flex-shrink: 0;
 }
 
-/* Glass credential label — pill shape */
 .heroCredentialLabel {
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
-  color: var(--colorPrimary);
+  color: var(--colorRichPurple);
   white-space: nowrap;
-  background: rgba(255,255,255,0.88);
-  border: 1px solid rgba(88,98,163,0.22);
-  padding: 0.35rem 1.1rem;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 14px rgba(88,98,163,0.10);
-  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(107, 95, 160, 0.22);
+  padding: 0.3rem 0.875rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(107, 95, 160, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 /* Headline — 3-layer typographic treatment */
@@ -169,10 +155,10 @@
 .heroHeadlineItalic {
   display: block;
   font-family: var(--fontDisplay);
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-size: clamp(2.25rem, 4.5vw, 4.5rem);
   font-weight: 300;
   font-style: italic;
-  color: var(--colorTextOnLight);
+  color: rgba(255, 255, 255, 0.78);
   line-height: 1.05;
   letter-spacing: 0.02em;
 }
@@ -180,51 +166,40 @@
 .heroHeadlineBold {
   display: block;
   font-family: var(--fontDisplay);
-  font-size: clamp(4rem, 9vw, 8.5rem);
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
   font-weight: 700;
-  -webkit-text-fill-color: var(--colorPrimary);
+  background: linear-gradient(135deg, #ffffff 0%, #f0ebff 38%, var(--colorGold) 68%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 0.88;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
 }
 
 .heroHeadlineSub {
   display: block;
   font-family: var(--fontDisplay);
-  font-size: clamp(1rem, 2vw, 1.75rem);
+  font-size: clamp(1.125rem, 2.2vw, 1.875rem);
   font-weight: 400;
   font-style: italic;
-  color: var(--colorTextOnLight);
+  color: var(--colorGold);
   line-height: 1.4;
-  margin-top: 0.75rem;
+  margin-top: 0.625rem;
   letter-spacing: 0.03em;
-  opacity: 0.75;
 }
 
-/* Glass container wrapping the subheading paragraph */
-.heroSubheadingWrap {
-  background: rgba(255,255,255,0.52);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.42);
-  border-radius: 14px;
-  padding: 1rem 1.375rem;
-  margin-bottom: var(--spaceLg);
-  max-width: 500px;
-  box-shadow: 0 4px 20px rgba(88,98,163,0.08), 0 1px 0 rgba(255,255,255,0.88) inset;
-}
-
-/* Subheading — border-left replaced by glass wrap */
+/* Subheading with left rule */
 .heroSubheading {
   font-family: var(--fontBody);
   font-size: var(--fontSizeBody);
   font-weight: 300;
   line-height: 1.85;
-  color: var(--colorTextOnLight);
-  margin-bottom: 0;
-  max-width: 100%;
-  padding-left: 0;
-  border-left: none;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: var(--spaceLg);
+  max-width: 480px;
+  padding-left: var(--spaceSm);
+  border-left: 2px solid rgba(255, 255, 255, 0.30);
 }
 
 .heroCtas {
@@ -235,103 +210,33 @@
   margin-bottom: var(--spaceMd);
 }
 
-/* "About Nyema" secondary button — glass ghost in hero context */
-.heroCtas .btnSecondary {
-  background: rgba(255,255,255,0.32);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(88,98,163,0.22);
-  box-shadow: 0 4px 16px rgba(88,98,163,0.08), 0 1px 0 rgba(255,255,255,0.7) inset;
-}
-
-.heroCtas .btnSecondary:hover {
-  background: var(--colorPrimary);
-  border-color: var(--colorPrimary);
-  color: var(--colorTextOnDark);
-  box-shadow: 0 8px 24px rgba(88,98,163,0.28);
-}
-
-/* Share button — glass pill matching badge style */
-.heroCtas .shareBtn {
-  background: rgba(255,255,255,0.52);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(88,98,163,0.18);
-  color: var(--colorPrimary);
-  border-radius: 100px;
-  padding: 0.625rem 1.125rem;
-  box-shadow: 0 4px 16px rgba(88,98,163,0.10), 0 1px 0 rgba(255,255,255,0.85) inset;
-  font-size: var(--fontSizeCredential);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.heroCtas .shareBtn:hover {
-  background: rgba(255,255,255,0.82);
-  border-color: var(--colorPrimary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(88,98,163,0.14);
-}
-
-/* ===========================
-   BENTO STATS — Individual Cards
-=========================== */
+/* Stats Row — white glass card */
 .heroStats {
   display: flex;
-  gap: 0.625rem;
-  flex-wrap: wrap;
-  align-items: stretch;
+  align-items: center;
+  gap: var(--spaceMd);
+  padding: var(--spaceSm) var(--spaceMd);
   margin-top: var(--spaceSm);
   width: fit-content;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  border-radius: 0;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-left: 3px solid var(--colorRichPurple);
+  box-shadow: 0 4px 24px rgba(13, 11, 43, 0.07), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-/* Hide old dividers */
-.heroStatDivider {
-  display: none;
-}
-
-/* Individual stat card */
-.heroStat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.875rem 1.125rem;
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(88,98,163,0.13);
-  border-radius: 18px;
-  box-shadow: 0 4px 20px rgba(88,98,163,0.09), 0 1px 0 rgba(255,255,255,0.90) inset;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.heroStat:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(88,98,163,0.15), 0 1px 0 rgba(255,255,255,0.90) inset;
-}
-
-/* First card gets a yellow top accent */
-.heroStats .heroStat:first-child {
-  border-top: 2px solid var(--colorSecondary);
-}
-
+/* Social proof footnote below stats */
 .heroStatNote {
   font-family: var(--fontBody);
   font-size: 0.5625rem;
   letter-spacing: 0.08em;
-  color: var(--colorTextOnLight);
+  color: rgba(255, 255, 255, 0.55);
   text-transform: uppercase;
   margin-top: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  opacity: 0.65;
 }
 
 .heroStatNote::before {
@@ -339,15 +244,21 @@
   display: inline-block;
   width: 18px;
   height: 1px;
-  background: var(--colorPrimary);
+  background: rgba(255, 255, 255, 0.35);
   flex-shrink: 0;
+}
+
+.heroStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .heroStatNumber {
   font-family: var(--fontDisplay);
   font-size: clamp(1.5rem, 2.5vw, 2.25rem);
   font-weight: 700;
-  color: var(--colorPrimary);
+  color: var(--colorGold);
   line-height: 1;
   letter-spacing: -0.01em;
 }
@@ -356,10 +267,17 @@
   font-family: var(--fontBody);
   font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
   font-weight: 400;
-  color: var(--colorTextOnLight);
+  color: rgba(13, 11, 43, 0.45);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.65;
+}
+
+.heroStatDivider {
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: rgba(13, 11, 43, 0.1);
+  flex-shrink: 0;
 }
 
 /* ===========================
@@ -373,8 +291,18 @@
   min-height: clamp(500px, 60vh, 700px);
 }
 
+/* Vertical light shaft — soft purple glow behind book */
 .heroRight::before {
-  content: none;
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 120%;
+  background: radial-gradient(ellipse at 50% 30%, rgba(107, 95, 160, 0.12) 0%, rgba(221, 184, 46, 0.05) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Book Stage */
@@ -387,21 +315,24 @@
   height: clamp(300px, 42vw, 500px);
 }
 
+/* Atmospheric glow — soft purple haze on light bg */
 .heroBookGlow {
   position: absolute;
   inset: -15%;
   border-radius: 50%;
-  background: none;
+  background:
+    radial-gradient(circle at 48% 52%, rgba(221, 184, 46, 0.10) 0%, transparent 42%),
+    radial-gradient(circle at center, rgba(107, 95, 160, 0.18) 0%, rgba(235, 231, 247, 0.3) 55%, transparent 72%);
   z-index: 0;
 }
 
-/* Outer decorative ring */
+/* Outer decorative ring — slow rotation */
 .heroBookStage::before {
   content: '';
   position: absolute;
   inset: -20px;
   border-radius: 50%;
-  border: 1px dashed rgba(88,98,163,0.25);
+  border: 1px dashed rgba(201, 149, 42, 0.22);
   z-index: 0;
   animation: ringRotate 40s linear infinite;
 }
@@ -417,47 +348,34 @@
   position: absolute;
   inset: 30px;
   border-radius: 50%;
-  border: 1px solid rgba(255,236,150,0.45);
+  border: 1px solid rgba(201, 149, 42, 0.12);
   z-index: 0;
 }
 
-/* Accent dot top-right */
+/* Gold dot accent top-right of stage */
 .heroBookStageAccent {
   position: absolute;
   top: 0;
   right: 0;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: var(--colorSecondary);
+  background: var(--colorGold);
   z-index: 4;
-  box-shadow: 0 0 0 4px rgba(255,236,150,0.25);
+  box-shadow: 0 0 20px rgba(201, 149, 42, 0.5);
 }
 
-/* 3D Perspective Float Wrapper */
-.heroBook3DWrap {
-  perspective: 1200px;
+/* Book mockup */
+.heroBookMockup {
   position: relative;
   z-index: 2;
   animation: bookFloat 5s ease-in-out infinite;
-}
-
-/* Book mockup — 3D tilt */
-.heroBookMockup {
-  position: relative;
-  transform: rotateY(-12deg) rotateX(5deg);
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  filter: drop-shadow(0 24px 40px rgba(88,98,163,0.22)) drop-shadow(0 8px 16px rgba(0,0,0,0.10));
+  filter: drop-shadow(0 20px 40px rgba(107, 95, 160, 0.30)) drop-shadow(0 8px 20px rgba(13, 11, 43, 0.18));
   overflow: hidden;
   border-radius: 3px;
 }
 
-.heroBook3DWrap:hover .heroBookMockup {
-  transform: rotateY(-3deg) rotateX(1deg);
-}
-
-/* Light sweep shimmer */
+/* Light sweep shimmer across the cover */
 .heroBookMockup::after {
   content: '';
   position: absolute;
@@ -465,7 +383,12 @@
   left: -70%;
   width: 55%;
   height: 100%;
-  background: rgba(255,255,255,0.18);
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.11) 50%,
+    transparent 100%
+  );
   animation: bookShimmer 9s ease-in-out infinite 2s;
   pointer-events: none;
   z-index: 3;
@@ -478,8 +401,8 @@
 }
 
 @keyframes bookFloat {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-18px); }
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-18px) rotate(-3deg); }
 }
 
 .heroBookImage {
@@ -489,16 +412,21 @@
   border-radius: 3px;
 }
 
-/* CSS-only book placeholder */
+/* CSS-only book placeholder (when image is missing) */
 .heroBookPlaceholder {
   width: clamp(160px, 18vw, 250px);
   height: clamp(213px, 24vw, 333px);
-  background: var(--colorPrimary);
+  background: linear-gradient(160deg, #2a1558 0%, #120b35 50%, #0d0b2b 100%);
   border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem 1.25rem;
+  box-shadow:
+    inset -8px 0 16px rgba(0, 0, 0, 0.45),
+    4px 0 0 rgba(255,255,255,0.04),
+    8px 0 0 rgba(255,255,255,0.025),
+    0 20px 60px rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: hidden;
 }
@@ -510,7 +438,7 @@
   right: -5%;
   width: 1px;
   height: 160%;
-  background: rgba(255,255,255,0.12);
+  background: linear-gradient(to bottom, transparent, rgba(201, 149, 42, 0.2), transparent);
   transform: rotate(8deg);
 }
 
@@ -521,14 +449,14 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--colorSecondary);
+  background: var(--colorGold);
 }
 
 .heroBookPlaceholderAuthor {
   font-family: var(--fontBody);
   font-size: 0.625rem;
   font-weight: 500;
-  color: var(--colorTextOnDark);
+  color: rgba(201, 149, 42, 0.7);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   display: block;
@@ -538,7 +466,7 @@
   font-family: var(--fontDisplay);
   font-size: clamp(0.875rem, 1.4vw, 1.125rem);
   font-weight: 600;
-  color: var(--colorTextOnDark);
+  color: var(--colorWhite);
   line-height: 1.35;
   letter-spacing: 0.02em;
   display: block;
@@ -550,25 +478,28 @@
   display: block;
   width: 36px;
   height: 2px;
-  background: var(--colorSecondary);
+  background: var(--colorGold);
 }
 
-/* === Floating Badges — Full Pill Glass === */
+/* === Floating Badges === */
 .heroBadge {
   position: absolute;
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(88,98,163,0.18);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  padding: 0.75rem 1rem;
   z-index: 4;
   display: flex;
   align-items: center;
   gap: 0.625rem;
   animation: badgePulse 4s ease-in-out infinite;
   min-width: 155px;
-  border-radius: 100px;
-  box-shadow: 0 8px 32px rgba(88,98,163,0.14), 0 2px 0 rgba(255,255,255,0.95) inset;
+  border-radius: 2px;
+  box-shadow:
+    0 8px 32px rgba(107, 95, 160, 0.14),
+    0 2px 8px rgba(13, 11, 43, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .heroBadgeLeft {
@@ -584,7 +515,7 @@
 
 .heroBadgeIcon {
   font-size: 1.125rem;
-  color: var(--colorSecondary);
+  color: var(--colorGold);
   flex-shrink: 0;
   line-height: 1;
 }
@@ -599,7 +530,7 @@
   font-family: var(--fontDisplay);
   font-size: clamp(0.9rem, 1.3vw, 1.125rem);
   font-weight: 600;
-  color: var(--colorTextOnLight);
+  color: var(--colorGold);
   line-height: 1;
 }
 
@@ -607,19 +538,18 @@
   font-family: var(--fontBody);
   font-size: 0.5625rem;
   font-weight: 400;
-  color: var(--colorTextOnLight);
+  color: rgba(13, 11, 43, 0.48);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
-  opacity: 0.65;
 }
 
 @keyframes badgePulse {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-5px); }
+  0%, 100% { box-shadow: 0 8px 32px rgba(107, 95, 160, 0.12), 0 0 0 0 rgba(107, 95, 160, 0); inset 0 1px 0 rgba(255,255,255,1); }
+  50% { box-shadow: 0 8px 32px rgba(107, 95, 160, 0.18), 0 0 0 5px rgba(107, 95, 160, 0.06); inset 0 1px 0 rgba(255,255,255,1); }
 }
 
-/* Scroll Indicator */
+/* Scroll Indicator — animated mouse icon */
 .heroScrollIndicator {
   position: absolute;
   bottom: var(--spaceSm);
@@ -635,13 +565,13 @@
 .heroScrollMouse {
   width: 24px;
   height: 38px;
-  border: 1px solid rgba(88,98,163,0.35);
+  border: 1px solid rgba(255, 255, 255, 0.40);
   border-radius: 12px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 6px;
-  opacity: 0.5;
+  opacity: 0.65;
 }
 
 .heroScrollWheel {
@@ -649,7 +579,7 @@
   width: 3px;
   height: 7px;
   border-radius: 2px;
-  background: var(--colorPrimary);
+  background: var(--colorGold);
   animation: mouseWheel 2.2s ease-in-out infinite;
 }
 
@@ -665,6 +595,5 @@
   font-size: 0.5rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--colorTextOnLight);
-  opacity: 0.45;
+  color: rgba(255, 255, 255, 0.45);
 }

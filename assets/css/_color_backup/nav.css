@@ -9,12 +9,11 @@
   right: 0;
   z-index: 1000;
   padding: var(--spaceSm) 0;
-  background: var(--colorBackgroundDark);
   transition: background 0.45s ease, box-shadow 0.45s ease, padding 0.45s ease, border-color 0.45s ease;
   border-bottom: 1px solid transparent;
 }
 
-/* Yellow accent line at the very top */
+/* Subtle purple line that appears at the very top when scrolled */
 .siteNav::before {
   content: '';
   position: absolute;
@@ -22,19 +21,21 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--colorSecondary);
-  opacity: 1;
+  background: linear-gradient(to right, transparent 0%, var(--colorRichPurple) 30%, var(--colorGold) 70%, transparent 100%);
+  opacity: 0;
   transition: opacity 0.45s ease;
   pointer-events: none;
 }
 
 .siteNav.scrolled {
-  background: rgba(88,98,163,0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  box-shadow:
+    0 4px 32px rgba(13, 11, 43, 0.10),
+    0 1px 0 rgba(107, 95, 160, 0.12);
   padding: 0.625rem 0;
-  border-bottom-color: transparent;
+  border-bottom-color: rgba(107, 95, 160, 0.12);
 }
 
 .siteNav.scrolled::before {
@@ -42,65 +43,65 @@
 }
 
 /* ===========================
-   SCROLLED STATE — same palette (nav stays blue)
+   SCROLLED STATE — restore dark text on white glass
 =========================== */
 .siteNav.scrolled .navLogoName {
-  color: var(--colorTextOnDark);
+  color: var(--colorDeepNavy);
 }
 
 .siteNav.scrolled .navLogoTagline {
-  color: var(--colorTextOnDark);
+  color: rgba(107, 95, 160, 0.65);
 }
 
 .siteNav.scrolled .navLogo::before {
-  color: var(--colorTextOnDark);
-  border-color: var(--colorTextOnDark);
+  color: var(--colorRichPurple);
+  border-color: rgba(107, 95, 160, 0.40);
 }
 
 .siteNav.scrolled .navLogo:hover::before {
-  background: var(--colorSecondary);
-  border-color: var(--colorSecondary);
+  background: rgba(107, 95, 160, 0.07);
+  border-color: var(--colorRichPurple);
 }
 
 .siteNav.scrolled .navLink {
-  color: var(--colorTextOnDark);
+  color: rgba(13, 11, 43, 0.60);
 }
 
 .siteNav.scrolled .navLink::after {
-  background: var(--colorSecondary);
+  background: var(--colorRichPurple);
 }
 
 .siteNav.scrolled .navLink:hover {
-  color: var(--colorSecondary);
+  color: var(--colorDeepNavy);
 }
 
 .siteNav.scrolled .navLink.active {
-  color: var(--colorSecondary);
-  background: transparent;
-  border: none;
+  color: var(--colorRichPurple);
+  background: rgba(107, 95, 160, 0.08);
+  border-color: rgba(107, 95, 160, 0.2);
 }
 
 .siteNav.scrolled .darkModeToggle {
-  border-color: var(--colorTextOnDark);
-  color: var(--colorTextOnDark);
+  border-color: rgba(13, 11, 43, 0.20);
+  color: rgba(13, 11, 43, 0.55);
 }
 
 .siteNav.scrolled .darkModeToggle:hover {
-  border-color: var(--colorSecondary);
-  color: var(--colorSecondary);
-  background: transparent;
+  border-color: var(--colorRichPurple);
+  color: var(--colorRichPurple);
+  background: rgba(107, 95, 160, 0.07);
 }
 
 .siteNav.scrolled .navHamburger {
-  border-color: var(--colorTextOnDark);
+  border-color: rgba(13, 11, 43, 0.14);
 }
 
 .siteNav.scrolled .navHamburger:hover {
-  border-color: var(--colorSecondary);
+  border-color: rgba(107, 95, 160, 0.4);
 }
 
 .siteNav.scrolled .navHamburgerLine {
-  background: var(--colorTextOnDark);
+  background: rgba(13, 11, 43, 0.65);
 }
 
 .navInner {
@@ -129,10 +130,10 @@
   font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--colorTextOnDark);
+  color: rgba(255, 255, 255, 0.90);
   width: 30px;
   height: 30px;
-  border: 1px solid var(--colorTextOnDark);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,9 +142,8 @@
 }
 
 .navLogo:hover::before {
-  background: var(--colorSecondary);
-  border-color: var(--colorSecondary);
-  color: var(--colorTextOnLight);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.60);
 }
 
 .navLogoText {
@@ -156,7 +156,7 @@
   font-family: var(--fontDisplay);
   font-size: clamp(1rem, 1.8vw, 1.375rem);
   font-weight: 700;
-  color: var(--colorTextOnDark);
+  color: rgba(255, 255, 255, 0.95);
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
   line-height: 1;
@@ -167,7 +167,7 @@
   font-family: var(--fontBody);
   font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
   font-weight: 400;
-  color: var(--colorTextOnDark);
+  color: rgba(255, 255, 255, 0.60);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-top: 0.25rem;
@@ -189,7 +189,7 @@
   font-weight: 500;
   letter-spacing: var(--letterSpacingWide);
   text-transform: uppercase;
-  color: var(--colorTextOnDark);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   position: relative;
   padding: 0.35rem 0.75rem;
@@ -206,47 +206,37 @@
   left: 0.75rem;
   right: 0.75rem;
   height: 1px;
-  background: var(--colorSecondary);
+  background: var(--colorGold);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
 }
 
 .navLink:hover {
-  color: var(--colorSecondary);
+  color: var(--colorWhite);
 }
 
 .navLink:hover::after {
   transform: scaleX(1);
 }
 
-/* Active link — animated underline, no pill */
+/* Active link — pill highlight (transparent nav state) */
 .navLink.active {
-  color: var(--colorSecondary);
+  color: var(--colorGold);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .navLink.active::after {
-  transform: scaleX(1);
+  display: none;
 }
 
-/* CTA button — stands out on dark nav with yellow fill */
+/* CTA separator */
 .navCta {
   margin-left: var(--spaceSm);
   padding: 0.45rem 1.25rem;
-  border-radius: 6px;
+  border-radius: 2px;
   letter-spacing: 0.1em;
-  background: var(--colorSecondary) !important;
-  color: var(--colorTextOnLight) !important;
-  border: none !important;
-  box-shadow: 0 2px 12px rgba(255,236,150,0.30);
-  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease !important;
-}
-
-.navCta:hover {
-  background: rgba(255,255,255,0.95) !important;
-  color: var(--colorTextOnLight) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(255,236,150,0.25);
 }
 
 /* ===========================
@@ -260,17 +250,17 @@
   align-items: center;
   justify-content: center;
   background: transparent;
-  border: 1.5px solid var(--colorTextOnDark);
-  color: var(--colorTextOnDark);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.9375rem;
   transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease, transform 0.3s ease;
   flex-shrink: 0;
 }
 
 .darkModeToggle:hover {
-  border-color: var(--colorSecondary);
-  color: var(--colorSecondary);
-  background: transparent;
+  border-color: var(--colorGold);
+  color: var(--colorGold);
+  background: rgba(232, 197, 48, 0.10);
   transform: rotate(20deg);
 }
 
@@ -278,7 +268,7 @@ body.hasCursor .darkModeToggle {
   cursor: none;
 }
 
-/* Force perfect circle on mobile */
+/* Force perfect circle on mobile — overrides global button min-height: 48px rule */
 @media (max-width: 768px) {
   .darkModeToggle {
     min-height: 36px;
@@ -296,8 +286,8 @@ body.hasCursor .darkModeToggle {
   flex-direction: column;
   gap: 5px;
   padding: 0.5rem;
-  background: transparent;
-  border: 1px solid var(--colorTextOnDark);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 4px;
   min-height: 0;
   width: 40px;
@@ -308,7 +298,7 @@ body.hasCursor .darkModeToggle {
 }
 
 .navHamburger:hover {
-  border-color: var(--colorSecondary);
+  border-color: rgba(255, 255, 255, 0.60);
 }
 
 body.hasCursor .navHamburger {
@@ -319,7 +309,7 @@ body.hasCursor .navHamburger {
   display: block;
   width: 20px;
   height: 1.5px;
-  background: var(--colorTextOnDark);
+  background: rgba(255, 255, 255, 0.80);
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
   transform-origin: center;
@@ -327,7 +317,7 @@ body.hasCursor .navHamburger {
 
 .navHamburger.open .navHamburgerLine:nth-child(1) {
   transform: translateY(6.5px) rotate(45deg);
-  background: var(--colorSecondary);
+  background: var(--colorGold);
 }
 
 .navHamburger.open .navHamburgerLine:nth-child(2) {
@@ -336,7 +326,7 @@ body.hasCursor .navHamburger {
 
 .navHamburger.open .navHamburgerLine:nth-child(3) {
   transform: translateY(-6.5px) rotate(-45deg);
-  background: var(--colorSecondary);
+  background: var(--colorGold);
 }
 
 /* ===========================
@@ -346,9 +336,9 @@ body.hasCursor .navHamburger {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  background: rgba(235, 231, 247, 0.72);
+  backdrop-filter: blur(36px) saturate(180%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%);
   z-index: 999;
   align-items: center;
   justify-content: center;
@@ -363,12 +353,15 @@ body.hasCursor .navHamburger {
 }
 
 .navOverlayInner {
-  background: var(--colorBackgroundDark);
-  border: 1px solid rgba(255,255,255,0.20);
-  border-top: 2px solid var(--colorSecondary);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-top: 2px solid var(--colorRichPurple);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow:
+    0 40px 80px rgba(13, 11, 43, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(107, 95, 160, 0.08);
   padding: 2.5rem 2.75rem 2rem;
   width: min(88vw, 400px);
   position: relative;
@@ -385,7 +378,7 @@ body.hasCursor .navHamburger {
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--colorSecondary);
+  background: linear-gradient(to right, transparent, rgba(201, 149, 42, 0.55), transparent);
   pointer-events: none;
 }
 
@@ -396,7 +389,7 @@ body.hasCursor .navHamburger {
   right: -30%;
   width: 260px;
   height: 260px;
-  background: transparent;
+  background: radial-gradient(circle, rgba(110, 114, 184, 0.10) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -415,19 +408,19 @@ body.hasCursor .navHamburger {
   font-family: var(--fontBody);
   font-size: 0.625rem;
   font-weight: 500;
-  color: var(--colorSecondary);
+  color: var(--colorRichPurple);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   padding-bottom: 1.25rem;
   margin-bottom: 0.25rem;
-  border-bottom: 1px solid rgba(255,255,255,0.20);
+  border-bottom: 1px solid rgba(107, 95, 160, 0.12);
 }
 
 .navOverlayLink {
   font-family: var(--fontBody);
   font-size: 0.8125rem;
   font-weight: 400;
-  color: var(--colorTextOnDark);
+  color: rgba(13, 11, 43, 0.62);
   text-decoration: none;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -435,7 +428,7 @@ body.hasCursor .navHamburger {
   align-items: center;
   gap: 0.875rem;
   padding: 0.9rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(13, 11, 43, 0.07);
   transition: color 0.22s ease, gap 0.22s ease;
   min-height: 0;
 }
@@ -448,14 +441,14 @@ body.hasCursor .navHamburger {
   content: '';
   width: 16px;
   height: 1px;
-  background: var(--colorSecondary);
+  background: var(--colorRichPurple);
   flex-shrink: 0;
   opacity: 0.4;
   transition: width 0.22s ease, opacity 0.22s ease;
 }
 
 .navOverlayLink:hover {
-  color: var(--colorSecondary);
+  color: var(--colorRichPurple);
   gap: 1.2rem;
 }
 
@@ -468,10 +461,10 @@ body.hasCursor .navHamburger {
   position: absolute;
   top: 0.875rem;
   right: 0.875rem;
-  color: var(--colorTextOnDark);
+  color: rgba(13, 11, 43, 0.40);
   font-size: 0.8125rem;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.30);
+  background: rgba(110, 114, 184, 0.06);
+  border: 1px solid rgba(110, 114, 184, 0.18);
   border-radius: 50%;
   width: 34px;
   height: 34px;
@@ -484,9 +477,9 @@ body.hasCursor .navHamburger {
 }
 
 .navOverlayClose:hover {
-  color: var(--colorSecondary);
-  border-color: var(--colorSecondary);
-  background: transparent;
+  color: var(--colorRichPurple);
+  border-color: rgba(110, 114, 184, 0.4);
+  background: rgba(110, 114, 184, 0.10);
 }
 
 body.hasCursor .navOverlayClose {

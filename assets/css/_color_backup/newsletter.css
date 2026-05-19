@@ -4,17 +4,19 @@
 
 .newsletterSection {
   position: relative;
-  background: var(--colorBackgroundAlt);
+  background: linear-gradient(135deg, var(--colorRichPurple) 0%, var(--colorPurpleDark) 100%);
   padding: var(--spaceSection) 0;
   overflow: hidden;
 }
 
-/* No overlay gradient */
+/* Subtle decorative background */
 .newsletterSection::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: none;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(221, 184, 46, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse at 10% 80%, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -28,9 +30,11 @@
   pointer-events: none;
 }
 
-/* sectionLabel on yellow bg — blue dot + blue text (readable) */
+/* Gold sectionLabel on periwinkle newsletter background */
 .newsletterSection .sectionLabel {
-  color: var(--colorPrimary);
+  color: var(--colorGold);
+  border-color: rgba(232, 197, 48, 0.30);
+  background: rgba(232, 197, 48, 0.06);
 }
 
 .newsletterContent {
@@ -45,7 +49,7 @@
   font-family: var(--fontDisplay);
   font-size: var(--fontSizeSectionTitle);
   font-weight: 600;
-  color: var(--colorTextOnLight);
+  color: var(--colorWhite);
   line-height: var(--lineHeightDisplay);
   letter-spacing: var(--letterSpacingTitle);
   margin-bottom: var(--spaceSm);
@@ -53,7 +57,7 @@
 
 .newsletterSubheading {
   font-size: var(--fontSizeBody);
-  color: var(--colorTextOnLight);
+  color: var(--colorLightLavender);
   line-height: var(--lineHeightBody);
   margin-bottom: var(--spaceLg);
 }
@@ -68,13 +72,10 @@
 .newsletterInput {
   flex: 1;
   padding: 0.875rem 1.25rem;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(88,98,163,0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-right: none;
-  border-radius: 6px 0 0 6px;
-  color: var(--colorTextOnLight);
+  color: var(--colorWhite);
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
   outline: none;
@@ -83,29 +84,27 @@
 }
 
 .newsletterInput::placeholder {
-  color: var(--colorTextOnLight);
-  opacity: 0.5;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .newsletterInput:focus {
-  background: var(--colorBackground);
-  border-color: var(--colorPrimary);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(201, 149, 42, 0.6);
 }
 
 .newsletterSubmit {
   padding: 0.875rem 1.75rem;
-  background: var(--colorPrimary);
-  color: var(--colorTextOnDark);
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
   border: none;
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: background 0.3s ease;
   white-space: nowrap;
   min-height: 0;
-  border-radius: 0 6px 6px 0;
 }
 
 body.hasCursor .newsletterSubmit {
@@ -113,13 +112,13 @@ body.hasCursor .newsletterSubmit {
 }
 
 .newsletterSubmit:hover {
-  background: var(--colorBlack);
+  background: var(--colorGoldLight);
 }
 
 .newsletterPrivacy {
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  color: var(--colorTextOnLight);
+  color: rgba(255, 255, 255, 0.4);
   letter-spacing: 0.04em;
 }
 
@@ -127,9 +126,9 @@ body.hasCursor .newsletterSubmit {
   display: none;
   font-family: var(--fontBody);
   font-size: var(--fontSizeBody);
-  color: var(--colorTextOnLight);
+  color: var(--colorGold);
   padding: var(--spaceSm);
-  border: 1px solid var(--colorPrimary);
+  border: 1px solid rgba(201, 149, 42, 0.3);
   margin-top: var(--spaceSm);
 }
 

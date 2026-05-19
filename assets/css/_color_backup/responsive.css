@@ -48,7 +48,7 @@
     margin-left: auto;
     margin-right: auto;
     border-left: none;
-    border-top: 2px solid var(--colorPrimary);
+    border-top: 2px solid rgba(201, 149, 42, 0.3);
     padding-left: 0;
     padding-top: var(--spaceXs);
     text-align: center;
@@ -152,66 +152,83 @@
 
 /* ========== BOOKS ========== */
 
-/* Showcase alternating — tablet: tighter columns */
+/* Featured book — tablet */
 @media (max-width: 992px) {
-  .booksShowcase,
-  .booksShowcase:nth-child(even) {
+  .booksFeatured {
     grid-template-columns: 220px 1fr;
     gap: var(--spaceMd);
+    padding: var(--spaceMd);
   }
 
-  .booksShowcase:nth-child(even) .booksShowcaseCoverWrap {
-    order: 0;
-  }
-
-  .booksShowcase:nth-child(even) .booksShowcaseContent {
-    order: 0;
+  .booksFeaturedTitle {
+    font-size: clamp(1.375rem, 3vw, 2rem);
   }
 }
 
-/* Showcase — mobile: stack vertically */
+/* Featured book — mobile: stack vertically */
 @media (max-width: 768px) {
-  .booksShowcase,
-  .booksShowcase:nth-child(even) {
+  .booksFeatured {
     grid-template-columns: 1fr;
     text-align: center;
+    padding: var(--spaceMd);
   }
 
-  .booksShowcase:nth-child(even) .booksShowcaseCoverWrap,
-  .booksShowcase:nth-child(even) .booksShowcaseContent {
-    order: 0;
-  }
-
-  .booksShowcaseCoverWrap {
+  .booksFeaturedCover {
     justify-content: center;
   }
 
-  .booksShowcaseMeta {
+  .booksFeaturedCover img {
+    max-width: 180px;
+  }
+
+  .booksFeaturedMeta {
     justify-content: center;
   }
 
-  .booksShowcaseStars {
+  .booksFeaturedStars {
     justify-content: center;
   }
 
-  .booksShowcaseBullets {
+  .booksFeaturedBullets {
     align-items: flex-start;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .booksShowcaseBullet {
+  .booksFeaturedBullet {
     text-align: left;
+    justify-content: flex-start;
   }
 
-  .booksShowcaseActions {
+  .booksFeaturedActions {
     justify-content: center;
   }
 
-  .booksShowcaseDesc {
+  .booksFeaturedDesc {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  /* Compact row: 2 columns on tablet */
+  .booksRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Compact row — mobile: single column */
+@media (max-width: 480px) {
+  .booksRow {
+    grid-template-columns: 1fr;
+    gap: var(--spaceXs);
+  }
+
+  .bookCardCompact {
+    gap: var(--spaceSm);
+  }
+
+  .bookCardCompactCover {
+    width: 88px;
   }
 }
 
@@ -238,14 +255,8 @@
 /* ========== ENDORSEMENTS ========== */
 @media (max-width: 992px) {
   .endorsementsGrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 576px) {
-  .endorsementsGrid {
     grid-template-columns: 1fr;
-    max-width: 560px;
+    max-width: 600px;
     margin: 0 auto;
   }
 }
@@ -272,8 +283,11 @@
     text-align: center;
   }
 
+  /* Vertical bar becomes a short horizontal accent on mobile */
   .researchPullQuoteBar {
-    display: none;
+    width: 40px;
+    height: 3px;
+    margin: 0 auto var(--spaceMd);
   }
 
   /* Hide the large floating quote mark that breaks centered layout */
@@ -290,19 +304,13 @@
   }
 
   .researchStats {
-    gap: var(--spaceMd);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 576px) {
   .researchStats {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spaceSm);
-  }
-
-  .researchStat + .researchStat::before {
-    display: none;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -313,7 +321,7 @@
   }
 
   .newsletterInput {
-    border-right: 1px solid var(--colorPrimary);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom: none;
   }
 
@@ -344,17 +352,7 @@
 }
 
 /* ========== FOOTER ========== */
-@media (max-width: 1100px) {
-  .footerGrid {
-    grid-template-columns: 2fr 1fr 1fr;
-  }
-
-  .footerGrid > div:last-child {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .footerGrid {
     grid-template-columns: 1fr 1fr;
   }
@@ -362,25 +360,25 @@
   .footerBrand {
     grid-column: 1 / -1;
   }
-
-  .footerGrid > div:last-child {
-    grid-column: auto;
-  }
 }
 
 @media (max-width: 576px) {
+  .footerMission {
+    gap: var(--spaceSm);
+  }
+
   .footerMissionQuote {
     white-space: normal;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
+    text-align: center;
+  }
+
+  .footerMissionLine {
+    display: none;
   }
 
   .footerGrid {
     grid-template-columns: 1fr;
-  }
-
-  .footerBrand,
-  .footerGrid > div:last-child {
-    grid-column: auto;
   }
 
   .footerBottom {
@@ -390,16 +388,6 @@
 }
 
 /* ========== ABOUT PAGE ========== */
-@media (max-width: 768px) {
-  .aboutPageHeroContent {
-    grid-template-columns: 1fr;
-  }
-
-  .aboutPageHeroInner {
-    max-width: 100%;
-  }
-}
-
 @media (max-width: 992px) {
   .aboutBioGrid {
     grid-template-columns: 1fr;
@@ -417,22 +405,6 @@
   .reviewsDots {
     gap: 0.4rem;
     padding: 0.25rem 0;
-    flex-direction: row;
-    flex-wrap: nowrap;
-  }
-
-  /* Override global button min-height: 48px touch-target rule */
-  .reviewsDot {
-    min-height: 0 !important;
-    height: 8px !important;
-    width: 8px !important;
-    display: block !important;
-    align-items: unset !important;
-  }
-
-  .reviewsDot.active {
-    width: 22px !important;
-    height: 8px !important;
   }
 
   .reviewCard {
@@ -471,7 +443,7 @@
   }
 
   .featuredInCard:nth-child(3) {
-    border-right: 1px solid var(--colorPrimary);
+    border-right: 1px solid rgba(201, 149, 42, 0.12);
   }
 }
 

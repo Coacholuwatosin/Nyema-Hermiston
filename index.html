@@ -156,8 +156,10 @@
     =============================== -->
     <section class="heroSection" aria-labelledby="heroHeadline">
 
-      <!-- Geometric decorative lines (CSS only) -->
+      <!-- Geometric decorative elements (CSS only) -->
       <div class="heroGeometry" aria-hidden="true">
+        <span class="heroGeomBlob"></span>
+        <span class="heroGeomBlobAlt"></span>
         <span class="heroGeomLine heroGeomLine1"></span>
         <span class="heroGeomLine heroGeomLine2"></span>
         <span class="heroGeomLine heroGeomLine3"></span>
@@ -180,7 +182,9 @@
               <span class="heroHeadlineSub">with the research they deserve</span>
             </h1>
 
-            <p class="heroSubheading" data-typewriter="Evidence-based guidance on pregnancy, neurodevelopment, and natural health — written by a practitioner with 30 years of clinical experience."></p>
+            <div class="heroSubheadingWrap">
+              <p class="heroSubheading" data-typewriter="Evidence-based guidance on pregnancy, neurodevelopment, and natural health — written by a practitioner with 30 years of clinical experience."></p>
+            </div>
 
             <div class="heroCtas">
               <a href="books.html" class="btnPrimary">Explore My Books</a>
@@ -218,16 +222,18 @@
               <div class="heroBookGlow" aria-hidden="true"></div>
               <span class="heroBookStageAccent" aria-hidden="true"></span>
 
-              <div class="heroBookMockup">
-                <img src="assets/images/Planning-Parenthood-in-the-Age-of-Autism-Book-Cover.png"
-                     alt="Planning Parenthood in the Age of Autism book cover"
-                     class="heroBookImage"
-                     loading="eager"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="heroBookPlaceholder" style="display:none">
-                  <span class="heroBookPlaceholderAuthor">Nyema Hermiston</span>
-                  <span class="heroBookPlaceholderTitle">Planning Parenthood in the Age of Autism</span>
-                  <span class="heroBookPlaceholderLine"></span>
+              <div class="heroBook3DWrap">
+                <div class="heroBookMockup">
+                  <img src="assets/images/Planning-Parenthood-in-the-Age-of-Autism-Book-Cover.png"
+                       alt="Planning Parenthood in the Age of Autism book cover"
+                       class="heroBookImage"
+                       loading="eager"
+                       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                  <div class="heroBookPlaceholder" style="display:none">
+                    <span class="heroBookPlaceholderAuthor">Nyema Hermiston</span>
+                    <span class="heroBookPlaceholderTitle">Planning Parenthood in the Age of Autism</span>
+                    <span class="heroBookPlaceholderLine"></span>
+                  </div>
                 </div>
               </div>
 
@@ -354,103 +360,126 @@
 
         <div class="booksSectionHeader" data-aos="fade-up">
           <span class="sectionLabel">Published Works</span>
-          <h2 class="sectionTitle sectionTitleLight" id="booksSectionTitle">The Books</h2>
+          <h2 class="sectionTitle sectionTitleDark" id="booksSectionTitle">The Books</h2>
           <span class="goldUnderlineCentered"></span>
         </div>
 
-        <!-- Featured Book — Book 01 -->
-        <article class="booksFeatured" data-aos="fade-up" data-aos-delay="100">
+        <!-- Alternating Book Showcases -->
+        <div class="booksShowcases">
 
-          <div class="booksFeaturedCover lightboxTrigger">
-            <img src="assets/images/Planning-Parenthood-in-the-Age-of-Autism-Book-Cover.png"
-                 alt="Planning Parenthood in the Age of Autism"
-                 loading="lazy"
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-            <div class="bookCardCoverPlaceholder" style="display:none">
-              <span class="bookCardCoverAuthor">Nyema Hermiston</span>
-              <span class="bookCardCoverPlaceholderText">Planning Parenthood in the Age of Autism</span>
+          <!-- Book 01 — image left -->
+          <article class="booksShowcase" data-aos="fade-up" data-aos-delay="100">
+            <div class="booksShowcaseCoverWrap">
+              <div class="booksShowcaseCoverInner lightboxTrigger">
+                <img src="assets/images/Planning-Parenthood-in-the-Age-of-Autism-Book-Cover.png"
+                     alt="Planning Parenthood in the Age of Autism"
+                     loading="lazy"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="bookCardCoverPlaceholder" style="display:none">
+                  <span class="bookCardCoverAuthor">Nyema Hermiston</span>
+                  <span class="bookCardCoverPlaceholderText">Planning Parenthood in the Age of Autism</span>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="booksFeaturedContent">
-            <div class="booksFeaturedMeta">
-              <span class="booksFeaturedNum">01</span>
-              <span class="booksFeaturedTag">Neurodevelopment</span>
-            </div>
-
-            <h3 class="booksFeaturedTitle">Planning Parenthood in the Age of Autism</h3>
-
-            <div class="booksFeaturedStars" aria-label="5 stars">★★★★★
-              <span class="booksFeaturedStarsLabel">on Goodreads</span>
-            </div>
-
-            <p class="booksFeaturedDesc">A research-based guide for parents who want to make informed choices about pregnancy and neurodevelopmental health — drawing on environmental medicine, nutrition, and the science mainstream medicine is slow to discuss.</p>
-
-            <ul class="booksFeaturedBullets" role="list">
-              <li class="booksFeaturedBullet">Evidence-based prenatal and perinatal guidance</li>
-              <li class="booksFeaturedBullet">Environmental and nutritional risk factors explained</li>
-              <li class="booksFeaturedBullet">What the research shows — without the filter</li>
-            </ul>
-
-            <div class="booksFeaturedActions">
-              <a href="https://a.co/d/0dZMKSY9" class="btnPrimary" target="_blank" rel="noopener noreferrer">
-                <i class="ri-amazon-fill" aria-hidden="true"></i>
-                Buy on Amazon
-              </a>
-              <a href="books.html" class="btnSecondary">Full Details</a>
-            </div>
-          </div>
-
-        </article>
-
-        <!-- Other Books Row — Books 02, 03, 04 -->
-        <div class="booksRow">
-
-          <article class="bookCardCompact" data-aos="fade-up" data-aos-delay="150">
-            <div class="bookCardCompactCover lightboxTrigger">
-              <img src="assets/images/Treat_Your_Childs_Ear_Infections_Yourself_Front-Cover.webp"
-                   alt="Treat Your Child's Ear Infections Yourself"
-                   loading="lazy"
-                   onerror="this.style.display='none'">
-            </div>
-            <div class="bookCardCompactBody">
-              <span class="bookCardCompactNum">02</span>
-              <span class="bookCardCompactTag">Child Health</span>
-              <h3 class="bookCardCompactTitle">Treat Your Child's Ear Infections Yourself</h3>
-              <p class="bookCardCompactDesc">Safe, drug-free management of ear pain and infections at home.</p>
-              <a href="https://a.co/d/0eJ2OJzH" class="btnPrimary btnSm bookCardCompactBtn" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+            <div class="booksShowcaseContent">
+              <div class="booksShowcaseMeta">
+                <span class="booksShowcaseNum">01</span>
+                <span class="booksShowcaseTag">Neurodevelopment</span>
+              </div>
+              <h3 class="booksShowcaseTitle">Planning Parenthood in the Age of Autism</h3>
+              <div class="booksShowcaseStars" aria-label="5 stars">★★★★★
+                <span class="booksShowcaseStarsLabel">on Goodreads</span>
+              </div>
+              <p class="booksShowcaseDesc">A research-based guide for parents who want to make informed choices about pregnancy and neurodevelopmental health — drawing on environmental medicine, nutrition, and the science mainstream medicine is slow to discuss.</p>
+              <ul class="booksShowcaseBullets" role="list">
+                <li class="booksShowcaseBullet"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>Evidence-based prenatal and perinatal guidance</li>
+                <li class="booksShowcaseBullet"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>Environmental and nutritional risk factors explained</li>
+                <li class="booksShowcaseBullet"><i class="ri-checkbox-circle-line" aria-hidden="true"></i>What the research shows — without the filter</li>
+              </ul>
+              <div class="booksShowcaseActions">
+                <a href="https://a.co/d/0dZMKSY9" class="btnPrimary" target="_blank" rel="noopener noreferrer">
+                  <i class="ri-amazon-fill" aria-hidden="true"></i> Buy on Amazon
+                </a>
+                <a href="books.html" class="btnSecondary">Full Details</a>
+              </div>
             </div>
           </article>
 
-          <article class="bookCardCompact" data-aos="fade-up" data-aos-delay="250">
-            <div class="bookCardCompactCover lightboxTrigger">
-              <img src="assets/images/Treat-Your-Child-Yourself-Front-Cover.webp"
-                   alt="Treat Your Child Yourself"
-                   loading="lazy"
-                   onerror="this.style.display='none'">
+          <!-- Book 02 — image right (even) -->
+          <article class="booksShowcase" data-aos="fade-up" data-aos-delay="100">
+            <div class="booksShowcaseCoverWrap">
+              <div class="booksShowcaseCoverInner lightboxTrigger">
+                <img src="assets/images/Treat_Your_Childs_Ear_Infections_Yourself_Front-Cover.webp"
+                     alt="Treat Your Child's Ear Infections Yourself"
+                     loading="lazy"
+                     onerror="this.style.display='none'">
+              </div>
             </div>
-            <div class="bookCardCompactBody">
-              <span class="bookCardCompactNum">03</span>
-              <span class="bookCardCompactTag">Natural Health</span>
-              <h3 class="bookCardCompactTitle">Treat Your Child Yourself</h3>
-              <p class="bookCardCompactDesc">Drug-free solutions for 100+ common childhood ailments, with Jon Gamble.</p>
-              <a href="https://a.co/d/0d3mZlfU" class="btnPrimary btnSm bookCardCompactBtn" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+            <div class="booksShowcaseContent">
+              <div class="booksShowcaseMeta">
+                <span class="booksShowcaseNum">02</span>
+                <span class="booksShowcaseTag">Child Health</span>
+              </div>
+              <h3 class="booksShowcaseTitle">Treat Your Child's Ear Infections Yourself</h3>
+              <p class="booksShowcaseDesc">Safe, drug-free management of ear pain and infections at home. A practical guide built on natural health principles and three decades of clinical experience in childhood care.</p>
+              <div class="booksShowcaseActions">
+                <a href="https://a.co/d/0eJ2OJzH" class="btnPrimary" target="_blank" rel="noopener noreferrer">
+                  <i class="ri-amazon-fill" aria-hidden="true"></i> Buy on Amazon
+                </a>
+                <a href="books.html" class="btnSecondary">Full Details</a>
+              </div>
             </div>
           </article>
 
-          <article class="bookCardCompact" data-aos="fade-up" data-aos-delay="350">
-            <div class="bookCardCompactCover lightboxTrigger">
-              <img src="assets/images/GoodNews_Cover.webp"
-                   alt="Good News for People with Bad News"
-                   loading="lazy"
-                   onerror="this.style.display='none'">
+          <!-- Book 03 — image left (odd) -->
+          <article class="booksShowcase" data-aos="fade-up" data-aos-delay="100">
+            <div class="booksShowcaseCoverWrap">
+              <div class="booksShowcaseCoverInner lightboxTrigger">
+                <img src="assets/images/Treat-Your-Child-Yourself-Front-Cover.webp"
+                     alt="Treat Your Child Yourself"
+                     loading="lazy"
+                     onerror="this.style.display='none'">
+              </div>
             </div>
-            <div class="bookCardCompactBody">
-              <span class="bookCardCompactNum">04</span>
-              <span class="bookCardCompactTag">Homeopathy</span>
-              <h3 class="bookCardCompactTitle">Good News for People with Bad News</h3>
-              <p class="bookCardCompactDesc">41 recovery interviews from six countries using dynamic therapies.</p>
-              <a href="https://a.co/d/01mxx0SD" class="btnPrimary btnSm bookCardCompactBtn" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+            <div class="booksShowcaseContent">
+              <div class="booksShowcaseMeta">
+                <span class="booksShowcaseNum">03</span>
+                <span class="booksShowcaseTag">Natural Health</span>
+              </div>
+              <h3 class="booksShowcaseTitle">Treat Your Child Yourself</h3>
+              <p class="booksShowcaseDesc">Drug-free solutions for 100+ common childhood ailments, written with Jon Gamble. An essential family health reference that empowers parents with natural, evidence-informed care for everyday illnesses.</p>
+              <div class="booksShowcaseActions">
+                <a href="https://a.co/d/0d3mZlfU" class="btnPrimary" target="_blank" rel="noopener noreferrer">
+                  <i class="ri-amazon-fill" aria-hidden="true"></i> Buy on Amazon
+                </a>
+                <a href="books.html" class="btnSecondary">Full Details</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Book 04 — image right (even) -->
+          <article class="booksShowcase" data-aos="fade-up" data-aos-delay="100">
+            <div class="booksShowcaseCoverWrap">
+              <div class="booksShowcaseCoverInner lightboxTrigger">
+                <img src="assets/images/GoodNews_Cover.webp"
+                     alt="Good News for People with Bad News"
+                     loading="lazy"
+                     onerror="this.style.display='none'">
+              </div>
+            </div>
+            <div class="booksShowcaseContent">
+              <div class="booksShowcaseMeta">
+                <span class="booksShowcaseNum">04</span>
+                <span class="booksShowcaseTag">Homeopathy</span>
+              </div>
+              <h3 class="booksShowcaseTitle">Good News for People with Bad News</h3>
+              <p class="booksShowcaseDesc">41 documented recovery interviews from six countries using dynamic therapies. A compelling collection of case studies that challenges prevailing assumptions about what recovery can look like.</p>
+              <div class="booksShowcaseActions">
+                <a href="https://a.co/d/01mxx0SD" class="btnPrimary" target="_blank" rel="noopener noreferrer">
+                  <i class="ri-amazon-fill" aria-hidden="true"></i> Buy on Amazon
+                </a>
+                <a href="books.html" class="btnSecondary">Full Details</a>
+              </div>
             </div>
           </article>
 
@@ -747,7 +776,7 @@
       <div class="container">
         <div class="endorsementsSectionHeader" data-aos="fade-up">
           <span class="sectionLabel">Professional Endorsements</span>
-          <h2 class="sectionTitle sectionTitleLight" id="endorsementsSectionTitle">What Medical Professionals Say</h2>
+          <h2 class="sectionTitle sectionTitleDark" id="endorsementsSectionTitle">What Medical Professionals Say</h2>
           <span class="goldUnderlineCentered"></span>
         </div>
 
@@ -908,7 +937,7 @@
       <div class="container">
         <div class="faqHeader" data-aos="fade-up">
           <span class="sectionLabel">Common Questions</span>
-          <h2 class="sectionTitle sectionTitleLight" id="faqTitle">Frequently Asked Questions</h2>
+          <h2 class="sectionTitle sectionTitleDark" id="faqTitle">Frequently Asked Questions</h2>
           <span class="goldUnderlineCentered"></span>
         </div>
 
@@ -1013,25 +1042,25 @@
           <!-- Left -->
           <div class="contactInfo" data-aos="fade-right">
             <span class="sectionLabel">Enquiries</span>
-            <h2 class="sectionTitle sectionTitleLight" id="contactSectionTitle">Get In Touch</h2>
+            <h2 class="sectionTitle sectionTitleDark" id="contactSectionTitle">Get In Touch</h2>
             <span class="goldUnderlineSpaced"></span>
             <p class="contactIntroText">Whether you are a reader, a healthcare professional, a journalist, or an event organiser, Nyema welcomes your enquiry.</p>
 
             <ul class="contactCategories" role="list">
               <li class="contactCategory">
-                <span class="contactCategoryIcon" aria-hidden="true">&#9675;</span>
+                <span class="contactCategoryIcon"><i class="ri-book-open-line" aria-hidden="true"></i></span>
                 <span class="contactCategoryText">Reader Enquiries</span>
               </li>
               <li class="contactCategory">
-                <span class="contactCategoryIcon" aria-hidden="true">&#9675;</span>
+                <span class="contactCategoryIcon"><i class="ri-newspaper-line" aria-hidden="true"></i></span>
                 <span class="contactCategoryText">Media and Press</span>
               </li>
               <li class="contactCategory">
-                <span class="contactCategoryIcon" aria-hidden="true">&#9675;</span>
+                <span class="contactCategoryIcon"><i class="ri-mic-line" aria-hidden="true"></i></span>
                 <span class="contactCategoryText">Speaking Invitations</span>
               </li>
               <li class="contactCategory">
-                <span class="contactCategoryIcon" aria-hidden="true">&#9675;</span>
+                <span class="contactCategoryIcon"><i class="ri-heart-pulse-line" aria-hidden="true"></i></span>
                 <span class="contactCategoryText">Healthcare Professional Collaboration</span>
               </li>
             </ul>
@@ -1094,25 +1123,23 @@
     <div class="container">
 
       <div class="footerMission" aria-hidden="true">
-        <span class="footerMissionLine"></span>
         <span class="footerMissionQuote">Empowering parents through evidence, not fear.</span>
-        <span class="footerMissionLine"></span>
       </div>
 
       <div class="footerGrid">
 
-        <!-- Column 1 -->
+        <!-- Column 1 — Brand -->
         <div class="footerBrand">
           <a href="index.html" aria-label="Nyema Hermiston Home">
             <span class="footerLogoName">Nyema Hermiston</span>
           </a>
           <span class="footerLogoTagline">RN · ND · Homeopath · Author</span>
-          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners.</p>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
         </div>
 
-        <!-- Column 2 -->
+        <!-- Column 2 — Navigate -->
         <nav aria-label="Footer navigation">
-          <span class="footerColHeading">Navigate</span>
+          <span class="footerColHeading">Explore</span>
           <ul class="footerLinks" role="list">
             <li><a href="index.html" class="footerLink">Home</a></li>
             <li><a href="about.html" class="footerLink">About</a></li>
@@ -1123,7 +1150,16 @@
           </ul>
         </nav>
 
-        <!-- Column 3 -->
+        <!-- Column 3 — Affiliations -->
+        <div>
+          <span class="footerColHeading">Affiliations</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
+            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4 — Connect -->
         <div>
           <span class="footerColHeading">Connect</span>
           <div class="footerSocial">
@@ -1140,10 +1176,6 @@
               <i class="ri-amazon-fill" aria-hidden="true"></i>
             </a>
           </div>
-          <ul class="footerLinks" role="list">
-            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
-            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
-          </ul>
         </div>
 
       </div>

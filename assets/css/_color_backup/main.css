@@ -4,16 +4,18 @@
 
 /* --- Color Palette --- */
 :root {
-  --colorPrimary: #5862a3;
-  --colorSecondary: #ffec96;
-  --colorWhite: #ffffff;
-  --colorBlack: #000000;
-  --colorBackground: #ffffff;
-  --colorBackgroundAlt: #ffec96;
-  --colorBackgroundDark: #5862a3;
-  --colorTextOnDark: #ffffff;
-  --colorTextOnLight: #000000;
-  --colorAccentText: #ffec96;
+  --colorDeepNavy: #5862a3;
+  --colorRichPurple: #5862a3;
+  --colorPurpleDark: #4A4E8E;
+  --colorGold: #E8C530;
+  --colorGoldLight: #F5D850;
+  --colorWhite: #FFFFFF;
+  --colorOffWhite: #FFFFFF;
+  --colorBgAlt: #F8F5C0;
+  --colorLightLavender: #EEEFFE;
+  --colorTextPrimary: #1E1B45;
+  --colorTextLight: #5A587A;
+  --colorBorderLight: #E0DEFF;
 
   /* --- Typography --- */
   --fontDisplay: 'Cormorant Garamond', Georgia, serif;
@@ -63,16 +65,10 @@ html {
 body {
   font-family: var(--fontBody);
   font-weight: 400;
-  color: var(--colorTextOnLight);
-  background-color: var(--colorBackground);
+  color: var(--colorTextPrimary);
+  background-color: var(--colorOffWhite);
   line-height: var(--lineHeightBody);
   overflow-x: hidden;
-}
-
-/* Utility: subtle dot grid on white sections */
-.dotGridBg {
-  background-image: radial-gradient(circle, rgba(88,98,163,0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
 }
 
 body.hasCursor {
@@ -87,7 +83,7 @@ img {
 
 a {
   text-decoration: none;
-  color: var(--colorPrimary);
+  color: inherit;
   transition: color 0.3s ease;
 }
 
@@ -97,7 +93,7 @@ ul {
 
 button {
   border: none;
-  background: transparent;
+  background: none;
   font-family: var(--fontBody);
 }
 
@@ -112,7 +108,7 @@ body.hasCursor button {
   left: 0;
   width: 0%;
   height: 3px;
-  background: var(--colorSecondary);
+  background: var(--colorGold);
   z-index: 9999;
   transition: width 0.1s linear;
 }
@@ -121,7 +117,7 @@ body.hasCursor button {
 .pageLoader {
   position: fixed;
   inset: 0;
-  background: var(--colorBackgroundDark);
+  background: var(--colorOffWhite);
   z-index: 99999;
   display: flex;
   align-items: center;
@@ -140,7 +136,7 @@ body.hasCursor button {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 300;
   letter-spacing: var(--letterSpacingWide);
-  color: var(--colorTextOnDark);
+  color: var(--colorGold);
   text-transform: uppercase;
   animation: loaderFade 1s ease forwards;
 }
@@ -156,7 +152,7 @@ body.hasCursor button {
   position: fixed;
   width: 12px;
   height: 12px;
-  background: var(--colorPrimary);
+  background: var(--colorGold);
   border-radius: 50%;
   pointer-events: none;
   z-index: 99998;
@@ -175,19 +171,19 @@ body.hasCursor button {
 .customCursor.hovered {
   width: 28px;
   height: 28px;
-  background: var(--colorSecondary);
-  border: 2px solid var(--colorPrimary);
+  background: transparent;
+  border: 2px solid var(--colorGold);
 }
 
 /* --- Buttons --- */
 .btnPrimary {
   display: inline-block;
-  background: var(--colorPrimary);
+  background: linear-gradient(135deg, var(--colorGold) 0%, var(--colorGoldLight) 55%, #d4a030 100%);
   background-size: 200% 100%;
   background-position: left center;
-  color: var(--colorTextOnDark);
+  color: var(--colorDeepNavy);
   padding: 0.875rem 2.5rem;
-  border-radius: 6px;
+  border-radius: 0;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-family: var(--fontBody);
@@ -195,7 +191,7 @@ body.hasCursor button {
   font-size: var(--fontSizeSmall);
   position: relative;
   overflow: hidden;
-  box-shadow: none;
+  box-shadow: 0 4px 20px rgba(201, 149, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -206,7 +202,7 @@ body.hasCursor button {
   left: -100%;
   width: 60%;
   height: 100%;
-  background: rgba(255,255,255,0.12);
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.22) 50%, transparent 70%);
   transition: left 0.55s ease;
   pointer-events: none;
 }
@@ -217,10 +213,9 @@ body.hasCursor .btnPrimary {
 
 .btnPrimary:hover {
   background-position: right center;
-  color: var(--colorTextOnLight);
-  background: var(--colorSecondary);
+  color: var(--colorDeepNavy);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(255,236,150,0.35);
+  box-shadow: 0 12px 36px rgba(201, 149, 42, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btnPrimary:hover::before {
@@ -229,13 +224,13 @@ body.hasCursor .btnPrimary {
 
 .btnSecondary {
   display: inline-block;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: 1.5px solid var(--colorPrimary);
-  color: var(--colorPrimary);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1.5px solid rgba(107, 95, 160, 0.28);
+  color: var(--colorDeepNavy);
   padding: 0.875rem 2.5rem;
-  border-radius: 6px;
+  border-radius: 0;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-family: var(--fontBody);
@@ -243,7 +238,7 @@ body.hasCursor .btnPrimary {
   font-size: var(--fontSizeSmall);
   position: relative;
   overflow: hidden;
-  box-shadow: none;
+  box-shadow: 0 4px 20px rgba(13, 11, 43, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -252,26 +247,26 @@ body.hasCursor .btnSecondary {
 }
 
 .btnSecondary:hover {
-  background: var(--colorPrimary);
-  border-color: var(--colorPrimary);
-  color: var(--colorTextOnDark);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--colorRichPurple);
+  color: var(--colorRichPurple);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(88,98,163,0.25);
+  box-shadow: 0 10px 32px rgba(107, 95, 160, 0.18), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .btnDark {
   display: inline-block;
-  background: var(--colorPrimary);
-  color: var(--colorTextOnDark);
+  background: linear-gradient(135deg, var(--colorDeepNavy) 0%, var(--colorRichPurple) 100%);
+  color: var(--colorWhite);
   padding: 0.875rem 2.5rem;
-  border-radius: 6px;
+  border-radius: 0;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-family: var(--fontBody);
   font-weight: 500;
   font-size: var(--fontSizeSmall);
-  border: 1px solid var(--colorPrimary);
-  box-shadow: none;
+  border: 1px solid rgba(107, 95, 160, 0.3);
+  box-shadow: 0 4px 20px rgba(13, 11, 43, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -280,51 +275,25 @@ body.hasCursor .btnDark {
 }
 
 .btnDark:hover {
-  color: var(--colorTextOnLight);
-  background: var(--colorSecondary);
+  color: var(--colorWhite);
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(255,236,150,0.35);
-  border-color: var(--colorSecondary);
+  box-shadow: 0 12px 36px rgba(107, 95, 160, 0.45), 0 0 0 1px rgba(221, 184, 46, 0.35);
+  border-color: rgba(221, 184, 46, 0.5);
 }
 
-/* --- Section Label — dot-prefix style (no border box) --- */
+/* --- Section Label --- */
 .sectionLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: inline-block;
   font-family: var(--fontBody);
   font-size: var(--fontSizeCredential);
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--colorPrimary);
+  color: var(--colorRichPurple);
   margin-bottom: var(--spaceSm);
-  padding: 0;
-  border: none;
-  background: transparent;
-}
-
-.sectionLabel::before {
-  content: '';
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
-}
-
-/* Section label on blue backgrounds — yellow dot + yellow text */
-.featuredInSection .sectionLabel,
-.booksPageHero .sectionLabel,
-.aboutTimelineSection .sectionLabel {
-  color: var(--colorSecondary);
-}
-
-/* Underline decoration on blue backgrounds */
-.featuredInSection .goldUnderlineCentered,
-.featuredInSection .goldUnderline {
-  background: var(--colorSecondary);
+  padding: 0.2rem 0.75rem;
+  border: 1px solid rgba(110, 114, 184, 0.25);
+  background: rgba(110, 114, 184, 0.06);
 }
 
 /* --- Section Title --- */
@@ -337,30 +306,28 @@ body.hasCursor .btnDark {
 }
 
 .sectionTitleLight {
-  color: var(--colorTextOnDark);
+  color: var(--colorWhite);
 }
 
 .sectionTitleDark {
-  color: var(--colorTextOnLight);
+  color: var(--colorTextPrimary);
 }
 
-/* --- Underline Decoration --- */
+/* --- Gold Underline Decoration --- */
 .goldUnderline {
   display: block;
-  width: 50px;
-  height: 3px;
-  background: var(--colorPrimary);
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, var(--colorGold), var(--colorGoldLight), rgba(201, 149, 42, 0.1));
   margin-top: var(--spaceXs);
-  border-radius: 2px;
 }
 
 .goldUnderlineCentered {
   display: block;
-  width: 50px;
-  height: 3px;
-  background: var(--colorPrimary);
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(201, 149, 42, 0.1), var(--colorGold), rgba(201, 149, 42, 0.1));
   margin: var(--spaceXs) auto 0;
-  border-radius: 2px;
 }
 
 /* --- Diagonal Divider --- */
@@ -374,9 +341,9 @@ body.hasCursor .btnDark {
   padding-top: 6rem;
 }
 
-/* --- Accent Link --- */
+/* --- Gold Link --- */
 .goldLink {
-  color: var(--colorPrimary);
+  color: var(--colorGold);
   font-family: var(--fontBody);
   font-weight: 500;
   font-size: var(--fontSizeSmall);
@@ -384,20 +351,12 @@ body.hasCursor .btnDark {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: color 0.3s ease;
-}
-
-.goldLink span {
-  display: inline-block;
-  transition: transform 0.3s ease;
+  transition: gap 0.3s ease, color 0.3s ease;
 }
 
 .goldLink:hover {
-  color: var(--colorPrimary);
-}
-
-.goldLink:hover span {
-  transform: translateX(5px);
+  color: var(--colorGoldLight);
+  gap: 0.75rem;
 }
 
 /* --- Container overrides --- */
@@ -427,12 +386,12 @@ body.hasCursor .btnDark {
   justify-content: center;
 }
 
-/* --- Underline with bottom spacing --- */
+/* --- Gold underline with bottom spacing --- */
 .goldUnderlineSpaced {
   display: block;
   width: 70px;
   height: 2px;
-  background: var(--colorPrimary);
+  background: linear-gradient(to right, var(--colorGold), var(--colorGoldLight), rgba(201, 149, 42, 0.1));
   margin-top: var(--spaceXs);
   margin-bottom: var(--spaceMd);
 }
@@ -441,7 +400,7 @@ body.hasCursor .btnDark {
   display: block;
   width: 70px;
   height: 2px;
-  background: var(--colorPrimary);
+  background: linear-gradient(to right, rgba(201, 149, 42, 0.1), var(--colorGold), rgba(201, 149, 42, 0.1));
   margin: var(--spaceXs) auto var(--spaceMd);
 }
 
@@ -449,7 +408,7 @@ body.hasCursor .btnDark {
   display: block;
   width: 70px;
   height: 2px;
-  background: var(--colorPrimary);
+  background: linear-gradient(to right, var(--colorGold), var(--colorGoldLight), rgba(201, 149, 42, 0.1));
   margin-top: var(--spaceXs);
   margin-bottom: var(--spaceLg);
 }
@@ -458,7 +417,7 @@ body.hasCursor .btnDark {
   display: block;
   width: 70px;
   height: 2px;
-  background: var(--colorPrimary);
+  background: linear-gradient(to right, rgba(201, 149, 42, 0.1), var(--colorGold), rgba(201, 149, 42, 0.1));
   margin: var(--spaceXs) auto var(--spaceLg);
 }
 
@@ -489,7 +448,7 @@ a, button, input, select, textarea {
 
 /* --- Focus Visible (accessibility) --- */
 :focus-visible {
-  outline: 2px solid var(--colorPrimary);
+  outline: 2px solid var(--colorGold);
   outline-offset: 3px;
 }
 
@@ -498,8 +457,8 @@ a, button, input, select, textarea {
   position: absolute;
   top: -100%;
   left: var(--spaceSm);
-  background: var(--colorPrimary);
-  color: var(--colorTextOnDark);
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
   font-weight: 600;
@@ -516,9 +475,8 @@ a, button, input, select, textarea {
 
 /* --- Aurum Project Section --- */
 .aurumSection {
-  background: var(--colorBackground);
-  padding: var(--spaceXl) 0 calc(var(--spaceXl) + 2rem);
-  clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+  background: var(--colorGold);
+  padding: var(--spaceSection) 0;
   position: relative;
   overflow: hidden;
 }
@@ -527,28 +485,27 @@ a, button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(88,98,163,0.10) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .aurumSectionLabel {
-  color: var(--colorPrimary);
-  justify-content: center;
+  color: var(--colorDeepNavy);
+  display: block;
+  margin-bottom: var(--spaceSm);
 }
 
 .aurumSectionTitle {
-  color: var(--colorTextOnLight);
+  color: var(--colorDeepNavy);
   margin-bottom: var(--spaceMd);
 }
 
 .aurumSectionDesc {
   font-size: var(--fontSizeBody);
-  color: var(--colorTextOnLight);
-  max-width: 660px;
+  color: rgba(13, 11, 43, 0.75);
+  max-width: 620px;
   margin: 0 auto var(--spaceLg);
-  line-height: 1.9;
-  opacity: 0.85;
+  line-height: var(--lineHeightBody);
 }
 
 .aurumLogo {
@@ -561,22 +518,19 @@ a, button, input, select, textarea {
 
 /* --- Featured In Section --- */
 .featuredInSection {
-  background: var(--colorBackgroundDark);
-  padding: var(--spaceXl) 0;
-  clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%);
-  padding-top: calc(var(--spaceXl) + 3rem);
-  margin-top: -2rem;
+  background: var(--colorBgAlt);
+  padding: var(--spaceSection) 0;
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle dot texture on blue canvas */
 .featuredInSection::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(107, 95, 160, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(221, 184, 46, 0.05) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -585,16 +539,6 @@ a, button, input, select, textarea {
   margin-bottom: var(--spaceLg);
   position: relative;
   z-index: 1;
-}
-
-/* Replaced by clean whitespace — no harsh underline accent */
-.featuredInHeader .goldUnderlineCentered {
-  display: none;
-}
-
-.featuredInHeader .sectionTitle {
-  letter-spacing: 0.08em;
-  margin-bottom: 0;
 }
 
 /* 5-column grid of publication cards */
@@ -607,19 +551,19 @@ a, button, input, select, textarea {
 }
 
 .featuredInCard {
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.28);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 2px 0 rgba(255,255,255,0.18) inset;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 18px;
-  padding: 1.75rem 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.90);
+  box-shadow: 0 4px 24px rgba(13, 11, 43, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 2px;
+  padding: 2rem 1.25rem 1.75rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+  gap: 0.6rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
 }
@@ -631,7 +575,7 @@ a, button, input, select, textarea {
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--colorSecondary);
+  background: linear-gradient(to right, var(--colorRichPurple), var(--colorGold));
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -641,9 +585,8 @@ a, button, input, select, textarea {
 }
 
 .featuredInCard:hover {
-  transform: translateY(-7px);
-  background: rgba(255,255,255,0.20);
-  box-shadow: 0 12px 36px rgba(0,0,0,0.18), 0 2px 0 rgba(255,255,255,0.25) inset;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(107, 95, 160, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
 .featuredInCard:hover::before {
@@ -651,9 +594,9 @@ a, button, input, select, textarea {
 }
 
 .featuredInCardIcon {
-  font-size: 1rem;
-  color: var(--colorSecondary);
-  opacity: 0.85;
+  font-size: 1.125rem;
+  color: var(--colorRichPurple);
+  opacity: 0.55;
   line-height: 1;
 }
 
@@ -661,7 +604,7 @@ a, button, input, select, textarea {
   font-family: var(--fontDisplay);
   font-size: clamp(0.875rem, 1.2vw, 1.0625rem);
   font-weight: 600;
-  color: var(--colorTextOnDark);
+  color: var(--colorDeepNavy);
   letter-spacing: 0.01em;
   line-height: 1.35;
 }
@@ -672,7 +615,7 @@ a, button, input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--colorTextOnDark);
+  color: var(--colorRichPurple);
   opacity: 0.6;
 }
 
@@ -685,9 +628,9 @@ a, button, input, select, textarea {
   height: 40px;
   min-height: 40px;
   border-radius: 50%;
-  background: var(--colorPrimary);
-  border: 1.5px solid var(--colorPrimary);
-  color: var(--colorTextOnDark);
+  background: rgba(201, 149, 42, 0.1);
+  border: 1.5px solid var(--colorGold);
+  color: var(--colorGold);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -698,9 +641,9 @@ a, button, input, select, textarea {
   visibility: hidden;
   transform: translateY(12px);
   transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  box-shadow: 0 4px 20px rgba(201, 149, 42, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .backToTop.visible {
@@ -710,9 +653,9 @@ a, button, input, select, textarea {
 }
 
 .backToTop:hover {
-  background: var(--colorSecondary);
-  color: var(--colorTextOnLight);
-  box-shadow: none;
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
+  box-shadow: 0 4px 24px rgba(201, 149, 42, 0.35);
 }
 
 body.hasCursor .backToTop {

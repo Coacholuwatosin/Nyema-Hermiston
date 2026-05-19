@@ -4,19 +4,29 @@
 
 .researchSection {
   position: relative;
-  background: var(--colorBackground);
+  background:
+    radial-gradient(ellipse at 95% 10%, rgba(232, 197, 48, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse at 5% 90%, rgba(110, 114, 184, 0.07) 0%, transparent 50%),
+    var(--colorOffWhite);
   padding: var(--spaceSection) 0;
   overflow: hidden;
 }
 
-/* Dot grid background */
+/* RESEARCH watermark */
 .researchSection::before {
-  content: '';
+  content: 'RESEARCH';
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(88,98,163,0.11) 1px, transparent 1px);
-  background-size: 28px 28px;
+  font-family: var(--fontDisplay);
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 300;
+  color: var(--colorDeepNavy);
+  opacity: 0.035;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
   pointer-events: none;
+  letter-spacing: -0.02em;
   z-index: 0;
 }
 
@@ -39,33 +49,36 @@
   position: relative;
 }
 
-/* Hide the vertical bar */
+/* Decorative left bar */
 .researchPullQuoteBar {
-  display: none;
+  display: block;
+  width: 4px;
+  height: 90px;
+  background: linear-gradient(to bottom, var(--colorGold), var(--colorGoldLight));
+  margin-bottom: var(--spaceMd);
 }
 
 .researchQuoteText {
   font-family: var(--fontDisplay);
-  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-size: clamp(1.5rem, 2.8vw, 2.375rem);
   font-style: italic;
-  font-weight: 400;
-  color: var(--colorPrimary);
-  line-height: 1.5;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--colorTextPrimary);
+  line-height: 1.45;
+  letter-spacing: var(--letterSpacingTitle);
   margin-bottom: var(--spaceSm);
   position: relative;
-  padding-top: 1.5rem;
 }
 
 /* Large decorative opening quote */
 .researchQuoteText::before {
   content: '\201C';
   position: absolute;
-  top: -0.1em;
-  left: -0.1em;
-  font-size: 5em;
-  color: var(--colorPrimary);
-  opacity: 0.10;
+  top: -0.4em;
+  left: -0.35em;
+  font-size: 4em;
+  color: var(--colorGold);
+  opacity: 0.12;
   font-style: normal;
   line-height: 1;
 }
@@ -73,7 +86,7 @@
 .researchQuoteAttribution {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: var(--colorTextOnLight);
+  color: var(--colorGold);
   letter-spacing: 0.08em;
   font-weight: 500;
   display: flex;
@@ -86,15 +99,15 @@
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--colorPrimary);
+  background: var(--colorGold);
   flex-shrink: 0;
 }
 
 /* === Body Text Side === */
 .researchBody {
   font-size: var(--fontSizeBody);
-  line-height: 1.9;
-  color: var(--colorTextOnLight);
+  line-height: var(--lineHeightBody);
+  color: var(--colorTextLight);
 }
 
 .researchBody p + p {
@@ -102,41 +115,45 @@
 }
 
 .researchBody strong {
-  color: var(--colorPrimary);
+  color: var(--colorTextPrimary);
   font-weight: 500;
 }
 
-/* === Stats Row — open editorial layout, no boxes === */
+/* === Stats Row === */
 .researchStats {
-  display: flex;
-  justify-content: center;
-  gap: var(--spaceXl);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spaceMd);
   margin-top: var(--spaceLg);
   padding-top: var(--spaceLg);
+  border-top: 1px solid var(--colorBorderLight);
 }
 
 .researchStat {
   text-align: center;
-  padding: 0 var(--spaceLg);
+  padding: var(--spaceMd) var(--spaceSm);
   position: relative;
+  background: var(--colorWhite);
+  border: 1px solid var(--colorBorderLight);
+  border-top: 3px solid var(--colorGold);
+  box-shadow: 0 4px 20px rgba(13, 11, 43, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Soft vertical divider between stats */
-.researchStat + .researchStat::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 20%;
-  height: 60%;
-  width: 1px;
-  background: rgba(88,98,163,0.15);
+.researchStat:hover {
+  box-shadow: 0 10px 40px rgba(13, 11, 43, 0.1);
+  transform: translateY(-3px);
+}
+
+.researchStat::after {
+  display: none;
 }
 
 .researchStatNumber {
   font-family: var(--fontDisplay);
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 700;
-  color: var(--colorPrimary);
+  color: var(--colorGold);
   line-height: 1;
   display: block;
 }
@@ -144,10 +161,9 @@
 .researchStatLabel {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: var(--colorTextOnLight);
-  letter-spacing: 0.06em;
-  margin-top: 0.625rem;
+  color: var(--colorTextLight);
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
   display: block;
   line-height: 1.4;
-  opacity: 0.8;
 }

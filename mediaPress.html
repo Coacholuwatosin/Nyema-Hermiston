@@ -45,7 +45,7 @@
 
   <style>
     .mediaPressHero {
-      background: var(--colorDeepNavy);
+      background: var(--colorBackgroundDark);
       padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
       position: relative;
       overflow: hidden;
@@ -54,43 +54,60 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(46,23,96,0.6) 0%, transparent 65%);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
     }
     .mediaPressHeroContent { position: relative; z-index: 1; }
     .mediaPressHeroTitle {
       font-family: var(--fontDisplay);
       font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 700;
-      color: var(--colorWhite);
+      color: var(--colorTextOnDark);
       line-height: var(--lineHeightDisplay);
     }
     .mediaPressSection {
       padding: var(--spaceSection) 0;
+      position: relative;
     }
-    .mediaPressSection:nth-child(odd) { background: var(--colorOffWhite); }
-    .mediaPressSection:nth-child(even) { background: var(--colorDeepNavy); }
+    .mediaPressSection:nth-child(odd) {
+      background: var(--colorBackground);
+    }
+    .mediaPressSection:nth-child(odd)::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.10) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .mediaPressSection:nth-child(even) { background: var(--colorBackgroundDark); }
     .mediaResourceCard {
-      background: var(--colorWhite);
-      border: 1px solid var(--colorBorderLight);
-      border-top: 3px solid var(--colorGold);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(88,98,163,0.18);
+      border-top: 3px solid var(--colorPrimary);
+      border-radius: 12px;
       padding: var(--spaceMd);
-      box-shadow: 0 4px 20px rgba(13,11,43,0.05);
+      box-shadow: 0 4px 20px rgba(88,98,163,0.08);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 1;
     }
     .mediaResourceCard:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 50px rgba(13,11,43,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(88,98,163,0.15);
     }
     .mediaResourceTitle {
       font-family: var(--fontDisplay);
       font-size: clamp(1.125rem, 2vw, 1.375rem);
       font-weight: 600;
-      color: var(--colorTextPrimary);
+      color: var(--colorTextOnLight);
       margin-bottom: var(--spaceXs);
     }
     .mediaResourceDesc {
       font-size: var(--fontSizeSmall);
-      color: var(--colorTextLight);
+      color: var(--colorTextOnLight);
+      opacity: 0.75;
       line-height: var(--lineHeightBody);
       margin-bottom: var(--spaceSm);
     }
@@ -98,42 +115,45 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--spaceMd);
+      position: relative;
+      z-index: 1;
     }
     .pressQuoteBlock {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-left: 4px solid var(--colorGold);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-left: 4px solid var(--colorSecondary);
+      border-radius: 12px;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       padding: var(--spaceMd);
       margin-bottom: var(--spaceSm);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.12) inset;
     }
     .pressQuoteText {
       font-family: var(--fontDisplay);
       font-size: clamp(1rem, 1.8vw, 1.25rem);
       font-style: italic;
-      color: rgba(232, 228, 240, 0.9);
+      color: var(--colorTextOnDark);
       line-height: 1.85;
+      opacity: 0.92;
     }
-    .pressQuoteText.pressQuoteTextPlain {
-      font-style: normal;
-    }
+    .pressQuoteText.pressQuoteTextPlain { font-style: normal; }
     .pressQuoteSource {
       font-size: var(--fontSizeCredential);
-      color: var(--colorGold);
+      color: var(--colorSecondary);
       margin-top: var(--spaceXs);
       letter-spacing: 0.05em;
     }
     .pressBioSection {
-      background: var(--colorDeepNavy) !important;
+      background: var(--colorBackgroundDark) !important;
       position: relative;
     }
     .pressBioSection::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 0% 50%, rgba(46,23,96,0.5) 0%, transparent 60%);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
       pointer-events: none;
     }
     @media (max-width: 992px) {
@@ -297,14 +317,17 @@
   <!-- Footer -->
   <footer class="siteFooter" role="contentinfo">
     <div class="container">
+      <div class="footerMission" aria-hidden="true">
+        <span class="footerMissionQuote">Empowering parents through evidence, not fear.</span>
+      </div>
       <div class="footerGrid">
         <div class="footerBrand">
-          <a href="index.html"><span class="footerLogoName">Nyema Hermiston</span></a>
+          <a href="index.html" aria-label="Nyema Hermiston Home"><span class="footerLogoName">Nyema Hermiston</span></a>
           <span class="footerLogoTagline">RN · ND · Homeopath · Author</span>
-          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners.</p>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
         </div>
         <nav aria-label="Footer navigation">
-          <span class="footerColHeading">Navigate</span>
+          <span class="footerColHeading">Explore</span>
           <ul class="footerLinks" role="list">
             <li><a href="index.html" class="footerLink">Home</a></li>
             <li><a href="about.html" class="footerLink">About</a></li>
@@ -315,25 +338,20 @@
           </ul>
         </nav>
         <div>
-          <span class="footerColHeading">Connect</span>
-          <div class="footerSocial">
-            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <i class="ri-instagram-fill" aria-hidden="true"></i>
-            </a>
-            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <i class="ri-facebook-fill" aria-hidden="true"></i>
-            </a>
-            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads">
-              <i class="ri-book-open-fill" aria-hidden="true"></i>
-            </a>
-            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon">
-              <i class="ri-amazon-fill" aria-hidden="true"></i>
-            </a>
-          </div>
+          <span class="footerColHeading">Affiliations</span>
           <ul class="footerLinks" role="list">
             <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
             <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
           </ul>
+        </div>
+        <div>
+          <span class="footerColHeading">Connect</span>
+          <div class="footerSocial">
+            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ri-facebook-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads"><i class="ri-book-open-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon"><i class="ri-amazon-fill" aria-hidden="true"></i></a>
+          </div>
         </div>
       </div>
       <div class="footerBottom">

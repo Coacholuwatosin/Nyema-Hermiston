@@ -5,16 +5,31 @@
 /* --- Homepage About Preview --- */
 .aboutPreviewSection {
   position: relative;
-  background: var(--colorBackgroundAlt);
+  background:
+    radial-gradient(ellipse at 100% 50%, rgba(110, 114, 184, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 80%, rgba(232, 197, 48, 0.05) 0%, transparent 40%),
+    var(--colorOffWhite);
   padding: var(--spaceSection) 0;
   clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
   padding-bottom: calc(var(--spaceSection) + 5rem);
   overflow: hidden;
 }
 
-/* Clean canvas — no competing watermark */
+/* Subtle decorative number watermark */
 .aboutPreviewSection::before {
-  content: none;
+  content: '30';
+  position: absolute;
+  font-family: var(--fontDisplay);
+  font-size: clamp(12rem, 28vw, 26rem);
+  font-weight: 700;
+  color: var(--colorDeepNavy);
+  opacity: 0.03;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  line-height: 1;
+  z-index: 0;
 }
 
 .aboutPreviewGrid {
@@ -43,42 +58,52 @@
   object-fit: cover;
   object-position: top center;
   display: block;
-  filter: none;
-  border-radius: 16px;
-  box-shadow:
-    0 2px 4px rgba(88,98,163,0.06),
-    0 8px 20px rgba(88,98,163,0.10),
-    0 24px 52px rgba(88,98,163,0.14),
-    0 48px 80px rgba(0,0,0,0.06);
+  filter: brightness(0.97) saturate(1.05) contrast(1.02);
 }
 
-/* Corner accent lines removed — portrait has ambient shadow instead */
-.aboutPhotoAccent,
+/* Gold corner accent — bottom right */
+.aboutPhotoAccent {
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  width: 80px;
+  height: 80px;
+  border-right: 3px solid var(--colorGold);
+  border-bottom: 3px solid var(--colorGold);
+  pointer-events: none;
+}
+
+/* Gold corner accent — top left */
 .aboutPhotoAccentTop {
-  display: none;
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  width: 60px;
+  height: 60px;
+  border-left: 2px solid var(--colorGold);
+  border-top: 2px solid var(--colorGold);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
-/* Floating testimonial chip — ultra-modern glassmorphism */
+/* Floating credential chip */
 .aboutPhotoChip {
   position: absolute;
   bottom: var(--spaceMd);
   left: calc(-1 * var(--spaceSm));
-  background: rgba(255,255,255,0.82);
-  padding: 0.875rem 1.375rem;
-  border: 1px solid rgba(255,255,255,0.55);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 16px rgba(88,98,163,0.12), 0 16px 40px rgba(88,98,163,0.10), 0 2px 0 rgba(255,255,255,0.95) inset;
+  background: var(--colorDeepNavy);
+  padding: 0.75rem 1.25rem;
+  border-left: 3px solid var(--colorGold);
+  box-shadow: 0 12px 40px rgba(13, 11, 43, 0.25);
   z-index: 2;
-  max-width: 240px;
-  border-radius: 14px;
+  max-width: 220px;
 }
 
 .aboutPhotoChipText {
   font-family: var(--fontDisplay);
   font-size: clamp(0.875rem, 1.4vw, 1.125rem);
   font-style: italic;
-  color: var(--colorTextOnLight);
+  color: var(--colorGold);
   line-height: 1.4;
   display: block;
 }
@@ -88,7 +113,7 @@
   font-size: 0.625rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--colorPrimary);
+  color: rgba(255, 255, 255, 0.5);
   display: block;
   margin-top: 0.25rem;
 }
@@ -106,7 +131,7 @@
 .aboutPreviewBody {
   font-size: var(--fontSizeBody);
   line-height: var(--lineHeightBody);
-  color: var(--colorTextOnLight);
+  color: var(--colorTextLight);
   margin-bottom: var(--spaceMd);
 }
 
@@ -127,14 +152,11 @@
   font-size: var(--fontSizeCredential);
   font-weight: 500;
   letter-spacing: 0.06em;
-  color: var(--colorPrimary);
-  background: rgba(255,255,255,0.68);
-  border: none;
-  padding: 0.35rem 0.875rem;
-  border-radius: 100px;
+  color: var(--colorDeepNavy);
+  background: rgba(201, 149, 42, 0.1);
+  border: 1px solid rgba(201, 149, 42, 0.3);
+  padding: 0.3rem 0.75rem;
   white-space: nowrap;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 /* =====================================================
@@ -143,11 +165,11 @@
 
 .aboutPageHero {
   position: relative;
-  min-height: 72vh;
+  min-height: 65vh;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background-color: var(--colorBackgroundDark);
+  background-color: var(--colorDeepNavy);
 }
 
 .aboutPageHeroImage {
@@ -160,8 +182,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 10%;
-  transform: scaleX(-1);
+  object-position: top center;
 }
 
 .aboutPageHeroOverlay {
@@ -169,10 +190,9 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.92) 0%,
-    rgba(0,0,0,0.58) 30%,
-    rgba(0,0,0,0.22) 65%,
-    rgba(0,0,0,0.08) 100%
+    rgba(13, 11, 43, 0.96) 0%,
+    rgba(13, 11, 43, 0.55) 50%,
+    rgba(13, 11, 43, 0.2) 100%
   );
   z-index: 1;
 }
@@ -181,58 +201,25 @@
   position: relative;
   z-index: 2;
   padding: var(--spaceXl) 0 var(--spaceLg);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: flex-end;
-}
-
-/* Glass text card — anchored left, portrait visible right */
-.aboutPageHeroInner {
-  background: rgba(0,0,0,0.42);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-top: 2px solid var(--colorSecondary);
-  border-radius: 18px;
-  padding: var(--spaceMd) var(--spaceLg) var(--spaceLg);
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.35),
-    0 1px 0 rgba(255,255,255,0.08) inset;
-}
-
-/* sectionLabel on dark hero: gold text, hide dot */
-.aboutPageHero .sectionLabel {
-  color: var(--colorSecondary);
-  font-size: var(--fontSizeCredential);
-  letter-spacing: 0.16em;
-  margin-bottom: var(--spaceSm);
-}
-
-.aboutPageHero .sectionLabel::before {
-  display: none;
 }
 
 .aboutPageHeroName {
   font-family: var(--fontDisplay);
-  font-size: clamp(2.75rem, 6vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 700;
-  color: var(--colorTextOnDark);
+  color: var(--colorWhite);
   line-height: var(--lineHeightDisplay);
-  letter-spacing: 0.04em;
-  text-shadow: 0 2px 28px rgba(0,0,0,0.55);
-  margin-bottom: var(--spaceXs);
+  letter-spacing: var(--letterSpacingTitle);
 }
 
 .aboutPageHeroCredentials {
   font-family: var(--fontBody);
-  font-size: var(--fontSizeCredential);
-  font-weight: 400;
-  letter-spacing: 0.10em;
-  color: rgba(255,255,255,0.65);
+  font-size: var(--fontSizeSmall);
+  font-weight: 500;
+  letter-spacing: var(--letterSpacingWide);
+  color: var(--colorGold);
   text-transform: uppercase;
-  margin-top: var(--spaceSm);
-  padding-top: var(--spaceSm);
-  border-top: 1px solid rgba(255,255,255,0.14);
+  margin-top: var(--spaceXs);
 }
 
 /* About Page Hero — no image fallback */
@@ -250,8 +237,7 @@
   font-family: var(--fontDisplay);
   font-size: clamp(12rem, 28vw, 22rem);
   font-weight: 700;
-  color: var(--colorTextOnDark);
-  opacity: 0.06;
+  color: rgba(201, 149, 42, 0.06);
   line-height: 1;
   user-select: none;
 }
@@ -259,7 +245,7 @@
 /* === Biography Section === */
 .aboutBioSection {
   position: relative;
-  background: var(--colorBackground);
+  background: var(--colorOffWhite);
   padding: var(--spaceSection) 0;
   overflow: hidden;
 }
@@ -270,7 +256,7 @@
   font-family: var(--fontDisplay);
   font-size: clamp(8rem, 20vw, 18rem);
   font-weight: 300;
-  color: var(--colorTextOnLight);
+  color: var(--colorDeepNavy);
   opacity: 0.04;
   top: 50%;
   left: 50%;
@@ -295,7 +281,7 @@
 .aboutBioText {
   font-size: var(--fontSizeBody);
   line-height: var(--lineHeightBody);
-  color: var(--colorTextOnLight);
+  color: var(--colorTextLight);
 }
 
 .aboutBioText p + p {
@@ -303,7 +289,7 @@
 }
 
 .aboutBioText strong {
-  color: var(--colorPrimary);
+  color: var(--colorTextPrimary);
   font-weight: 500;
 }
 
@@ -317,18 +303,18 @@
   gap: var(--spaceSm);
   align-items: flex-start;
   padding: 0.875rem var(--spaceSm);
-  background: var(--colorBackground);
-  border-left: 3px solid var(--colorPrimary);
+  background: var(--colorWhite);
+  border-left: 3px solid var(--colorGold);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .aboutCredentialItem:hover {
   transform: translateX(4px);
-  box-shadow: none;
+  box-shadow: 0 4px 20px rgba(13, 11, 43, 0.06);
 }
 
 .aboutCredentialIcon {
-  color: var(--colorPrimary);
+  color: var(--colorGold);
   font-size: 1rem;
   flex-shrink: 0;
   margin-top: 0.15rem;
@@ -337,7 +323,7 @@
 .aboutCredentialText {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: var(--colorTextOnLight);
+  color: var(--colorTextPrimary);
   line-height: 1.5;
 }
 
@@ -349,7 +335,7 @@
 
 /* === Timeline Section === */
 .aboutTimelineSection {
-  background: var(--colorBackgroundDark);
+  background: var(--colorDeepNavy);
   padding: var(--spaceSection) 0;
   clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
   padding-top: calc(var(--spaceSection) + 3rem);
@@ -362,7 +348,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: none;
+  background: radial-gradient(ellipse at 80% 50%, rgba(46, 23, 96, 0.4) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -379,7 +365,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--colorSecondary);
+  background: linear-gradient(to bottom, transparent, var(--colorGold) 20%, var(--colorGold) 80%, transparent);
 }
 
 .aboutTimelineItem {
@@ -396,16 +382,16 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--colorSecondary);
-  border: 2px solid var(--colorBackgroundDark);
-  box-shadow: none;
+  background: var(--colorDeepNavy);
+  border: 2px solid var(--colorGold);
+  box-shadow: 0 0 10px rgba(201, 149, 42, 0.3);
 }
 
 .aboutTimelineYear {
   font-family: var(--fontDisplay);
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 600;
-  color: var(--colorSecondary);
+  color: var(--colorGold);
   line-height: 1;
   margin-bottom: 0.3rem;
 }
@@ -414,13 +400,13 @@
   font-family: var(--fontBody);
   font-size: var(--fontSizeBody);
   font-weight: 500;
-  color: var(--colorTextOnDark);
+  color: var(--colorWhite);
   margin-bottom: 0.35rem;
 }
 
 .aboutTimelineDesc {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: var(--colorTextOnDark);
+  color: rgba(232, 228, 240, 0.6);
   line-height: var(--lineHeightBody);
 }

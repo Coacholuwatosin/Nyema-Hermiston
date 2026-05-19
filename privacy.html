@@ -30,7 +30,7 @@
 
   <style>
     .privacyHero {
-      background: var(--colorDeepNavy);
+      background: var(--colorBackgroundDark);
       padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
       position: relative;
       overflow: hidden;
@@ -40,7 +40,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(46, 23, 96, 0.5) 0%, transparent 65%);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
       pointer-events: none;
     }
 
@@ -53,13 +54,23 @@
       font-family: var(--fontDisplay);
       font-size: clamp(2.5rem, 6vw, 5rem);
       font-weight: 700;
-      color: var(--colorWhite);
+      color: var(--colorTextOnDark);
       line-height: var(--lineHeightDisplay);
     }
 
     .privacyBody {
-      background: var(--colorOffWhite);
+      background: var(--colorBackground);
       padding: var(--spaceSection) 0;
+      position: relative;
+    }
+
+    .privacyBody::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.10) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
     }
 
     .privacyContent {
@@ -75,16 +86,16 @@
       font-family: var(--fontDisplay);
       font-size: clamp(1.25rem, 2.5vw, 1.875rem);
       font-weight: 600;
-      color: var(--colorTextPrimary);
+      color: var(--colorTextOnLight);
       margin-bottom: var(--spaceSm);
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid rgba(201, 149, 42, 0.25);
+      border-bottom: 2px solid rgba(88,98,163,0.2);
     }
 
     .privacyText {
       font-family: var(--fontBody);
       font-size: var(--fontSizeBody);
-      color: var(--colorTextLight);
+      color: var(--colorTextOnLight);
       line-height: var(--lineHeightBody);
     }
 
@@ -93,13 +104,13 @@
     }
 
     .privacyText a {
-      color: var(--colorGold);
+      color: var(--colorPrimary);
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
     .privacyText a:hover {
-      color: var(--colorDeepNavy);
+      color: var(--colorTextOnLight);
     }
 
     .privacyList {
@@ -107,7 +118,7 @@
       padding-left: var(--spaceMd);
       font-family: var(--fontBody);
       font-size: var(--fontSizeBody);
-      color: var(--colorTextLight);
+      color: var(--colorTextOnLight);
       line-height: var(--lineHeightBody);
     }
 
@@ -117,7 +128,7 @@
 
     .privacyDate {
       font-size: var(--fontSizeSmall);
-      color: var(--colorGold);
+      color: var(--colorPrimary);
       font-family: var(--fontBody);
       font-weight: 500;
       letter-spacing: 0.06em;

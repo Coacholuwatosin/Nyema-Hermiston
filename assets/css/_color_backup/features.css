@@ -1,0 +1,548 @@
+/* ===================================================
+   FEATURES.CSS — Dark Mode, Cookie Banner, Sticky Bar,
+   Lightbox, FAQ Accordion, Share Button, Star Ratings
+   =================================================== */
+
+/* ===================================================
+   DARK MODE
+   Site is light by default; [data-theme="dark"] restores dark
+=================================================== */
+
+[data-theme="dark"] body {
+  background-color: var(--colorDeepNavy);
+  color: rgba(232, 228, 240, 0.9);
+}
+
+[data-theme="dark"] .siteNav.scrolled {
+  background: rgba(8, 6, 28, 0.92);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+  border-bottom-color: rgba(221, 184, 46, 0.1);
+}
+
+[data-theme="dark"] .navLogoName { color: var(--colorWhite); }
+[data-theme="dark"] .navLogoTagline { color: rgba(221, 184, 46, 0.65); }
+[data-theme="dark"] .navLink { color: rgba(255, 255, 255, 0.65); }
+[data-theme="dark"] .navLink:hover { color: var(--colorWhite); }
+[data-theme="dark"] .navLink.active { color: var(--colorGold); background: rgba(221, 184, 46, 0.09); border-color: rgba(221, 184, 46, 0.2); }
+[data-theme="dark"] .navLogo::before { color: var(--colorGold); border-color: rgba(221, 184, 46, 0.45); }
+[data-theme="dark"] .navHamburgerLine { background: rgba(255, 255, 255, 0.75); }
+[data-theme="dark"] .darkModeToggle { border-color: rgba(255, 255, 255, 0.22); color: rgba(255, 255, 255, 0.65); }
+
+[data-theme="dark"] .heroSection::before {
+  background:
+    linear-gradient(to right, rgba(13, 11, 43, 0.92) 0%, rgba(13, 11, 43, 0.62) 42%, rgba(13, 11, 43, 0.15) 100%),
+    radial-gradient(ellipse at 18% 88%, rgba(221, 184, 46, 0.12) 0%, transparent 48%);
+}
+
+[data-theme="dark"] .heroHeadlineItalic { color: rgba(255, 255, 255, 0.62); }
+[data-theme="dark"] .heroHeadlineBold {
+  background: linear-gradient(135deg, #fff 0%, #eedcb0 40%, var(--colorGold) 65%, #fff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="dark"] .heroHeadlineSub { color: var(--colorGold); }
+[data-theme="dark"] .heroSubheading { color: rgba(232, 228, 240, 0.78); border-left-color: rgba(221, 184, 46, 0.35); }
+[data-theme="dark"] .heroCredentialLabel { color: var(--colorGold); background: rgba(221, 184, 46, 0.08); border-color: rgba(221, 184, 46, 0.22); box-shadow: none; }
+[data-theme="dark"] .heroStats { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-left: 3px solid rgba(221,184,46,0.5); box-shadow: none; }
+[data-theme="dark"] .heroStatLabel { color: rgba(255, 255, 255, 0.4); }
+[data-theme="dark"] .heroStatDivider { background: rgba(255, 255, 255, 0.1); }
+[data-theme="dark"] .heroStatNote { color: rgba(255,255,255,0.28); }
+[data-theme="dark"] .heroBadge { background: rgba(13, 11, 43, 0.82); border-color: rgba(221, 184, 46, 0.28); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+[data-theme="dark"] .heroBadgeLabel { color: rgba(255, 255, 255, 0.45); }
+[data-theme="dark"] .heroScrollMouse { border-color: rgba(221, 184, 46, 0.45); }
+[data-theme="dark"] .heroScrollLabel { color: rgba(255, 255, 255, 0.3); }
+
+[data-theme="dark"] .booksSection { background: var(--colorDeepNavy); }
+[data-theme="dark"] .bookCard { background: rgba(7, 6, 23, 0.92); border: 1px solid rgba(255,255,255,0.09); border-top-color: rgba(221,184,46,0.5); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+[data-theme="dark"] .endorsementsSection { background: var(--colorDeepNavy); }
+[data-theme="dark"] .endorsementCard { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-left: 4px solid var(--colorGold); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+[data-theme="dark"] .endorsementQuote { color: rgba(232, 228, 240, 0.80); }
+[data-theme="dark"] .endorsementName { color: var(--colorGold); }
+[data-theme="dark"] .endorsementCredentials { color: rgba(232, 228, 240, 0.45); }
+[data-theme="dark"] .endorsementAttribution { border-top-color: rgba(221, 184, 46, 0.15); }
+[data-theme="dark"] .featuredInSection { background: var(--colorDeepNavy); }
+[data-theme="dark"] .featuredInCard { background: rgba(255,255,255,0.03); border: 1px solid rgba(221,184,46,0.12); box-shadow: none; }
+[data-theme="dark"] .featuredInCardName { color: rgba(255,255,255,0.82); }
+[data-theme="dark"] .sectionTitleDark { color: var(--colorWhite); }
+[data-theme="dark"] .sectionLabel { color: var(--colorGold); border-color: rgba(221, 184, 46, 0.25); background: rgba(221, 184, 46, 0.06); }
+[data-theme="dark"] .faqSection { background: var(--colorDeepNavy); }
+[data-theme="dark"] .faqItem { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.07); }
+[data-theme="dark"] .faqItem.open { background: rgba(255,255,255,0.06); border-left-color: var(--colorGold); }
+[data-theme="dark"] .faqQuestion { color: var(--colorWhite); }
+[data-theme="dark"] .faqIcon { border-color: rgba(201,149,42,0.35); color: var(--colorGold); }
+[data-theme="dark"] .faqItem.open .faqIcon { background: var(--colorGold); color: var(--colorDeepNavy); border-color: var(--colorGold); }
+[data-theme="dark"] .faqAnswerInner { color: rgba(232,228,240,0.65); border-top-color: rgba(255,255,255,0.06); }
+[data-theme="dark"] .contactSection { background: var(--colorDeepNavy); }
+[data-theme="dark"] .contactIntroText { color: var(--colorLightLavender); }
+[data-theme="dark"] .contactCategoryText { color: var(--colorWhite); }
+[data-theme="dark"] .contactCategoryIcon { background: rgba(201,149,42,0.12); border-color: rgba(201,149,42,0.3); color: var(--colorGold); }
+[data-theme="dark"] .contactFormWrap { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); border-top-color: rgba(201,149,42,0.4); box-shadow: 0 8px 48px rgba(0,0,0,0.25); }
+[data-theme="dark"] .formLabel { color: var(--colorGold); }
+[data-theme="dark"] .formControl { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); color: var(--colorWhite); }
+[data-theme="dark"] .formControl::placeholder { color: rgba(255,255,255,0.35); }
+[data-theme="dark"] .formControl:focus { background: rgba(255,255,255,0.11); border-color: rgba(201,149,42,0.6); box-shadow: 0 0 0 3px rgba(201,149,42,0.08); }
+[data-theme="dark"] .siteFooter { background: linear-gradient(180deg, #130F2E 0%, #0A0820 100%); }
+[data-theme="dark"] .footerLogoName { color: var(--colorGold); }
+[data-theme="dark"] .footerLogoTagline { color: rgba(232,228,240,0.4); }
+[data-theme="dark"] .footerTagline { color: rgba(255,255,255,0.35); }
+[data-theme="dark"] .footerColHeading { color: var(--colorGold); border-bottom-color: rgba(201,149,42,0.18); }
+[data-theme="dark"] .footerLink { color: rgba(255,255,255,0.45); }
+[data-theme="dark"] .footerLink:hover { color: rgba(255,255,255,0.85); }
+[data-theme="dark"] .footerSocialLink { background: rgba(255,255,255,0.04); border-color: rgba(201,149,42,0.2); color: rgba(255,255,255,0.4); }
+[data-theme="dark"] .footerBottom { border-top-color: rgba(255,255,255,0.05); }
+[data-theme="dark"] .footerCopyright { color: rgba(255,255,255,0.22); }
+[data-theme="dark"] .footerLegalLink { color: rgba(255,255,255,0.22); }
+[data-theme="dark"] .footerMission { border-bottom-color: rgba(201,149,42,0.1); }
+[data-theme="dark"] .footerMissionLine { background: linear-gradient(to right, transparent, rgba(201,149,42,0.28)); }
+[data-theme="dark"] .footerMissionQuote { color: rgba(201,149,42,0.6); }
+[data-theme="dark"] .footerBrand { border-left-color: rgba(201,149,42,0.28); }
+[data-theme="dark"] .footerLegalSep { background: rgba(255,255,255,0.1); }
+
+/* ===================================================
+   STAR RATINGS
+=================================================== */
+
+.reviewCardStars {
+  display: flex;
+  gap: 2px;
+  margin-bottom: var(--spaceXs);
+  color: var(--colorGold);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+/* ===================================================
+   STICKY BUY BAR
+=================================================== */
+
+.stickyBuyBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--colorRichPurple);
+  border-top: 2px solid var(--colorGold);
+  padding: 0.875rem var(--spaceMd);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spaceSm);
+  z-index: 990;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45);
+}
+
+.stickyBuyBar.visible {
+  transform: translateY(0);
+}
+
+.stickyBuyBarLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceSm);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stickyBuyBarBadge {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--colorGold);
+  flex-shrink: 0;
+  display: none;
+}
+
+.stickyBuyBarTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(0.875rem, 1.5vw, 1.1rem);
+  font-weight: 600;
+  color: var(--colorWhite);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stickyBuyBarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceXs);
+  flex-shrink: 0;
+}
+
+.stickyBuyBarClose {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1.25rem;
+  transition: color 0.3s ease;
+  min-height: 0;
+}
+
+.stickyBuyBarClose:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+body.hasCursor .stickyBuyBar a,
+body.hasCursor .stickyBuyBarClose {
+  cursor: none;
+}
+
+@media (min-width: 576px) {
+  .stickyBuyBarBadge {
+    display: block;
+  }
+}
+
+/* ===================================================
+   LIGHTBOX
+=================================================== */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: var(--spaceMd);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightboxImg {
+  max-width: 88vw;
+  max-height: 88vh;
+  object-fit: contain;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+  transform: scale(0.94);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.lightbox.open .lightboxImg {
+  transform: scale(1);
+}
+
+.lightboxClose {
+  position: absolute;
+  top: var(--spaceSm);
+  right: var(--spaceSm);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.25rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: all 0.3s ease;
+}
+
+.lightboxClose:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--colorWhite);
+}
+
+body.hasCursor .lightboxClose {
+  cursor: none;
+}
+
+/* Trigger cursor on lightbox images */
+.lightboxTrigger {
+  cursor: zoom-in;
+}
+
+body.hasCursor .lightboxTrigger {
+  cursor: none;
+}
+
+/* ===================================================
+   COOKIE CONSENT BANNER
+=================================================== */
+
+.cookieBanner {
+  position: fixed;
+  bottom: var(--spaceMd);
+  left: var(--spaceMd);
+  max-width: 480px;
+  background: var(--colorDeepNavy);
+  border: 1px solid rgba(201, 149, 42, 0.28);
+  border-left: 3px solid var(--colorGold);
+  padding: var(--spaceMd);
+  z-index: 9997;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transform: translateY(12px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.cookieBanner.visible {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.cookieBannerHeading {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  font-weight: 600;
+  color: var(--colorWhite);
+  margin-bottom: 0.375rem;
+  letter-spacing: 0.02em;
+}
+
+.cookieBannerText {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  color: rgba(232, 228, 240, 0.65);
+  line-height: 1.65;
+  margin-bottom: var(--spaceSm);
+}
+
+.cookieBannerText a {
+  color: var(--colorGold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cookieBannerActions {
+  display: flex;
+  gap: var(--spaceXs);
+  flex-wrap: wrap;
+}
+
+.cookieBannerAccept {
+  background: var(--colorGold);
+  color: var(--colorDeepNavy);
+  padding: 0.5rem 1.25rem;
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.cookieBannerAccept:hover {
+  background: var(--colorGoldLight);
+}
+
+.cookieBannerDecline {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0.5rem 1rem;
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.cookieBannerDecline:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body.hasCursor .cookieBannerAccept,
+body.hasCursor .cookieBannerDecline {
+  cursor: none;
+}
+
+/* ===================================================
+   FAQ ACCORDION
+=================================================== */
+
+.faqSection {
+  background: var(--colorBgAlt);
+  padding: var(--spaceSection) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.faqSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 100% 50%, rgba(110, 114, 184, 0.09) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.faqHeader {
+  text-align: center;
+  margin-bottom: var(--spaceLg);
+  position: relative;
+  z-index: 1;
+}
+
+.faqList {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.faqItem {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(110, 114, 184, 0.12);
+  border-left: 3px solid transparent;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-left-color 0.3s ease, background 0.3s ease;
+}
+
+.faqItem.open {
+  border-left-color: var(--colorRichPurple);
+  background: rgba(255, 255, 255, 0.90);
+}
+
+.faqQuestion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spaceSm) var(--spaceMd);
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeBody);
+  font-weight: 500;
+  color: var(--colorTextPrimary);
+  gap: var(--spaceSm);
+  min-height: 0;
+}
+
+body.hasCursor .faqQuestion {
+  cursor: none;
+}
+
+.faqIcon {
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(110, 114, 184, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--colorRichPurple);
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform 0.35s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.faqItem.open .faqIcon {
+  transform: rotate(45deg);
+  background: var(--colorRichPurple);
+  color: var(--colorWhite);
+  border-color: var(--colorRichPurple);
+}
+
+.faqAnswer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faqItem.open .faqAnswer {
+  max-height: 500px;
+}
+
+.faqAnswerInner {
+  padding: 0 var(--spaceMd) var(--spaceMd);
+  padding-top: var(--spaceXs);
+  font-size: var(--fontSizeBody);
+  color: rgba(13, 11, 43, 0.70);
+  line-height: var(--lineHeightBody);
+  border-top: 1px solid rgba(13, 11, 43, 0.08);
+}
+
+/* ===================================================
+   WEB SHARE BUTTON
+=================================================== */
+
+.shareBtn {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.625rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  min-height: 0;
+}
+
+.shareBtn:hover {
+  border-color: rgba(201, 149, 42, 0.5);
+  color: var(--colorGold);
+}
+
+body.hasCursor .shareBtn {
+  cursor: none;
+}
+
+/* ===================================================
+   CALENDLY PLACEHOLDER
+=================================================== */
+
+.calendlySection {
+  background: var(--colorOffWhite);
+  padding: var(--spaceSection) 0;
+}
+
+.calendlyWrap {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--colorWhite);
+  border: 1px solid var(--colorBorderLight);
+  border-top: 3px solid var(--colorGold);
+  padding: var(--spaceLg);
+  text-align: center;
+  box-shadow: 0 4px 30px rgba(13, 11, 43, 0.06);
+}
+
+.calendlyPlaceholderTitle {
+  font-family: var(--fontDisplay);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  color: var(--colorTextPrimary);
+  margin-bottom: var(--spaceXs);
+}
+
+.calendlyPlaceholderDesc {
+  font-size: var(--fontSizeSmall);
+  color: var(--colorTextLight);
+  line-height: var(--lineHeightBody);
+  margin-bottom: var(--spaceMd);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}

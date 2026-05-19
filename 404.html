@@ -34,7 +34,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--colorDeepNavy);
+      background: var(--colorBackgroundDark);
       position: relative;
       overflow: hidden;
       padding: var(--spaceXl) 0;
@@ -44,7 +44,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 40%, rgba(46, 23, 96, 0.7) 0%, transparent 65%);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
       pointer-events: none;
     }
 
@@ -53,7 +54,7 @@
       font-family: var(--fontDisplay);
       font-size: clamp(12rem, 28vw, 26rem);
       font-weight: 700;
-      color: rgba(201, 149, 42, 0.04);
+      color: rgba(255,236,150,0.06);
       line-height: 1;
       pointer-events: none;
       user-select: none;
@@ -77,7 +78,7 @@
       font-family: var(--fontDisplay);
       font-size: clamp(5rem, 14vw, 10rem);
       font-weight: 700;
-      color: var(--colorGold);
+      color: var(--colorSecondary);
       line-height: 1;
       letter-spacing: -0.02em;
       margin-bottom: var(--spaceSm);
@@ -87,7 +88,7 @@
       font-family: var(--fontDisplay);
       font-size: clamp(1.5rem, 3.5vw, 2.75rem);
       font-weight: 600;
-      color: var(--colorWhite);
+      color: var(--colorTextOnDark);
       line-height: var(--lineHeightDisplay);
       margin-bottom: var(--spaceMd);
     }
@@ -126,7 +127,7 @@
     }
 
     .errorNavLink:hover {
-      color: var(--colorGold);
+      color: var(--colorSecondary);
     }
   </style>
 
