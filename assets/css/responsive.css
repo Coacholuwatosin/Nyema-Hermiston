@@ -111,6 +111,12 @@
 }
 
 @media (max-width: 576px) {
+  .heroCredentialLabel {
+    font-size: 0.6rem;
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
   .heroHeadlineBold {
     font-size: clamp(3rem, 12vw, 5rem);
   }
@@ -158,6 +164,16 @@
 
   .aboutPreviewSection {
     clip-path: polygon(0 0, 100% 0, 100% 97%, 0 100%);
+  }
+
+  .aboutPhotoBadge {
+    right: var(--spaceXs);
+  }
+}
+
+@media (max-width: 576px) {
+  .aboutPhotoBadge {
+    display: none;
   }
 }
 

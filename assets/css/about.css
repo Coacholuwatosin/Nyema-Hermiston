@@ -58,6 +58,67 @@
   display: none;
 }
 
+/* Floating credential badge — top-right of photo */
+.aboutPhotoBadge {
+  position: absolute;
+  top: var(--spaceMd);
+  right: calc(-1 * var(--spaceSm));
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.65);
+  border-left: 3px solid var(--colorSecondary);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  z-index: 3;
+  box-shadow:
+    0 4px 16px rgba(88,98,163,0.12),
+    0 14px 36px rgba(88,98,163,0.09),
+    0 1px 0 rgba(255,255,255,0.95) inset;
+}
+
+.aboutPhotoBadgeIcon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  background: var(--colorPrimary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--colorSecondary);
+  font-size: 1rem;
+}
+
+.aboutPhotoBadgeText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.aboutPhotoBadgeTitle {
+  font-family: var(--fontBody);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--colorTextOnLight);
+  line-height: 1;
+}
+
+.aboutPhotoBadgeSub {
+  font-family: var(--fontBody);
+  font-size: 0.5625rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--colorPrimary);
+  line-height: 1.3;
+  opacity: 0.78;
+}
+
 /* Floating testimonial chip — ultra-modern glassmorphism */
 .aboutPhotoChip {
   position: absolute;
