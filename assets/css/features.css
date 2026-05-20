@@ -43,7 +43,7 @@
   visibility: hidden;
   transform: translateY(-6px);
   transition: opacity 0.2s ease, transform 0.22s ease, visibility 0.2s ease;
-  z-index: 200;
+  z-index: 99999;
 }
 
 .buyNowDropdown.open {

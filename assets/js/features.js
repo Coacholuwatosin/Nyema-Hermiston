@@ -256,8 +256,28 @@
     function closeAll() {
       document.querySelectorAll('.buyNowDropdown.open').forEach(function(d) {
         d.classList.remove('open');
+        d.style.position = '';
+        d.style.top = '';
+        d.style.bottom = '';
+        d.style.left = '';
+        d.style.minWidth = '';
         d.previousElementSibling.setAttribute('aria-expanded', 'false');
       });
+    }
+
+    function positionDropdown(btn, dropdown) {
+      var rect = btn.getBoundingClientRect();
+      var isUp = dropdown.classList.contains('buyNowDropdownUp');
+      dropdown.style.position = 'fixed';
+      dropdown.style.left = rect.left + 'px';
+      dropdown.style.minWidth = Math.max(210, rect.width) + 'px';
+      if (isUp) {
+        dropdown.style.top = 'auto';
+        dropdown.style.bottom = (window.innerHeight - rect.top + 7) + 'px';
+      } else {
+        dropdown.style.top = (rect.bottom + 7) + 'px';
+        dropdown.style.bottom = 'auto';
+      }
     }
 
     btns.forEach(function(btn) {
@@ -267,6 +287,7 @@
         var isOpen = dropdown.classList.contains('open');
         closeAll();
         if (!isOpen) {
+          positionDropdown(btn, dropdown);
           dropdown.classList.add('open');
           btn.setAttribute('aria-expanded', 'true');
         }
@@ -277,6 +298,8 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeAll();
     });
+    window.addEventListener('scroll', closeAll, { passive: true });
+    window.addEventListener('resize', closeAll, { passive: true });
   }
 
   /* ===================================================

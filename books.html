@@ -387,17 +387,44 @@
     <!-- Newsletter -->
     <section class="newsletterSection" aria-labelledby="newsletterBooksHeadline">
       <div class="container">
-        <div class="newsletterContent" data-aos="fade-up">
+        <div class="newsletterCard" data-aos="fade-up">
+
+          <div class="newsletterDecoIcon" aria-hidden="true">
+            <i class="ri-book-open-line"></i>
+          </div>
+
           <span class="sectionLabel">New Releases</span>
           <h2 class="newsletterHeadline" id="newsletterBooksHeadline">Be First to Know About New Books</h2>
           <p class="newsletterSubheading">Subscribe to receive updates when Nyema publishes new works, articles, and research insights.</p>
-          <form class="newsletterForm" id="newsletterForm" novalidate>
+
+          <div class="newsletterBenefits" aria-label="What you receive">
+            <div class="newsletterBenefit">
+              <i class="ri-notification-line" aria-hidden="true"></i>
+              <span>New Releases</span>
+            </div>
+            <div class="newsletterBenefit">
+              <i class="ri-article-line" aria-hidden="true"></i>
+              <span>Articles</span>
+            </div>
+            <div class="newsletterBenefit">
+              <i class="ri-flask-line" aria-hidden="true"></i>
+              <span>Research Updates</span>
+            </div>
+          </div>
+
+          <form class="newsletterForm" id="newsletterFormBooks" novalidate>
             <label for="newsletterEmailBooks" class="srOnly">Email Address</label>
             <input type="email" id="newsletterEmailBooks" name="email" class="newsletterInput" placeholder="Your email address" required>
             <button type="submit" class="newsletterSubmit">Subscribe</button>
           </form>
-          <div class="newsletterSuccess" id="newsletterSuccess" role="status">Thank you for subscribing.</div>
-          <p class="newsletterPrivacy">No spam. No sharing. Unsubscribe anytime.</p>
+
+          <div class="newsletterSuccess" id="newsletterSuccessBooks" role="status">Thank you for subscribing.</div>
+
+          <p class="newsletterPrivacy">
+            <i class="ri-lock-line" aria-hidden="true"></i>
+            No spam. No sharing. Unsubscribe anytime.
+          </p>
+
         </div>
       </div>
     </section>

@@ -335,17 +335,30 @@
 
 /* ========== NEWSLETTER ========== */
 @media (max-width: 576px) {
+  .newsletterCard {
+    padding: var(--spaceLg) var(--spaceMd);
+    border-radius: 18px;
+  }
+
   .newsletterForm {
     flex-direction: column;
+    border-radius: 14px;
+    overflow: hidden;
   }
 
   .newsletterInput {
-    border-right: 1px solid var(--colorPrimary);
-    border-bottom: none;
+    border-radius: 0;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid rgba(88,98,163,0.15);
   }
 
   .newsletterSubmit {
     min-height: 48px;
+    border-radius: 0;
+  }
+
+  .newsletterBenefits {
+    gap: var(--spaceXs);
   }
 }
 
