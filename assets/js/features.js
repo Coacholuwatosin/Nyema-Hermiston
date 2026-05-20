@@ -253,44 +253,75 @@
     var btns = document.querySelectorAll('.buyNowBtn');
     if (!btns.length) return;
 
-    function closeAll() {
-      document.querySelectorAll('.buyNowDropdown.open').forEach(function(d) {
-        d.classList.remove('open');
-        d.style.position = '';
-        d.style.top = '';
-        d.style.bottom = '';
-        d.style.left = '';
-        d.style.minWidth = '';
-        d.previousElementSibling.setAttribute('aria-expanded', 'false');
-      });
-    }
+    var currentOpen = null;
 
-    function positionDropdown(btn, dropdown) {
-      var rect = btn.getBoundingClientRect();
-      var isUp = dropdown.classList.contains('buyNowDropdownUp');
-      dropdown.style.position = 'fixed';
-      dropdown.style.left = rect.left + 'px';
-      dropdown.style.minWidth = Math.max(210, rect.width) + 'px';
-      if (isUp) {
-        dropdown.style.top = 'auto';
-        dropdown.style.bottom = (window.innerHeight - rect.top + 7) + 'px';
-      } else {
-        dropdown.style.top = (rect.bottom + 7) + 'px';
-        dropdown.style.bottom = 'auto';
+    function closeAll() {
+      if (!currentOpen) return;
+      var d = currentOpen.dropdown;
+      var b = currentOpen.btn;
+
+      d.classList.remove('open');
+      b.setAttribute('aria-expanded', 'false');
+
+      /* Wipe inline positioning */
+      d.style.cssText = '';
+
+      /* Restore dropdown to its original place in the DOM */
+      if (d._origParent) {
+        if (d._origNext) {
+          d._origParent.insertBefore(d, d._origNext);
+        } else {
+          d._origParent.appendChild(d);
+        }
+        d._origParent = null;
+        d._origNext = null;
       }
+
+      currentOpen = null;
     }
 
     btns.forEach(function(btn) {
+      /* Capture the sibling reference once at init — it stays valid
+         because closeAll() always restores the dropdown to its
+         original DOM position before the next click resolves. */
+      var dropdown = btn.nextElementSibling;
+
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
-        var dropdown = btn.nextElementSibling;
-        var isOpen = dropdown.classList.contains('open');
+
+        var isOpen = currentOpen && currentOpen.dropdown === dropdown;
         closeAll();
-        if (!isOpen) {
-          positionDropdown(btn, dropdown);
-          dropdown.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
+        if (isOpen) return;
+
+        /* Remember where dropdown lives so we can put it back */
+        dropdown._origParent = dropdown.parentNode;
+        dropdown._origNext = dropdown.nextSibling || null;
+
+        /* Move to <body> so clip-path / overflow on any ancestor
+           cannot clip or shift the panel */
+        document.body.appendChild(dropdown);
+
+        /* Position flush under (or above) the button */
+        var rect = btn.getBoundingClientRect();
+        var isUp = dropdown.classList.contains('buyNowDropdownUp');
+
+        dropdown.style.position = 'fixed';
+        dropdown.style.zIndex  = '99999';
+        dropdown.style.margin  = '0';
+        dropdown.style.left    = rect.left + 'px';
+        dropdown.style.minWidth = Math.max(210, rect.width) + 'px';
+
+        if (isUp) {
+          dropdown.style.top    = 'auto';
+          dropdown.style.bottom = (window.innerHeight - rect.top + 7) + 'px';
+        } else {
+          dropdown.style.top    = (rect.bottom + 7) + 'px';
+          dropdown.style.bottom = 'auto';
         }
+
+        dropdown.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        currentOpen = { btn: btn, dropdown: dropdown };
       });
     });
 
