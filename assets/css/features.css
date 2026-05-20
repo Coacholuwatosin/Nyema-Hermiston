@@ -1,7 +1,102 @@
 /* ===================================================
-   FEATURES.CSS — Cookie Banner, Sticky Bar,
+   FEATURES.CSS — Cookie Banner, Sticky Bar, Buy Now,
    Lightbox, FAQ Accordion, Share Button, Star Ratings
    =================================================== */
+
+/* ===================================================
+   BUY NOW DROPDOWN
+=================================================== */
+
+.buyNowWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.buyNowBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.buyNowChevron {
+  font-size: 1rem;
+  transition: transform 0.22s ease;
+}
+
+.buyNowBtn[aria-expanded="true"] .buyNowChevron {
+  transform: rotate(180deg);
+}
+
+.buyNowDropdown {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 0;
+  min-width: 210px;
+  background: var(--colorWhite);
+  border: 1px solid rgba(88,98,163,0.13);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 16px rgba(88,98,163,0.12),
+    0 18px 44px rgba(0,0,0,0.09);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.22s ease, visibility 0.2s ease;
+  z-index: 200;
+}
+
+.buyNowDropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* For sticky bar — opens upward */
+.buyNowDropdownUp {
+  top: auto;
+  bottom: calc(100% + 7px);
+  transform: translateY(6px);
+}
+
+.buyNowDropdownUp.open {
+  transform: translateY(0);
+}
+
+.buyNowOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.125rem;
+  color: var(--colorTextOnLight);
+  text-decoration: none;
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeSmall);
+  font-weight: 500;
+  transition: background 0.18s ease, color 0.18s ease;
+  border-bottom: 1px solid rgba(88,98,163,0.08);
+}
+
+.buyNowOption:last-child {
+  border-bottom: none;
+}
+
+.buyNowOption:hover {
+  background: rgba(88,98,163,0.06);
+  color: var(--colorPrimary);
+}
+
+.buyNowOption i {
+  font-size: 1.125rem;
+  color: var(--colorPrimary);
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.buyNowOption span {
+  font-weight: 500;
+}
 
 /* ===================================================
    STAR RATINGS

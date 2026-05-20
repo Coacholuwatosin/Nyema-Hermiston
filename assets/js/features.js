@@ -247,10 +247,44 @@
   }
 
   /* ===================================================
+     BUY NOW DROPDOWN
+  =================================================== */
+  function initBuyNow() {
+    var btns = document.querySelectorAll('.buyNowBtn');
+    if (!btns.length) return;
+
+    function closeAll() {
+      document.querySelectorAll('.buyNowDropdown.open').forEach(function(d) {
+        d.classList.remove('open');
+        d.previousElementSibling.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var dropdown = btn.nextElementSibling;
+        var isOpen = dropdown.classList.contains('open');
+        closeAll();
+        if (!isOpen) {
+          dropdown.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.addEventListener('click', closeAll);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAll();
+    });
+  }
+
+  /* ===================================================
      INIT ALL
   =================================================== */
   function init() {
     initCountUp();
+    initBuyNow();
     initParallax();
     initTypewriter();
     initLightbox();
