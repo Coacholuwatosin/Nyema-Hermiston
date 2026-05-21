@@ -58,6 +58,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overscroll-behavior: none;
 }
 
 body {
@@ -67,6 +68,7 @@ body {
   background-color: var(--colorBackground);
   line-height: var(--lineHeightBody);
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
 /* Utility: subtle dot grid on white sections */
@@ -120,13 +122,16 @@ body.hasCursor button {
 /* --- Page Loader --- */
 .pageLoader {
   position: fixed;
-  inset: 0;
-  background: var(--colorBackgroundDark);
-  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(ellipse at 50% 46%, #4e5aaa 0%, #3a4390 35%, #252e72 70%, #161d52 100%);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  transition: opacity 0.5s ease, visibility 0.5s;
 }
 
 .pageLoader.loaded {
@@ -135,20 +140,61 @@ body.hasCursor button {
   pointer-events: none;
 }
 
+.pageLoaderInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
 .pageLoaderText {
   font-family: var(--fontDisplay);
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 300;
-  letter-spacing: var(--letterSpacingWide);
+  font-weight: 800;
+  letter-spacing: 0.15em;
   color: var(--colorTextOnDark);
   text-transform: uppercase;
-  animation: loaderFade 1s ease forwards;
+  opacity: 0;
+  animation: loaderReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards,
+             loaderPulse  2.6s ease-in-out 0.9s infinite;
 }
 
-@keyframes loaderFade {
-  0% { opacity: 0; transform: translateY(10px); }
-  50% { opacity: 1; transform: translateY(0); }
+@keyframes loaderReveal {
+  0%   { opacity: 0; transform: translateY(14px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes loaderPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+.pageLoaderBar {
+  width: 100px;
+  height: 2px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  animation: loaderBarAppear 0.3s ease 0.65s forwards;
+}
+
+@keyframes loaderBarAppear {
+  to { opacity: 1; }
+}
+
+.pageLoaderBarFill {
+  width: 55px;
+  height: 100%;
+  background: rgba(255,255,255,0.82);
+  border-radius: 2px;
+  transform: translateX(-55px);
+  animation: loaderBarSweep 1.7s ease-in-out infinite;
+}
+
+@keyframes loaderBarSweep {
+  0%   { transform: translateX(-55px); }
+  100% { transform: translateX(155px); }
 }
 
 /* --- Custom Cursor --- */

@@ -157,8 +157,7 @@
   font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
   font-weight: 400;
   color: var(--colorTextOnDark);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
   margin-top: 0.25rem;
   transition: color 0.45s ease;
 }
@@ -290,155 +289,139 @@ body.hasCursor .navHamburger {
 }
 
 /* ===========================
-   MOBILE NAV OVERLAY
+   MOBILE NAV OVERLAY — Glassmorphic dropdown
 =========================== */
+
+/* Fixed anchor that starts at the nav bottom — click-through */
 .navOverlay {
-  display: none;
+  display: none;         /* shown at ≤992px via responsive.css */
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.38s ease, visibility 0.38s ease;
-}
-
-.navOverlay.open {
-  opacity: 1;
-  visibility: visible;
-}
-
-.navOverlayInner {
-  background: var(--colorBackgroundDark);
-  border: 1px solid rgba(255,255,255,0.20);
-  border-top: 2px solid var(--colorSecondary);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
-  padding: 2.5rem 2.75rem 2rem;
-  width: min(88vw, 400px);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.navOverlayInner::before {
-  content: '';
-  position: absolute;
-  top: 0;
+  top: 64px;             /* matches navbar height so the card never clips under it */
   left: 0;
   right: 0;
-  height: 1px;
-  background: var(--colorSecondary);
-  pointer-events: none;
+  bottom: 0;
+  z-index: 998;
+  pointer-events: none;  /* pass clicks through; card handles its own events */
 }
 
-.navOverlayInner::after {
-  content: '';
+/* Floating glassmorphic card — 8px gap below the navbar */
+.navOverlayInner {
   position: absolute;
-  top: -50%;
-  right: -30%;
-  width: 260px;
-  height: 260px;
-  background: transparent;
-  pointer-events: none;
-  z-index: 0;
+  top: 8px;              /* intentional gap below nav bottom */
+  left: 1rem;
+  right: 1rem;
+  width: calc(100% - 2rem);
+
+  background: rgba(16, 24, 48, 0.45);   /* translucent — lets background bleed through */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 2px solid var(--colorSecondary);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+
+  padding: 1.125rem 1.25rem 1.375rem;
+  overflow: hidden;
+  pointer-events: auto;
+
+  /* Slide-down + fade entrance */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity    0.3s ease,
+    visibility 0.3s ease,
+    transform  0.38s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.navOverlayLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  position: relative;
-  z-index: 1;
-}
-
-.navOverlayLinks::before {
-  content: 'Nyema Hermiston';
-  display: block;
-  font-family: var(--fontBody);
-  font-size: 0.625rem;
-  font-weight: 500;
-  color: var(--colorSecondary);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  padding-bottom: 1.25rem;
-  margin-bottom: 0.25rem;
-  border-bottom: 1px solid rgba(255,255,255,0.20);
-}
-
-.navOverlayLink {
-  font-family: var(--fontBody);
-  font-size: 0.8125rem;
-  font-weight: 400;
-  color: var(--colorTextOnDark);
-  text-decoration: none;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  transition: color 0.22s ease, gap 0.22s ease;
-  min-height: 0;
-}
-
-.navOverlayLink:last-child {
-  border-bottom: none;
-}
-
-.navOverlayLink::before {
-  content: '';
-  width: 16px;
-  height: 1px;
-  background: var(--colorSecondary);
-  flex-shrink: 0;
-  opacity: 0.4;
-  transition: width 0.22s ease, opacity 0.22s ease;
-}
-
-.navOverlayLink:hover {
-  color: var(--colorSecondary);
-  gap: 1.2rem;
-}
-
-.navOverlayLink:hover::before {
-  width: 26px;
+.navOverlay.open .navOverlayInner {
   opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
+/* Remove legacy ::before / ::after decorators */
+.navOverlayInner::before,
+.navOverlayInner::after { display: none; }
+
+/* Close button — small, top-right of the card */
 .navOverlayClose {
   position: absolute;
-  top: 0.875rem;
+  top: 0.75rem;
   right: 0.875rem;
-  color: var(--colorTextOnDark);
-  font-size: 0.8125rem;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.30);
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.25s ease;
-  min-height: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  transition: color 0.22s ease, border-color 0.22s ease;
   z-index: 10;
 }
-
 .navOverlayClose:hover {
   color: var(--colorSecondary);
   border-color: var(--colorSecondary);
   background: transparent;
 }
+body.hasCursor .navOverlayClose { cursor: none; }
 
-body.hasCursor .navOverlayClose {
-  cursor: none;
+/* Links container */
+.navOverlayLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Remove legacy "Nyema Hermiston" generated header */
+.navOverlayLinks::before { display: none; }
+
+/* Individual nav links */
+.navOverlayLink {
+  font-family: var(--fontBody);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  display: block;
+  padding: 0.875rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  min-height: 0;
+}
+.navOverlayLink:last-child { border-bottom: none; }
+
+/* Remove dash prefix pseudo-element */
+.navOverlayLink::before { display: none; }
+
+.navOverlayLink:hover    { color: var(--colorSecondary); padding-left: 0.625rem; }
+.navOverlayLink.active   { color: var(--colorSecondary); }
+
+/* Contact — solid gold CTA pill at the bottom of the dropdown */
+.navOverlayLinkCta {
+  display: block;
+  text-align: center;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--colorSecondary);
+  color: var(--colorTextOnLight) !important;
+  border-radius: 8px;
+  border-bottom: none !important;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition: background 0.22s ease, transform 0.22s ease !important;
+}
+.navOverlayLinkCta:hover {
+  background: rgba(255, 236, 150, 0.85);
+  color: var(--colorTextOnLight) !important;
+  padding-left: 1.25rem;   /* override the hover indent from base rule */
+  transform: translateY(-1px);
 }

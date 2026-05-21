@@ -6,6 +6,31 @@
   const form = document.getElementById('contactForm');
   if (!form) return;
 
+  /* ── Pre-fill from URL params (e.g. ?type=media&subject=press-kit) ── */
+  (function prefillFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var type    = params.get('type');
+    var subject = params.get('subject');
+
+    var typeSelect = form.querySelector('[name="enquiryType"]');
+    var msgField   = form.querySelector('[name="message"]');
+
+    if (type && typeSelect) {
+      var opt = typeSelect.querySelector('option[value="' + type + '"]');
+      if (opt) typeSelect.value = type;
+    }
+
+    var messages = {
+      'press-kit':    'Hi Nyema,\n\nI would like to request your full press kit (PDF) for editorial use. Please let me know the best way to receive it.\n\nThank you.',
+      'author-photo': 'Hi Nyema,\n\nI would like to request a high-resolution author photo cleared for editorial use. Please let me know what formats are available.\n\nThank you.',
+      'book-covers':  'Hi Nyema,\n\nI would like to request high-resolution book cover images for all four titles for editorial use. Please let me know how to access them.\n\nThank you.'
+    };
+
+    if (subject && msgField && messages[subject] && !msgField.value.trim()) {
+      msgField.value = messages[subject];
+    }
+  })();
+
   const showError = (fieldId, show) => {
     const err = document.getElementById(fieldId + 'Error');
     if (err) err.classList.toggle('visible', show);

@@ -145,15 +145,18 @@
 /* Glass credential label — pill shape */
 .heroCredentialLabel {
   font-family: var(--fontBody);
-  font-size: var(--fontSizeCredential);
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: var(--letterSpacingWide);
+  letter-spacing: 0.05em;
+  line-height: 1.4;
   text-transform: uppercase;
+  text-align: center;
   color: var(--colorPrimary);
+  display: inline-block;
   white-space: nowrap;
   background: rgba(255,255,255,0.88);
   border: 1px solid rgba(88,98,163,0.22);
-  padding: 0.35rem 1.1rem;
+  padding: 0.6rem 1.2rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 2px 14px rgba(88,98,163,0.10);

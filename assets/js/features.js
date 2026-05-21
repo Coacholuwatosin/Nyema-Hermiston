@@ -334,6 +334,87 @@
   }
 
   /* ===================================================
+     NEWSLETTER POPUP
+  =================================================== */
+  function initNewsletterPopup() {
+    var popup = document.getElementById('newsletterPopup');
+    if (!popup) return;
+    if (sessionStorage.getItem('nhPopupSeen')) return;
+
+    var overlay  = document.getElementById('newsletterPopupOverlay');
+    var closeBtn = document.getElementById('newsletterPopupClose');
+    var skipBtn  = document.getElementById('newsletterPopupSkip');
+    var form     = document.getElementById('newsletterPopupForm');
+    var shown    = false;
+
+    function showPopup() {
+      if (shown) return;
+      shown = true;
+      sessionStorage.setItem('nhPopupSeen', '1');
+      popup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hidePopup() {
+      popup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    setTimeout(showPopup, 45000);
+
+    document.addEventListener('mouseleave', function(e) {
+      if (e.clientY <= 0) showPopup();
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', hidePopup);
+    if (overlay)  overlay.addEventListener('click', hidePopup);
+    if (skipBtn)  skipBtn.addEventListener('click', hidePopup);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') hidePopup();
+    });
+
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var emailInput = form.querySelector('input[type="email"]');
+        var submitBtn  = form.querySelector('[type="submit"]');
+        if (!emailInput || !emailInput.value.trim()) return;
+        if (submitBtn) { submitBtn.textContent = 'Subscribing…'; submitBtn.disabled = true; }
+
+        var MC_URL = 'https://karunahealthcare.us14.list-manage.com/subscribe/post-json' +
+                     '?u=4dffaa10c992a6fc6cf288f15&id=7511719bf3&f_id=0077b5e5f0';
+        var callbackName = 'mcPopupCallback_' + Date.now();
+        var url = MC_URL + '&EMAIL=' + encodeURIComponent(emailInput.value.trim()) + '&c=' + callbackName;
+
+        window[callbackName] = function(data) {
+          var successMsg = document.getElementById('newsletterPopupSuccess');
+          if (data.result === 'success') {
+            form.style.display = 'none';
+            if (successMsg) successMsg.classList.add('visible');
+          } else {
+            var msg = data.msg || '';
+            if (submitBtn) {
+              submitBtn.textContent = msg.toLowerCase().indexOf('already') > -1
+                ? 'Already subscribed'
+                : 'Try again';
+              submitBtn.disabled = false;
+            }
+          }
+          var s = document.getElementById(callbackName);
+          if (s) s.parentNode.removeChild(s);
+          delete window[callbackName];
+        };
+
+        var script = document.createElement('script');
+        script.id  = callbackName;
+        script.src = url;
+        document.body.appendChild(script);
+      });
+    }
+  }
+
+  /* ===================================================
      INIT ALL
   =================================================== */
   function init() {
@@ -346,6 +427,7 @@
     initStickyBuyBar();
     initFaq();
     initShare();
+    initNewsletterPopup();
   }
 
   if (document.readyState === 'loading') {

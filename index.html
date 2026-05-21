@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nyema Hermiston — RN, ND, Adv Dip Hom, BScHons</title>
+  <title>Nyema Hermiston — RN ND Adv Dip Hom, BScHons</title>
   <meta name="description" content="Nyema Hermiston is a Registered Nurse, Naturopath, and Homeopath with over 30 years of clinical experience. Author of evidence-based books on pregnancy, neurodevelopment, and natural health.">
 
   <!-- Open Graph -->
@@ -92,7 +92,12 @@
 
   <!-- Page Loader -->
   <div class="pageLoader" id="pageLoader">
-    <span class="pageLoaderText">Nyema Hermiston</span>
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Scroll Progress Bar -->
@@ -109,7 +114,7 @@
       <div class="navInner">
         <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
           <span class="navLogoText"><span class="navLogoName">Nyema Hermiston</span>
-          <span class="navLogoTagline">RN, ND, Adv Dip Hom, BScHons</span></span>
+          <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span></span>
         </a>
 
         <ul class="navLinks" role="list">
@@ -132,16 +137,15 @@
   </nav>
 
   <!-- Mobile Overlay Nav -->
-  <div class="navOverlay" id="navOverlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
-    <button class="navOverlayClose" id="navOverlayClose" aria-label="Close menu">&#10005;</button>
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
     <div class="navOverlayInner">
       <nav class="navOverlayLinks">
-        <a href="index.html" class="navOverlayLink" data-aos="fade-right" data-aos-delay="100">Home</a>
-        <a href="about.html" class="navOverlayLink" data-aos="fade-right" data-aos-delay="150">About</a>
-        <a href="books.html" class="navOverlayLink" data-aos="fade-right" data-aos-delay="200">Books</a>
-        <a href="mediaPress.html" class="navOverlayLink" data-aos="fade-right" data-aos-delay="250">Media</a>
-        <a href="speaking.html" class="navOverlayLink" data-aos="fade-right" data-aos-delay="300">Speaking</a>
-        <a href="contact.html" class="navOverlayLink" data-aos="fade-right" data-aos-delay="350">Contact</a>
+        <a href="index.html" class="navOverlayLink">Home</a>
+        <a href="about.html" class="navOverlayLink">About</a>
+        <a href="books.html" class="navOverlayLink">Books</a>
+        <a href="mediaPress.html" class="navOverlayLink">Media</a>
+        <a href="speaking.html" class="navOverlayLink">Speaking</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
       </nav>
     </div>
   </div>
@@ -170,7 +174,7 @@
 
             <div class="heroLabelRow">
               <span class="heroLabelLine" aria-hidden="true"></span>
-              <span class="heroCredentialLabel">RN, ND, Adv Dip Hom, BScHons</span>
+              <span class="heroCredentialLabel">Registered Nurse, Naturopath, Homeopath, Health Writer, Speaker, Author</span>
             </div>
 
             <h1 class="heroHeadline" id="heroHeadline">
@@ -238,7 +242,7 @@
               <div class="heroBadge heroBadgeLeft" data-aos="fade-up" data-aos-delay="600">
                 <span class="heroBadgeIcon" aria-hidden="true">★</span>
                 <div class="heroBadgeContent">
-                  <span class="heroBadgeValue">5.0 Rating</span>
+                  <span class="heroBadgeValue">4.98 Rating</span>
                   <span class="heroBadgeLabel">Goodreads Reviews</span>
                 </div>
               </div>
@@ -268,35 +272,7 @@
     </section>
 
     <!-- ==============================
-         SECTION 02 — TRUST BAR
-    =============================== -->
-    <section class="trustBarSection" aria-label="Credentials and affiliations">
-      <div class="trustBarTrack" aria-hidden="true">
-        <div class="trustBarContent">
-          <span class="trustBarItem">Registered Nurse</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">Naturopath</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">Homeopath</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">President of The Aurum Project</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">BSc Honours — Middlesex University London UK</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">Health Writer</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">Published Author</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">Past President — Australian Homeopathic Association NSW</span>
-          <span class="trustBarDiamond">◆</span>
-          <span class="trustBarItem">Past Executive Officer — Australian Register of Homeopaths</span>
-          <span class="trustBarDiamond">◆</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================
-         SECTION 03 — ABOUT PREVIEW
+         SECTION 02 — ABOUT PREVIEW
     =============================== -->
     <section class="aboutPreviewSection" aria-labelledby="aboutPreviewTitle">
       <div class="container">
@@ -342,10 +318,11 @@
             </div>
 
             <div class="aboutCredChips" data-aos="fade-up" data-aos-delay="250">
-              <span class="aboutCredChip">RN</span>
-              <span class="aboutCredChip">ND</span>
+              <span class="aboutCredChip">Registered Nurse</span>
+              <span class="aboutCredChip">Naturopath</span>
               <span class="aboutCredChip">Homeopath</span>
-              <span class="aboutCredChip">BSc Hons</span>
+              <span class="aboutCredChip">Health Writer</span>
+              <span class="aboutCredChip">Speaker</span>
               <span class="aboutCredChip">Author</span>
             </div>
 
@@ -354,6 +331,34 @@
             </a>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         SECTION 03 — TRUST BAR
+    =============================== -->
+    <section class="trustBarSection" aria-label="Credentials and affiliations">
+      <div class="trustBarTrack" aria-hidden="true">
+        <div class="trustBarContent">
+          <span class="trustBarItem">Registered Nurse</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">Naturopath</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">Homeopath</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">President of The Aurum Project</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">BSc Honours — Middlesex University London UK</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">Health Writer</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">Published Author</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">Past President — Australian Homeopathic Association NSW</span>
+          <span class="trustBarDiamond">◆</span>
+          <span class="trustBarItem">Past Executive Officer — Australian Register of Homeopaths</span>
+          <span class="trustBarDiamond">◆</span>
         </div>
       </div>
     </section>
@@ -1072,43 +1077,45 @@
       <div class="container">
         <div class="newsletterCard" data-aos="fade-up">
 
-          <div class="newsletterDecoIcon" aria-hidden="true">
-            <i class="ri-mail-open-line"></i>
+          <div class="newsletterCardLeft">
+            <div class="newsletterDecoIcon" aria-hidden="true">
+              <i class="ri-mail-open-line"></i>
+            </div>
+            <span class="sectionLabel">Stay Connected</span>
+            <h2 class="newsletterHeadline" id="newsletterHeadline">Stay Informed.<br>Stay Empowered.</h2>
+            <p class="newsletterSubheading">Join parents and practitioners who receive Nyema's latest research insights, health guidance, and book updates directly.</p>
+            <div class="newsletterBenefits" aria-label="What you receive">
+              <div class="newsletterBenefit">
+                <i class="ri-check-line" aria-hidden="true"></i>
+                <span>Research Insights</span>
+              </div>
+              <div class="newsletterBenefit">
+                <i class="ri-check-line" aria-hidden="true"></i>
+                <span>Clinical Guidance</span>
+              </div>
+              <div class="newsletterBenefit">
+                <i class="ri-check-line" aria-hidden="true"></i>
+                <span>Book Updates</span>
+              </div>
+            </div>
           </div>
 
-          <span class="sectionLabel">Stay Connected</span>
-          <h2 class="newsletterHeadline" id="newsletterHeadline">Stay Informed. Stay Empowered.</h2>
-          <p class="newsletterSubheading">Join parents and practitioners who receive Nyema's latest research insights, health guidance, and book updates directly.</p>
-
-          <div class="newsletterBenefits" aria-label="What you receive">
-            <div class="newsletterBenefit">
-              <i class="ri-microscope-line" aria-hidden="true"></i>
-              <span>Research Insights</span>
+          <div class="newsletterCardRight">
+            <p class="newsletterFormHeading">Get Nyema's insights in your inbox</p>
+            <p class="newsletterFormSubtext">Join readers who stay ahead with evidence-based natural health updates.</p>
+            <form class="newsletterForm" id="newsletterForm" novalidate>
+              <label for="newsletterEmail" class="srOnly">Email Address</label>
+              <input type="email" id="newsletterEmail" name="email" class="newsletterInput" placeholder="Your email address" required autocomplete="email">
+              <button type="submit" class="newsletterSubmit">Subscribe Now</button>
+            </form>
+            <div class="newsletterSuccess" id="newsletterSuccess" role="status">
+              Thank you for subscribing. You will hear from Nyema soon.
             </div>
-            <div class="newsletterBenefit">
-              <i class="ri-heart-pulse-line" aria-hidden="true"></i>
-              <span>Clinical Guidance</span>
-            </div>
-            <div class="newsletterBenefit">
-              <i class="ri-book-2-line" aria-hidden="true"></i>
-              <span>Book Updates</span>
-            </div>
+            <p class="newsletterPrivacy">
+              <i class="ri-lock-line" aria-hidden="true"></i>
+              No spam. No sharing. Unsubscribe anytime.
+            </p>
           </div>
-
-          <form class="newsletterForm" id="newsletterForm" novalidate>
-            <label for="newsletterEmail" class="srOnly">Email Address</label>
-            <input type="email" id="newsletterEmail" name="email" class="newsletterInput" placeholder="Your email address" required autocomplete="email">
-            <button type="submit" class="newsletterSubmit">Subscribe</button>
-          </form>
-
-          <div class="newsletterSuccess" id="newsletterSuccess" role="status">
-            Thank you for subscribing. You will hear from Nyema soon.
-          </div>
-
-          <p class="newsletterPrivacy">
-            <i class="ri-lock-line" aria-hidden="true"></i>
-            No spam. No sharing. Unsubscribe anytime.
-          </p>
 
         </div>
       </div>
@@ -1215,7 +1222,7 @@
           <a href="index.html" aria-label="Nyema Hermiston Home">
             <span class="footerLogoName">Nyema Hermiston</span>
           </a>
-          <span class="footerLogoTagline">RN, ND, Adv Dip Hom, BScHons</span>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
           <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
         </div>
 
@@ -1336,6 +1343,35 @@
     <div class="cookieBannerActions">
       <button class="cookieBannerAccept">Accept All</button>
       <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup -->
+  <div class="newsletterPopup" id="newsletterPopup" role="dialog" aria-modal="true" aria-labelledby="popupHeadline">
+    <div class="newsletterPopupOverlay" id="newsletterPopupOverlay"></div>
+    <div class="newsletterPopupCard">
+      <button class="newsletterPopupClose" id="newsletterPopupClose" aria-label="Close newsletter popup">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <div class="newsletterPopupIcon" aria-hidden="true"><i class="ri-mail-open-line"></i></div>
+      <span class="newsletterPopupLabel">Stay Connected</span>
+      <h2 class="newsletterPopupHeadline" id="popupHeadline">Don't Miss Nyema's Latest Research</h2>
+      <p class="newsletterPopupSubtext">Join parents and practitioners receiving evidence-based natural health insights directly in their inbox.</p>
+      <div class="newsletterPopupBenefits" aria-label="What you receive">
+        <span><i class="ri-check-line" aria-hidden="true"></i> Research Insights</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Clinical Guidance</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Book Updates</span>
+      </div>
+      <form class="newsletterPopupForm" id="newsletterPopupForm" novalidate>
+        <label for="newsletterPopupEmail" class="srOnly">Email Address</label>
+        <input type="email" id="newsletterPopupEmail" name="email" class="newsletterPopupInput" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="newsletterPopupSubmit">Subscribe Now</button>
+      </form>
+      <div class="newsletterPopupSuccess" id="newsletterPopupSuccess" role="status">
+        Thank you for subscribing. You will hear from Nyema soon.
+      </div>
+      <p class="newsletterPopupPrivacy"><i class="ri-lock-line" aria-hidden="true"></i> No spam. Unsubscribe anytime.</p>
+      <span class="newsletterPopupSkip" id="newsletterPopupSkip">No thanks</span>
     </div>
   </div>
 

@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.classList.toggle('open');
       const isOpen = overlay.classList.contains('open');
       hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
   }
 
@@ -94,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.classList.remove('open');
       overlay.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
     });
   }
 
@@ -105,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.setAttribute('aria-expanded', 'false');
       }
       if (overlay) overlay.classList.remove('open');
-      document.body.style.overflow = '';
     });
   });
 
@@ -129,18 +126,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- Newsletter Form ---------- */
-  const newsletterForm = document.getElementById('newsletterForm');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const emailInput = newsletterForm.querySelector('input[type="email"]');
-      const successMsg = document.getElementById('newsletterSuccess');
-      if (emailInput && emailInput.value) {
-        newsletterForm.style.display = 'none';
+  /* ---------- Newsletter Forms — Mailchimp ---------- */
+  var MC_URL = 'https://karunahealthcare.us14.list-manage.com/subscribe/post-json' +
+               '?u=4dffaa10c992a6fc6cf288f15&id=7511719bf3&f_id=0077b5e5f0';
+
+  function submitToMailchimp(email, formEl, successId) {
+    var callbackName = 'mcCallback_' + Date.now();
+    var url = MC_URL + '&EMAIL=' + encodeURIComponent(email) + '&c=' + callbackName;
+
+    window[callbackName] = function(data) {
+      var successMsg = document.getElementById(successId);
+      var submitBtn = formEl.querySelector('[type="submit"]');
+      if (data.result === 'success') {
+        formEl.style.display = 'none';
         if (successMsg) successMsg.classList.add('visible');
+      } else {
+        var msg = data.msg || '';
+        if (submitBtn) {
+          submitBtn.textContent = msg.toLowerCase().indexOf('already') > -1
+            ? 'Already subscribed'
+            : 'Try again';
+          submitBtn.disabled = false;
+        }
       }
-    });
+      var s = document.getElementById(callbackName);
+      if (s) s.parentNode.removeChild(s);
+      delete window[callbackName];
+    };
+
+    var script = document.createElement('script');
+    script.id = callbackName;
+    script.src = url;
+    document.body.appendChild(script);
   }
+
+  [
+    { formId: 'newsletterForm',      successId: 'newsletterSuccess'      },
+    { formId: 'newsletterFormAbout', successId: 'newsletterSuccessAbout' },
+    { formId: 'newsletterFormBooks', successId: 'newsletterSuccessBooks' }
+  ].forEach(function(item) {
+    var form = document.getElementById(item.formId);
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var emailInput = form.querySelector('input[type="email"]');
+      var submitBtn  = form.querySelector('[type="submit"]');
+      if (!emailInput || !emailInput.value.trim()) return;
+      if (submitBtn) { submitBtn.textContent = 'Subscribing…'; submitBtn.disabled = true; }
+      submitToMailchimp(emailInput.value.trim(), form, item.successId);
+    });
+  });
 
 });

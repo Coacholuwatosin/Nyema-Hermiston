@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- TEMP BLOCK - REMOVE WHEN READY -->
-  <meta http-equiv="refresh" content="0; url=index.html">
+  <!-- <meta http-equiv="refresh" content="0; url=index.html"> -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Media &amp; Press — Nyema Hermiston</title>
@@ -44,11 +44,13 @@
   <link rel="stylesheet" href="assets/css/features.css">
 
   <style>
+    /* ── HERO ─────────────────────────────────────────── */
     .mediaPressHero {
-      background: var(--colorBackgroundDark);
-      padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
+      background: linear-gradient(145deg, #5862a3 0%, #434d96 45%, #333e87 100%);
+      padding: calc(var(--spaceXl) + 80px) 0 100px;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
     .mediaPressHero::before {
       content: '';
@@ -57,45 +59,146 @@
       background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
       background-size: 28px 28px;
       pointer-events: none;
+      z-index: 0;
     }
-    .mediaPressHeroContent { position: relative; z-index: 1; }
+    .mediaPressHeroContent {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .mediaPressHero .sectionLabel {
+      color: var(--colorSecondary);
+    }
     .mediaPressHeroTitle {
       font-family: var(--fontDisplay);
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2.75rem, 7vw, 5.5rem);
       font-weight: 700;
       color: var(--colorTextOnDark);
       line-height: var(--lineHeightDisplay);
+      margin-bottom: var(--spaceSm);
     }
+    .mediaPressHeroDesc {
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeBody);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      max-width: 540px;
+      margin: 0 auto var(--spaceMd);
+    }
+    .mediaPressHeroCta {
+      display: flex;
+      gap: var(--spaceSm);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    /* Ghost outline button for hero */
+    .mediaPressGhostBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.5rem;
+      border: 1.5px solid rgba(255,255,255,0.38);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.92);
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeSmall);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+      min-height: 0;
+    }
+    .mediaPressGhostBtn:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.65);
+      color: #fff;
+    }
+    /* Wave transition into light section */
+    .mediaPressWave {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      z-index: 1;
+    }
+    .mediaPressWave svg {
+      display: block;
+      width: 100%;
+      height: 70px;
+    }
+
+    /* ── SECTIONS ─────────────────────────────────────── */
     .mediaPressSection {
       padding: var(--spaceSection) 0;
       position: relative;
     }
-    .mediaPressSection:nth-child(odd) {
-      background: var(--colorBackground);
-    }
-    .mediaPressSection:nth-child(odd)::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(88,98,163,0.10) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .mediaPressSection:nth-child(even) { background: var(--colorBackgroundDark); }
-    .mediaResourceCard {
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(88,98,163,0.18);
-      border-top: 3px solid var(--colorPrimary);
-      border-radius: 12px;
-      padding: var(--spaceMd);
-      box-shadow: 0 4px 20px rgba(88,98,163,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .mediaPressSectionHeader {
+      text-align: center;
+      margin-bottom: var(--spaceLg);
       position: relative;
       z-index: 1;
     }
+    .mediaSectionLight {
+      background: var(--colorBackground);
+    }
+    .mediaSectionLight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .mediaSectionDark {
+      background: var(--colorBackgroundDark);
+    }
+    .mediaSectionDark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* ── PRESS KIT CARDS ──────────────────────────────── */
+    .mediaResourceGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spaceMd);
+      position: relative;
+      z-index: 1;
+    }
+    .mediaResourceCard {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid rgba(88,98,163,0.08);
+      padding: var(--spaceMd);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
     .mediaResourceCard:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(88,98,163,0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 44px -10px rgba(88,98,163,0.16);
+    }
+    .mediaResourceIcon {
+      width: 48px;
+      height: 48px;
+      background: rgba(88,98,163,0.10);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--colorPrimary);
+      font-size: 1.375rem;
+      margin-bottom: var(--spaceSm);
+      flex-shrink: 0;
     }
     .mediaResourceTitle {
       font-family: var(--fontDisplay);
@@ -105,62 +208,93 @@
       margin-bottom: var(--spaceXs);
     }
     .mediaResourceDesc {
+      font-family: var(--fontBody);
       font-size: var(--fontSizeSmall);
       color: var(--colorTextOnLight);
-      opacity: 0.75;
+      opacity: 0.68;
       line-height: var(--lineHeightBody);
-      margin-bottom: var(--spaceSm);
+      flex-grow: 1;
+      margin-bottom: var(--spaceMd);
     }
-    .mediaResourceGrid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spaceMd);
+    /* Button pushed to bottom baseline via margin-top: auto on parent flex */
+    .mediaResourceBtn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.25rem;
+      background: var(--colorPrimary);
+      color: #ffffff;
+      border-radius: 8px;
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeCredential);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+      margin-top: auto;
+      align-self: flex-start;
+      border: none;
+    }
+    .mediaResourceBtn:hover {
+      background: #3d4580;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* ── AUTHOR BIO ───────────────────────────────────── */
+    .pressBioSection { position: relative; }
+    .pressBioBody {
+      max-width: 680px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
     .pressQuoteBlock {
       background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.20);
+      border: 1px solid rgba(255,255,255,0.18);
       border-left: 4px solid var(--colorSecondary);
       border-radius: 12px;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      padding: var(--spaceMd);
+      padding: var(--spaceMd) var(--spaceLg);
       margin-bottom: var(--spaceSm);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.12) inset;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.14), 0 1px 0 rgba(255,255,255,0.10) inset;
     }
     .pressQuoteText {
       font-family: var(--fontDisplay);
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
       font-style: italic;
       color: var(--colorTextOnDark);
-      line-height: 1.85;
+      line-height: 1.9;
       opacity: 0.92;
     }
     .pressQuoteText.pressQuoteTextPlain { font-style: normal; }
-    .pressQuoteSource {
+    .pressFootnote {
+      font-family: var(--fontBody);
       font-size: var(--fontSizeCredential);
-      color: var(--colorSecondary);
-      margin-top: var(--spaceXs);
-      letter-spacing: 0.05em;
+      color: rgba(232,228,240,0.52);
+      letter-spacing: 0.03em;
     }
-    .pressBioSection {
-      background: var(--colorBackgroundDark) !important;
-      position: relative;
+
+    /* ── MEDIA ENQUIRIES ──────────────────────────────── */
+    .mediaContactDesc {
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeBody);
+      color: var(--colorTextOnLight);
+      opacity: 0.72;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: var(--spaceSm) auto var(--spaceMd);
     }
-    .pressBioSection::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
     @media (max-width: 992px) {
       .mediaResourceGrid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 576px) {
-      .mediaResourceGrid { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .mediaResourceGrid { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; }
+      .pressQuoteBlock { padding: var(--spaceMd); }
     }
   </style>
 
@@ -178,7 +312,12 @@
   <a href="#main-content" class="skipToContent">Skip to main content</a>
 
   <div class="pageLoader" id="pageLoader">
-    <span class="pageLoaderText">Nyema Hermiston</span>
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
   </div>
 
   <div class="scrollProgressBar" id="scrollProgressBar"></div>
@@ -190,7 +329,7 @@
       <div class="navInner">
         <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
           <span class="navLogoText"><span class="navLogoName">Nyema Hermiston</span>
-          <span class="navLogoTagline">RN, ND, Adv Dip Hom, BScHons</span></span>
+          <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span></span>
         </a>
         <ul class="navLinks" role="list">
           <li><a href="index.html" class="navLink">Home</a></li>
@@ -210,8 +349,7 @@
     </div>
   </nav>
 
-  <div class="navOverlay" id="navOverlay" role="dialog" aria-modal="true">
-    <button class="navOverlayClose" id="navOverlayClose" aria-label="Close menu">&#10005;</button>
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
     <div class="navOverlayInner">
       <nav class="navOverlayLinks">
         <a href="index.html" class="navOverlayLink">Home</a>
@@ -219,7 +357,7 @@
         <a href="books.html" class="navOverlayLink">Books</a>
         <a href="mediaPress.html" class="navOverlayLink">Media</a>
         <a href="speaking.html" class="navOverlayLink">Speaking</a>
-        <a href="contact.html" class="navOverlayLink">Contact</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
       </nav>
     </div>
   </div>
@@ -236,16 +374,23 @@
           Resources for journalists, producers, and publications. Download the press kit, author bio, and high-resolution images below, or contact Nyema directly for interview requests and media enquiries.
         </p>
         <div class="mediaPressHeroCta">
-          <a href="contact.html" class="btnPrimary">Media Enquiry</a>
-          <a href="#pressKit" class="btnSecondary">Download Press Kit</a>
+          <a href="contact.html?type=media#contactForm" class="btnPrimary">Media Enquiry</a>
+          <a href="#pressKit" class="mediaPressGhostBtn">
+            <i class="ri-download-line" aria-hidden="true"></i> Download Press Kit
+          </a>
         </div>
+      </div>
+      <div class="mediaPressWave" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70" preserveAspectRatio="none">
+          <path d="M0,35 C360,70 1080,0 1440,35 L1440,70 L0,70 Z" fill="#ffffff"/>
+        </svg>
       </div>
     </div>
 
     <!-- Press Kit Download -->
-    <section class="mediaPressSection" id="pressKit" aria-labelledby="pressKitTitle">
+    <section class="mediaPressSection mediaSectionLight" id="pressKit" aria-labelledby="pressKitTitle">
       <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
+        <div class="mediaPressSectionHeader" data-aos="fade-up">
           <span class="sectionLabel">Resources</span>
           <h2 class="sectionTitle sectionTitleDark" id="pressKitTitle">Press Kit &amp; Downloads</h2>
           <span class="goldUnderlineCentered"></span>
@@ -254,21 +399,24 @@
         <div class="mediaResourceGrid">
 
           <div class="mediaResourceCard" data-aos="fade-up" data-aos-delay="100">
+            <div class="mediaResourceIcon"><i class="ri-file-text-line" aria-hidden="true"></i></div>
             <h3 class="mediaResourceTitle">Full Press Kit (PDF)</h3>
             <p class="mediaResourceDesc">Complete press kit including author bio, book synopses, credential overview, and media talking points.</p>
-            <a href="contact.html" class="btnPrimary btnSm">Request Press Kit</a>
+            <a href="contact.html?type=media&amp;subject=press-kit#contactForm" class="mediaResourceBtn">Request Press Kit</a>
           </div>
 
           <div class="mediaResourceCard" data-aos="fade-up" data-aos-delay="200">
+            <div class="mediaResourceIcon"><i class="ri-image-line" aria-hidden="true"></i></div>
             <h3 class="mediaResourceTitle">Author Photo (Hi-Res)</h3>
             <p class="mediaResourceDesc">Professional high-resolution author photograph cleared for editorial use. Available in multiple formats.</p>
-            <a href="contact.html" class="btnPrimary btnSm">Request Photo</a>
+            <a href="contact.html?type=media&amp;subject=author-photo#contactForm" class="mediaResourceBtn">Request Photo</a>
           </div>
 
           <div class="mediaResourceCard" data-aos="fade-up" data-aos-delay="300">
+            <div class="mediaResourceIcon"><i class="ri-book-2-line" aria-hidden="true"></i></div>
             <h3 class="mediaResourceTitle">Book Cover Images</h3>
             <p class="mediaResourceDesc">High-resolution book cover artwork for all four published titles, cleared for editorial use.</p>
-            <a href="contact.html" class="btnPrimary btnSm">Request Images</a>
+            <a href="contact.html?type=media&amp;subject=book-covers#contactForm" class="mediaResourceBtn">Request Images</a>
           </div>
 
         </div>
@@ -276,12 +424,14 @@
     </section>
 
     <!-- Author Bio for Press -->
-    <section class="mediaPressSection pressBioSection" aria-labelledby="pressBioTitle">
+    <section class="mediaPressSection mediaSectionDark pressBioSection" aria-labelledby="pressBioTitle">
       <div class="container">
-        <div data-aos="fade-up">
+        <div class="mediaPressSectionHeader" data-aos="fade-up">
           <span class="sectionLabel">For Publication</span>
           <h2 class="sectionTitle sectionTitleLight sectionTitleSpaced" id="pressBioTitle">Author Bio for Press</h2>
-          <span class="goldUnderlineLargeSpaced"></span>
+          <span class="goldUnderlineCentered"></span>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="100">
 
           <div class="pressBioBody">
             <div class="pressQuoteBlock">
@@ -297,14 +447,14 @@
     </section>
 
     <!-- Media Contact -->
-    <section class="mediaPressSection" aria-labelledby="mediaContactTitle">
+    <section class="mediaPressSection mediaSectionLight" aria-labelledby="mediaContactTitle">
       <div class="container">
         <div class="text-center" data-aos="fade-up">
           <span class="sectionLabel">Contact</span>
           <h2 class="sectionTitle sectionTitleDark sectionTitleSpaced" id="mediaContactTitle">Media Enquiries</h2>
           <span class="goldUnderlineCenteredLargeSpaced"></span>
           <p class="mediaContactDesc">For interview requests, media appearances, podcast invitations, and publication features, please use the contact form and select "Media" as your enquiry type.</p>
-          <a href="contact.html" class="btnPrimary">Send Media Enquiry</a>
+          <a href="contact.html?type=media#contactForm" class="btnPrimary">Send Media Enquiry</a>
         </div>
       </div>
     </section>
@@ -320,7 +470,7 @@
       <div class="footerGrid">
         <div class="footerBrand">
           <a href="index.html" aria-label="Nyema Hermiston Home"><span class="footerLogoName">Nyema Hermiston</span></a>
-          <span class="footerLogoTagline">RN, ND, Adv Dip Hom, BScHons</span>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
           <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
         </div>
         <nav aria-label="Footer navigation">

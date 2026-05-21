@@ -265,7 +265,8 @@
 .aboutPageHero .sectionLabel {
   color: var(--colorSecondary);
   font-size: var(--fontSizeCredential);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.06em;
+  text-transform: none;
   margin-bottom: var(--spaceSm);
 }
 

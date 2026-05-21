@@ -36,120 +36,221 @@
 
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/newsletter.css">
   <link rel="stylesheet" href="assets/css/contact.css">
   <link rel="stylesheet" href="assets/css/footer.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
   <link rel="stylesheet" href="assets/css/features.css">
 
   <style>
+    /* ── Transparent nav — speaking page only ── */
+    #siteNav:not(.scrolled) {
+      background: transparent;
+      box-shadow: none;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    #siteNav:not(.scrolled) .navLogoName { color: #fff; }
+    #siteNav:not(.scrolled) .navLogoTagline { color: rgba(255,255,255,0.52); }
+    #siteNav:not(.scrolled) .navLink { color: rgba(255,255,255,0.82); }
+    #siteNav:not(.scrolled) .navLink:hover,
+    #siteNav:not(.scrolled) .navLink.active { color: #fff; opacity: 1; }
+    #siteNav:not(.scrolled) .navLink.active {
+      border-bottom-color: var(--colorSecondary);
+    }
+    #siteNav:not(.scrolled) .navCta.btnPrimary {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.32);
+      color: #fff;
+    }
+    #siteNav:not(.scrolled) .navCta.btnPrimary:hover {
+      background: rgba(255,255,255,0.24);
+      border-color: rgba(255,255,255,0.5);
+    }
+    #siteNav:not(.scrolled) .navHamburgerLine { background: #fff; }
+
+    /* ── Speaking Hero — full-bleed with gradient blend ── */
     .speakingHero {
-      background-color: var(--colorBackgroundDark);
-      padding: calc(var(--spaceXl) + 80px) 0 var(--spaceLg);
       position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
       overflow: hidden;
     }
-    /* Flipped photo layer */
-    .speakingHero::before {
-      content: '';
+
+    /* Full-width photo, flipped so Nyema faces the text */
+    .speakingHeroBg {
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(to bottom, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.60) 100%),
-        url('assets/images/nyema-hermiston-speaking.jpeg');
+      background-image: url('assets/images/nyema-hermiston-speaking.jpeg');
       background-size: cover;
       background-position: center top;
       transform: scaleX(-1);
-      z-index: 0;
     }
-    /* Dot grid overlay */
-    .speakingHero::after {
-      content: '';
+
+    /* Gradient fades brand-color into the photo — no hard line */
+    .speakingHeroVeil {
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background: linear-gradient(
+        to right,
+        #1c2870 0%,
+        #263390 26%,
+        rgba(38,51,144,0.88) 44%,
+        rgba(30,42,114,0.30) 66%,
+        transparent 84%
+      );
+    }
+
+    /* Subtle dot texture, only visible over the opaque left zone */
+    .speakingHeroDots {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.028) 1px, transparent 1px);
       background-size: 28px 28px;
       pointer-events: none;
-      z-index: 1;
-    }
-    .speakingHeroContent { position: relative; z-index: 2; }
-    .speakingHeroTitle {
-      font-family: var(--fontDisplay);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 700;
-      color: var(--colorTextOnDark);
-      line-height: var(--lineHeightDisplay);
-      margin-bottom: 0;
     }
 
-    /* Glass content panel */
-    .speakingHeroGlass {
-      background: rgba(0,0,0,0.44);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(255,255,255,0.13);
-      border-top: 2px solid var(--colorSecondary);
-      border-radius: 20px;
-      padding: var(--spaceLg);
-      max-width: 640px;
+    /* Soft gold ambient glow bottom-left */
+    .speakingHeroGlow {
+      position: absolute;
+      bottom: -140px;
+      left: -100px;
+      width: 440px;
+      height: 440px;
+      background: radial-gradient(circle, rgba(255,236,150,0.07) 0%, transparent 65%);
+      pointer-events: none;
     }
 
-    /* sectionLabel on dark glass */
-    .speakingHeroGlass .sectionLabel {
+    /* Content sits inside the container, left-anchored */
+    .speakingHeroInner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding-top: calc(88px + var(--spaceXl));
+      padding-bottom: var(--spaceXl);
+    }
+
+    .speakingHeroContent { max-width: 570px; }
+
+    .speakingHeroEyebrow {
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
       color: var(--colorSecondary);
-      letter-spacing: 0.16em;
+      display: block;
       margin-bottom: var(--spaceSm);
     }
-    .speakingHeroGlass .sectionLabel::before {
-      display: none;
+
+    .speakingHeroTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(3.2rem, 5.8vw, 6.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      margin-bottom: var(--spaceMd);
     }
 
-    /* goldUnderline on dark glass — visible */
-    .speakingHeroGlass .goldUnderlineSpaced {
+    .speakingHeroRule {
       display: block;
-      margin: var(--spaceXs) 0 var(--spaceSm);
+      width: 44px;
+      height: 3px;
+      background: var(--colorSecondary);
+      border-radius: 2px;
+      margin-bottom: var(--spaceMd);
     }
 
     .speakingHeroDesc {
-      font-size: var(--fontSizeBody);
-      color: rgba(255,255,255,0.80);
-      line-height: var(--lineHeightBody);
-      margin-top: var(--spaceSm);
-      margin-bottom: 0;
+      font-size: clamp(0.93rem, 1.1vw, 1.04rem);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.84;
+      max-width: 440px;
     }
 
+    /* CTA row */
     .speakingHeroCta {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: var(--spaceSm);
       margin-top: var(--spaceMd);
     }
 
-    /* Primary CTA — solid, rounded */
-    .speakingHeroCta .btnPrimary {
-      border-radius: 12px;
+    .speakingHeroBtn {
+      border-radius: 8px;
+      padding: 14px 30px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
     }
 
-    /* Ghost CTA — white-tinted on dark photo */
-    .speakingHeroCta .btnSecondary {
-      background: rgba(255,255,255,0.09);
-      border-color: rgba(255,255,255,0.28);
-      color: var(--colorTextOnDark);
-      border-radius: 12px;
+    .speakingHeroGhostBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fontBody);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.74);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border: none;
+      background: none;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.25s ease;
     }
-    .speakingHeroCta .btnSecondary:hover {
-      background: rgba(255,255,255,0.17);
-      border-color: rgba(255,255,255,0.42);
-      color: var(--colorTextOnDark);
+    .speakingHeroGhostBtn i {
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.25s ease;
+    }
+    .speakingHeroGhostBtn:hover { color: var(--colorSecondary); }
+    .speakingHeroGhostBtn:hover i { transform: translateY(3px); }
+
+    /* Stats row */
+    .speakingHeroStats {
+      display: flex;
+      align-items: flex-start;
+      margin-top: var(--spaceLg);
+      padding-top: var(--spaceMd);
+      border-top: 1px solid rgba(255,255,255,0.13);
     }
 
-    /* Navbar vertical alignment fix */
-    .navCta {
-      display: inline-flex !important;
-      align-items: center !important;
-      line-height: 1 !important;
+    .speakingHeroStat {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding-right: var(--spaceMd);
+      margin-right: var(--spaceMd);
+      border-right: 1px solid rgba(255,255,255,0.13);
+    }
+    .speakingHeroStat:last-child {
+      border-right: none;
+      padding-right: 0;
+      margin-right: 0;
     }
 
-    /* Speaking Topics */
+    .speakingHeroStatNum {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .speakingHeroStatLabel {
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.46);
+      letter-spacing: 0.03em;
+      line-height: 1.55;
+    }
+
+    /* ── Speaking Topics ── */
     .speakingTopicsSection {
       background: var(--colorBackground);
       padding: var(--spaceSection) 0;
@@ -212,7 +313,7 @@
       z-index: 1;
     }
 
-    /* Audience Section */
+    /* ── Audience Section ── */
     .speakingAudienceSection {
       background: var(--colorBackgroundDark);
       padding: var(--spaceSection) 0;
@@ -264,16 +365,12 @@
       opacity: 0.9;
     }
 
-    /* Calendly */
+    /* ── Calendly ── */
     .calendlySection {
       background: var(--colorBackground);
       padding: var(--spaceSection) 0;
     }
-    .calendlyWrap {
-      max-width: 860px;
-      margin: 0 auto;
-      text-align: center;
-    }
+    .calendlyWrap { max-width: 860px; margin: 0 auto; text-align: center; }
     .calendlyPlaceholderTitle {
       font-family: var(--fontDisplay);
       font-size: clamp(1.5rem, 3vw, 2.5rem);
@@ -290,11 +387,41 @@
       line-height: var(--lineHeightBody);
     }
 
+    /* ── Navbar alignment fix ── */
+    .navCta {
+      display: inline-flex !important;
+      align-items: center !important;
+      line-height: 1 !important;
+    }
+
+    /* ── Responsive ── */
     @media (max-width: 992px) {
+      .speakingHeroInner { padding-top: calc(80px + var(--spaceMd)); }
+      .speakingHeroContent { max-width: 100%; }
+      .speakingHeroVeil {
+        background: linear-gradient(
+          to bottom,
+          rgba(28,40,112,0.96) 0%,
+          rgba(28,40,112,0.82) 52%,
+          rgba(28,40,112,0.58) 100%
+        );
+      }
       .speakingTopicsGrid { grid-template-columns: 1fr; }
       .speakingAudienceGrid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 576px) {
+      .speakingHero { min-height: auto; padding-bottom: var(--spaceXl); }
+      .speakingHeroTitle { font-size: clamp(2.8rem, 10vw, 3.4rem); }
+      .speakingHeroStats { flex-wrap: wrap; gap: var(--spaceSm) var(--spaceMd); }
+      .speakingHeroStat {
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+        padding-bottom: var(--spaceSm);
+        border-bottom: 1px solid rgba(255,255,255,0.11);
+        width: 100%;
+      }
+      .speakingHeroStat:last-child { border-bottom: none; padding-bottom: 0; }
       .speakingAudienceGrid { grid-template-columns: 1fr; }
     }
   </style>
@@ -313,19 +440,24 @@
   <a href="#main-content" class="skipToContent">Skip to main content</a>
 
   <div class="pageLoader" id="pageLoader">
-    <span class="pageLoaderText">Nyema Hermiston</span>
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
   </div>
 
   <div class="scrollProgressBar" id="scrollProgressBar"></div>
   <div class="customCursor" id="customCursor"></div>
 
   <!-- Navigation -->
-  <nav class="siteNav scrolled" id="siteNav" role="navigation" aria-label="Main navigation">
+  <nav class="siteNav" id="siteNav" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="navInner">
         <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
           <span class="navLogoText"><span class="navLogoName">Nyema Hermiston</span>
-          <span class="navLogoTagline">RN, ND, Adv Dip Hom, BScHons</span></span>
+          <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span></span>
         </a>
         <ul class="navLinks" role="list">
           <li><a href="index.html" class="navLink">Home</a></li>
@@ -344,8 +476,7 @@
     </div>
   </nav>
 
-  <div class="navOverlay" id="navOverlay" role="dialog" aria-modal="true">
-    <button class="navOverlayClose" id="navOverlayClose" aria-label="Close menu">&#10005;</button>
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
     <div class="navOverlayInner">
       <nav class="navOverlayLinks">
         <a href="index.html" class="navOverlayLink">Home</a>
@@ -353,7 +484,7 @@
         <a href="books.html" class="navOverlayLink">Books</a>
         <a href="mediaPress.html" class="navOverlayLink">Media</a>
         <a href="speaking.html" class="navOverlayLink">Speaking</a>
-        <a href="contact.html" class="navOverlayLink">Contact</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
       </nav>
     </div>
   </div>
@@ -361,22 +492,56 @@
   <main id="main-content">
 
     <!-- Hero -->
-    <div class="speakingHero">
-      <div class="container speakingHeroContent" data-aos="fade-up">
-        <div class="speakingHeroGlass">
-          <span class="sectionLabel">Speaking Engagements</span>
-          <h1 class="speakingHeroTitle">Invite Nyema to Speak</h1>
-          <span class="goldUnderlineSpaced"></span>
+    <section class="speakingHero" aria-label="Speaking hero">
+
+      <!-- Full-bleed background photo -->
+      <div class="speakingHeroBg" aria-hidden="true"></div>
+
+      <!-- Gradient blend: brand colour left → transparent right -->
+      <div class="speakingHeroVeil" aria-hidden="true"></div>
+
+      <!-- Texture + ambient glow -->
+      <div class="speakingHeroDots" aria-hidden="true"></div>
+      <div class="speakingHeroGlow" aria-hidden="true"></div>
+
+      <!-- Content -->
+      <div class="container speakingHeroInner">
+        <div class="speakingHeroContent" data-aos="fade-up" data-aos-duration="900">
+
+          <span class="speakingHeroEyebrow">Speaking Engagements</span>
+          <h1 class="speakingHeroTitle">Invite Nyema<br>to Speak</h1>
+          <span class="speakingHeroRule" aria-hidden="true"></span>
+
           <p class="speakingHeroDesc">
-            Nyema brings thirty years of clinical expertise and a gift for translating complex research into accessible, practical insight. She speaks to audiences of parents, healthcare professionals, and general practitioners, with authority, warmth, and depth.
+            Nyema brings thirty years of clinical expertise and a gift for translating complex research into accessible, practical insight — speaking with authority, warmth, and depth to parents, healthcare professionals, and general practitioners.
           </p>
+
           <div class="speakingHeroCta">
-            <a href="#enquiryForm" class="btnPrimary">Book Nyema</a>
-            <a href="#speakingTopics" class="btnSecondary">View Topics</a>
+            <a href="#enquiryForm" class="btnPrimary speakingHeroBtn">Book Nyema</a>
+            <a href="#speakingTopics" class="speakingHeroGhostBtn">
+              View Topics <i class="ri-arrow-down-line" aria-hidden="true"></i>
+            </a>
           </div>
+
+          <div class="speakingHeroStats">
+            <div class="speakingHeroStat">
+              <span class="speakingHeroStatNum">30+</span>
+              <span class="speakingHeroStatLabel">Years Clinical<br>Practice</span>
+            </div>
+            <div class="speakingHeroStat">
+              <span class="speakingHeroStatNum">4</span>
+              <span class="speakingHeroStatLabel">Published<br>Books</span>
+            </div>
+            <div class="speakingHeroStat">
+              <span class="speakingHeroStatNum">Intl.</span>
+              <span class="speakingHeroStatLabel">Speaker &amp;<br>Educator</span>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
+
+    </section>
 
     <!-- Speaking Topics -->
     <section class="speakingTopicsSection" id="speakingTopics" aria-labelledby="speakingTopicsTitle">
@@ -409,8 +574,8 @@
 
           <div class="speakingTopicCard" data-aos="fade-up" data-aos-delay="250">
             <span class="speakingTopicNumber" aria-hidden="true">04</span>
-            <h3 class="speakingTopicTitle">Homeopathic Research: What the Evidence Actually Shows</h3>
-            <p class="speakingTopicDesc">A rigorous, evidence-led presentation on the current state of homeopathic research, separating myth from method and presenting the strongest clinical evidence in a form that resonates with both lay audiences and sceptical professionals.</p>
+            <h3 class="speakingTopicTitle">Autism Research: What the Evidence Actually Shows</h3>
+            <p class="speakingTopicDesc">A rigorous, evidence-led presentation on the current state of autism research, separating myth from method and presenting the strongest clinical evidence in a form that resonates with both lay audiences and sceptical professionals.</p>
           </div>
 
         </div>
@@ -535,7 +700,7 @@
       <div class="footerGrid">
         <div class="footerBrand">
           <a href="index.html" aria-label="Nyema Hermiston Home"><span class="footerLogoName">Nyema Hermiston</span></a>
-          <span class="footerLogoTagline">RN, ND, Adv Dip Hom, BScHons</span>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
           <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
         </div>
         <nav aria-label="Footer navigation">
@@ -596,6 +761,35 @@
     <div class="cookieBannerActions">
       <button class="cookieBannerAccept">Accept All</button>
       <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup -->
+  <div class="newsletterPopup" id="newsletterPopup" role="dialog" aria-modal="true" aria-labelledby="popupHeadline">
+    <div class="newsletterPopupOverlay" id="newsletterPopupOverlay"></div>
+    <div class="newsletterPopupCard">
+      <button class="newsletterPopupClose" id="newsletterPopupClose" aria-label="Close newsletter popup">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <div class="newsletterPopupIcon" aria-hidden="true"><i class="ri-mail-open-line"></i></div>
+      <span class="newsletterPopupLabel">Stay Connected</span>
+      <h2 class="newsletterPopupHeadline" id="popupHeadline">Don't Miss Nyema's Latest Research</h2>
+      <p class="newsletterPopupSubtext">Join parents and practitioners receiving evidence-based natural health insights directly in their inbox.</p>
+      <div class="newsletterPopupBenefits" aria-label="What you receive">
+        <span><i class="ri-check-line" aria-hidden="true"></i> Research Insights</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Clinical Guidance</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Book Updates</span>
+      </div>
+      <form class="newsletterPopupForm" id="newsletterPopupForm" novalidate>
+        <label for="newsletterPopupEmail" class="srOnly">Email Address</label>
+        <input type="email" id="newsletterPopupEmail" name="email" class="newsletterPopupInput" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="newsletterPopupSubmit">Subscribe Now</button>
+      </form>
+      <div class="newsletterPopupSuccess" id="newsletterPopupSuccess" role="status">
+        Thank you for subscribing. You will hear from Nyema soon.
+      </div>
+      <p class="newsletterPopupPrivacy"><i class="ri-lock-line" aria-hidden="true"></i> No spam. Unsubscribe anytime.</p>
+      <span class="newsletterPopupSkip" id="newsletterPopupSkip">No thanks</span>
     </div>
   </div>
 

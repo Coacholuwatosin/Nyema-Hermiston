@@ -97,8 +97,7 @@
   font-size: var(--fontSizeCredential);
   font-weight: 400;
   color: var(--colorTextOnDark);
-  letter-spacing: var(--letterSpacingWide);
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   display: block;
   margin-bottom: var(--spaceSm);
   opacity: 0.7;

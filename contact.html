@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- TEMP BLOCK - REMOVE WHEN READY -->
-  <meta http-equiv="refresh" content="0; url=index.html">
+  <!-- <meta http-equiv="refresh" content="0; url=index.html"> -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Nyema Hermiston — Get In Touch</title>
@@ -57,7 +57,12 @@
   <a href="#main-content" class="skipToContent">Skip to main content</a>
 
   <div class="pageLoader" id="pageLoader">
-    <span class="pageLoaderText">Nyema Hermiston</span>
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
   </div>
 
   <div class="scrollProgressBar" id="scrollProgressBar"></div>
@@ -69,7 +74,7 @@
       <div class="navInner">
         <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
           <span class="navLogoText"><span class="navLogoName">Nyema Hermiston</span>
-          <span class="navLogoTagline">RN, ND, Adv Dip Hom, BScHons</span></span>
+          <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span></span>
         </a>
         <ul class="navLinks" role="list">
           <li><a href="index.html" class="navLink">Home</a></li>
@@ -89,8 +94,7 @@
     </div>
   </nav>
 
-  <div class="navOverlay" id="navOverlay" role="dialog" aria-modal="true">
-    <button class="navOverlayClose" id="navOverlayClose" aria-label="Close menu">&#10005;</button>
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
     <div class="navOverlayInner">
       <nav class="navOverlayLinks">
         <a href="index.html" class="navOverlayLink">Home</a>
@@ -98,7 +102,7 @@
         <a href="books.html" class="navOverlayLink">Books</a>
         <a href="mediaPress.html" class="navOverlayLink">Media</a>
         <a href="speaking.html" class="navOverlayLink">Speaking</a>
-        <a href="contact.html" class="navOverlayLink">Contact</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
       </nav>
     </div>
   </div>
@@ -215,7 +219,7 @@
       <div class="footerGrid">
         <div class="footerBrand">
           <a href="index.html" aria-label="Nyema Hermiston Home"><span class="footerLogoName">Nyema Hermiston</span></a>
-          <span class="footerLogoTagline">RN, ND, Adv Dip Hom, BScHons</span>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
           <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
         </div>
         <nav aria-label="Footer navigation">

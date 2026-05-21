@@ -43,6 +43,11 @@
     justify-content: center;
   }
 
+  .heroCredentialLabel {
+    white-space: normal;
+    max-width: 75vw;
+  }
+
   /* Center the glass subheading wrapper */
   .heroSubheadingWrap {
     margin-left: auto;
@@ -112,9 +117,8 @@
 
 @media (max-width: 576px) {
   .heroCredentialLabel {
-    font-size: 0.6rem;
-    padding: 0.3rem 0.75rem;
-    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    max-width: 88vw;
   }
 
   .heroHeadlineBold {
@@ -336,29 +340,7 @@
 /* ========== NEWSLETTER ========== */
 @media (max-width: 576px) {
   .newsletterCard {
-    padding: var(--spaceLg) var(--spaceMd);
-    border-radius: 18px;
-  }
-
-  .newsletterForm {
-    flex-direction: column;
-    border-radius: 14px;
-    overflow: hidden;
-  }
-
-  .newsletterInput {
-    border-radius: 0;
-    padding: 0.875rem 1.25rem;
-    border-bottom: 1px solid rgba(88,98,163,0.15);
-  }
-
-  .newsletterSubmit {
-    min-height: 48px;
-    border-radius: 0;
-  }
-
-  .newsletterBenefits {
-    gap: var(--spaceXs);
+    border-radius: 16px;
   }
 }
 
