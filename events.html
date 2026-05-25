@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events & Webinars — Nyema Hermiston</title>
+  <meta name="description" content="Upcoming webinars, workshops, and live events with Nyema Hermiston. Register for evidence-based natural health education for parents and practitioners.">
+
+  <meta property="og:title" content="Events & Webinars — Nyema Hermiston">
+  <meta property="og:description" content="Upcoming webinars and live events with Nyema Hermiston.">
+  <meta property="og:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+  <meta property="og:url" content="https://nyemahermiston.com.au/events.html">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Events & Webinars — Nyema Hermiston">
+  <meta name="twitter:description" content="Upcoming webinars and live events with Nyema Hermiston.">
+  <meta name="twitter:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+
+  <link rel="canonical" href="https://nyemahermiston.com.au/events.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0B2B'/><text x='16' y='23' text-anchor='middle' font-family='serif' font-weight='700' font-size='16' fill='%23C9952A'>NH</text></svg>">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#5862a3">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/newsletter.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/features.css">
+
+  <style>
+    /* ── Events Hero ── */
+    .eventsHero {
+      background: linear-gradient(148deg, #5460ac 0%, #3e4a9c 40%, #2d3888 70%, #1e2870 100%);
+      padding: calc(88px + var(--spaceXl)) 0 var(--spaceLg);
+      position: relative;
+      overflow: hidden;
+    }
+    .eventsHero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .eventsHeroContent { position: relative; z-index: 1; }
+    .eventsHeroTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--spaceSm);
+    }
+    .eventsHeroDesc {
+      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      color: rgba(255,255,255,0.74);
+      line-height: 1.82;
+      max-width: 560px;
+    }
+    .eventsHeroRule {
+      display: block;
+      width: 44px;
+      height: 3px;
+      background: var(--colorSecondary);
+      border-radius: 2px;
+      margin: var(--spaceSm) 0;
+    }
+
+    /* ── Filter Bar ── */
+    .eventsFilter {
+      background: var(--colorBackground);
+      padding: var(--spaceMd) 0;
+      border-bottom: 1px solid rgba(88,98,163,0.10);
+      position: sticky;
+      top: 64px;
+      z-index: 100;
+    }
+    .eventsFilterInner {
+      display: flex;
+      align-items: center;
+      gap: var(--spaceSm);
+      flex-wrap: wrap;
+    }
+    .eventsFilterLabel {
+      font-family: var(--fontBody);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--colorTextOnLight);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+    .eventsFilterBtn {
+      font-family: var(--fontBody);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--colorTextOnLight);
+      background: transparent;
+      border: 1px solid rgba(88,98,163,0.22);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      cursor: pointer;
+      transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+      min-height: 0;
+    }
+    .eventsFilterBtn:hover,
+    .eventsFilterBtn.active {
+      background: var(--colorPrimary);
+      border-color: var(--colorPrimary);
+      color: #fff;
+    }
+
+    /* ── Events Grid ── */
+    .eventsSection {
+      background: var(--colorBackground);
+      padding: var(--spaceSection) 0;
+      position: relative;
+    }
+    .eventsSection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .eventsGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spaceMd);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Event Card ── */
+    .eventCard {
+      background: #fff;
+      border: 1px solid rgba(88,98,163,0.10);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(88,98,163,0.06), 0 8px 28px rgba(88,98,163,0.08);
+      transition: transform 0.32s ease, box-shadow 0.32s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .eventCard:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(88,98,163,0.12), 0 24px 56px rgba(88,98,163,0.14);
+    }
+
+    .eventCardHeader {
+      background: linear-gradient(145deg, #5460ac 0%, #3e4a9c 60%, #2d3888 100%);
+      padding: var(--spaceMd) var(--spaceMd) var(--spaceSm);
+      position: relative;
+      overflow: hidden;
+    }
+    .eventCardHeader::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+    .eventCardDate {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fontBody);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--colorSecondary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--spaceSm);
+    }
+    .eventCardDate i { font-size: 0.875rem; }
+    .eventCardTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 0;
+    }
+    .eventCardTypeBadge {
+      position: absolute;
+      top: var(--spaceSm);
+      right: var(--spaceSm);
+      font-family: var(--fontBody);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.22);
+    }
+
+    .eventCardBody {
+      padding: var(--spaceMd);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spaceSm);
+      flex: 1;
+    }
+    .eventCardMeta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spaceXs);
+    }
+    .eventCardMetaItem {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: var(--colorTextOnLight);
+      opacity: 0.6;
+    }
+    .eventCardMetaItem i { font-size: 0.875rem; color: var(--colorPrimary); opacity: 0.7; }
+    .eventCardDesc {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorTextOnLight);
+      opacity: 0.75;
+      line-height: 1.8;
+      flex: 1;
+    }
+    .eventCardActions {
+      display: flex;
+      gap: var(--spaceXs);
+      align-items: center;
+      margin-top: auto;
+      padding-top: var(--spaceSm);
+      border-top: 1px solid rgba(88,98,163,0.08);
+    }
+    .eventCardRegisterBtn {
+      flex: 1;
+      text-align: center;
+      font-family: var(--fontBody);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      background: var(--colorPrimary);
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      transition: background 0.22s ease, transform 0.22s ease;
+      display: inline-block;
+    }
+    .eventCardRegisterBtn:hover {
+      background: #4a55a0;
+      transform: translateY(-1px);
+      color: #fff;
+    }
+    .eventCardRegisterBtn.full {
+      background: rgba(88,98,163,0.12);
+      color: var(--colorPrimary);
+      pointer-events: none;
+    }
+
+    /* ── Empty State ── */
+    .eventsEmptyState {
+      text-align: center;
+      padding: var(--spaceXl) var(--spaceMd);
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .eventsEmptyIcon {
+      font-size: 3rem;
+      color: var(--colorPrimary);
+      opacity: 0.25;
+      display: block;
+      margin-bottom: var(--spaceMd);
+    }
+    .eventsEmptyTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 600;
+      color: var(--colorTextOnLight);
+      margin-bottom: var(--spaceSm);
+    }
+    .eventsEmptyDesc {
+      font-size: var(--fontSizeBody);
+      color: var(--colorTextOnLight);
+      opacity: 0.6;
+      line-height: 1.78;
+      margin-bottom: var(--spaceMd);
+    }
+
+    /* ── Newsletter CTA section ── */
+    .eventsNewsletterSection {
+      background: var(--colorBackgroundDark);
+      padding: var(--spaceSection) 0;
+      position: relative;
+    }
+    .eventsNewsletterSection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .eventsNewsletterInner {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .eventsNewsletterTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: var(--spaceSm);
+    }
+    .eventsNewsletterDesc {
+      font-size: var(--fontSizeBody);
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: var(--spaceMd);
+    }
+
+    /* ── Hero sectionLabel on dark background ── */
+    .eventsHero .sectionLabel {
+      color: var(--colorSecondary);
+      letter-spacing: 0.18em;
+    }
+
+    /* ── Newsletter section label + underline ── */
+    .eventsNewsletterSection .sectionLabel {
+      color: var(--colorSecondary);
+    }
+    .eventsNewsletterSection .goldUnderlineCentered {
+      margin: 0 auto var(--spaceMd);
+    }
+
+    @media (max-width: 992px) {
+      .eventsGrid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 576px) {
+      .eventsGrid { grid-template-columns: 1fr; }
+      .eventsFilter { position: static; }
+    }
+  </style>
+
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skipToContent">Skip to main content</a>
+
+  <div class="pageLoader" id="pageLoader">
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrollProgressBar" id="scrollProgressBar"></div>
+  <div class="customCursor" id="customCursor"></div>
+
+  <!-- Navigation -->
+  <nav class="siteNav scrolled" id="siteNav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navInner">
+        <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
+          <span class="navLogoText">
+            <span class="navLogoName">Nyema Hermiston</span>
+            <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span>
+          </span>
+        </a>
+        <ul class="navLinks" role="list">
+          <li><a href="index.html" class="navLink">Home</a></li>
+          <li><a href="about.html" class="navLink">About</a></li>
+          <li><a href="books.html" class="navLink">Books</a></li>
+          <li><a href="mediaPress.html" class="navLink">Media</a></li>
+          <li><a href="speaking.html" class="navLink">Speaking</a></li>
+          <li><a href="blog.html" class="navLink">Blog</a></li>
+          <li><a href="events.html" class="navLink active">Events</a></li>
+          <li><a href="contact.html" class="navLink navCta btnPrimary">Contact</a></li>
+        </ul>
+        <button class="navHamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
+    <div class="navOverlayInner">
+      <nav class="navOverlayLinks">
+        <a href="index.html" class="navOverlayLink">Home</a>
+        <a href="about.html" class="navOverlayLink">About</a>
+        <a href="books.html" class="navOverlayLink">Books</a>
+        <a href="mediaPress.html" class="navOverlayLink">Media</a>
+        <a href="speaking.html" class="navOverlayLink">Speaking</a>
+        <a href="blog.html" class="navOverlayLink">Blog</a>
+        <a href="events.html" class="navOverlayLink">Events</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="eventsHero" aria-label="Events hero">
+      <div class="container eventsHeroContent" data-aos="fade-up">
+        <span class="sectionLabel">Webinars &amp; Events</span>
+        <h1 class="eventsHeroTitle">Upcoming Events</h1>
+        <span class="eventsHeroRule" aria-hidden="true"></span>
+        <p class="eventsHeroDesc">
+          Join Nyema live for webinars, workshops, and speaking events on natural health, neurodevelopment, and evidence-based parenting. Practical knowledge you can apply immediately.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="eventsFilter" role="navigation" aria-label="Filter events by type">
+      <div class="container">
+        <div class="eventsFilterInner">
+          <span class="eventsFilterLabel">Filter by</span>
+          <button class="eventsFilterBtn active" data-type="all">All Events</button>
+          <button class="eventsFilterBtn" data-type="webinar">Webinar</button>
+          <button class="eventsFilterBtn" data-type="workshop">Workshop</button>
+          <button class="eventsFilterBtn" data-type="conference">Conference</button>
+          <button class="eventsFilterBtn" data-type="free">Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Events Grid -->
+    <section class="eventsSection" id="eventsGrid" aria-labelledby="eventsSectionTitle">
+      <div class="container">
+
+        <div class="text-center mb-5" data-aos="fade-up">
+          <span class="sectionLabel">On the Calendar</span>
+          <h2 class="sectionTitle sectionTitleDark" id="eventsSectionTitle">Events &amp; Webinars</h2>
+          <span class="goldUnderlineCentered"></span>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             EVENTS PLACEHOLDER
+             Replace each eventCard block below with a real event.
+             Duplicate an eventCard for each new event you add.
+             Leave this section empty or with the empty state
+             until real events are confirmed.
+        ════════════════════════════════════════════════════ -->
+
+        <!-- Empty State — remove this block when you have real events -->
+        <div class="eventsEmptyState" data-aos="fade-up">
+          <i class="ri-calendar-event-line eventsEmptyIcon" aria-hidden="true"></i>
+          <h3 class="eventsEmptyTitle">Events Coming Soon</h3>
+          <p class="eventsEmptyDesc">
+            Nyema's upcoming webinars and workshops will be listed here. Sign up to the newsletter below to be the first to know when new events are announced.
+          </p>
+          <a href="#eventsNewsletter" class="btnPrimary">Get Notified</a>
+        </div>
+
+        <!--
+        ══ EXAMPLE EVENT CARD — copy and fill in for each real event ══
+
+        <div class="eventCard" data-aos="fade-up">
+          <div class="eventCardHeader">
+            <span class="eventCardTypeBadge">Webinar</span>
+            <p class="eventCardDate">
+              <i class="ri-calendar-line" aria-hidden="true"></i>
+              14 August 2026 · 7:00 PM AEST
+            </p>
+            <h3 class="eventCardTitle">Event Title Goes Here</h3>
+          </div>
+          <div class="eventCardBody">
+            <div class="eventCardMeta">
+              <span class="eventCardMetaItem">
+                <i class="ri-time-line" aria-hidden="true"></i> 60 minutes
+              </span>
+              <span class="eventCardMetaItem">
+                <i class="ri-global-line" aria-hidden="true"></i> Online · Zoom
+              </span>
+              <span class="eventCardMetaItem">
+                <i class="ri-price-tag-3-line" aria-hidden="true"></i> Free
+              </span>
+            </div>
+            <p class="eventCardDesc">
+              Short description of the event — what attendees will learn and who it is for.
+            </p>
+            <div class="eventCardActions">
+              <a href="REGISTRATION_LINK_HERE" class="eventCardRegisterBtn"
+                 target="_blank" rel="noopener noreferrer">
+                Register Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        ══ END EXAMPLE ══
+        -->
+
+      </div>
+    </section>
+
+    <!-- Newsletter CTA -->
+    <section class="eventsNewsletterSection" id="eventsNewsletter" aria-labelledby="eventsNewsletterTitle">
+      <div class="container">
+        <div class="eventsNewsletterInner" data-aos="fade-up">
+          <span class="sectionLabel">Stay Informed</span>
+          <h2 class="eventsNewsletterTitle" id="eventsNewsletterTitle">Be First to Know</h2>
+          <span class="goldUnderlineCentered"></span>
+          <p class="eventsNewsletterDesc">
+            New events and webinars are announced exclusively to the newsletter first. Subscribe to get early access and registration links before they go public.
+          </p>
+          <a href="index.html#newsletter" class="btnPrimary">Subscribe to Newsletter</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="siteFooter" role="contentinfo">
+    <div class="container">
+      <div class="footerMission" aria-hidden="true">
+        <span class="footerMissionQuote">Empowering parents through evidence, not fear.</span>
+      </div>
+      <div class="footerGrid">
+        <div class="footerBrand">
+          <a href="index.html" aria-label="Nyema Hermiston Home"><span class="footerLogoName">Nyema Hermiston</span></a>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <span class="footerColHeading">Explore</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="index.html" class="footerLink">Home</a></li>
+            <li><a href="about.html" class="footerLink">About</a></li>
+            <li><a href="books.html" class="footerLink">Books</a></li>
+            <li><a href="mediaPress.html" class="footerLink">Media &amp; Press</a></li>
+            <li><a href="speaking.html" class="footerLink">Speaking</a></li>
+            <li><a href="blog.html" class="footerLink">Blog</a></li>
+            <li><a href="events.html" class="footerLink">Events</a></li>
+            <li><a href="contact.html" class="footerLink">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <span class="footerColHeading">Affiliations</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
+            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
+          </ul>
+        </div>
+        <div>
+          <span class="footerColHeading">Connect</span>
+          <div class="footerSocial">
+            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ri-facebook-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads"><i class="ri-book-open-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon"><i class="ri-amazon-fill" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <span class="footerCopyright">© 2026 Nyema Hermiston. All rights reserved.</span>
+        <div class="footerLegal">
+          <a href="privacy.html" class="footerLegalLink">Privacy Policy</a>
+          <span class="footerLegalSep" aria-hidden="true"></span>
+          <a href="https://tubedra.com" class="footerLegalLink" target="_blank" rel="noopener noreferrer">Site by Tubedra</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="backToTop" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/navScroll.js"></script>
+  <script src="assets/js/features.js"></script>
+
+  <!-- Events Filter JS -->
+  <script>
+    (function () {
+      var filterBtns = document.querySelectorAll('.eventsFilterBtn');
+      var emptyState = document.querySelector('.eventsEmptyState');
+
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          /* Update active button */
+          filterBtns.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          var type = btn.dataset.type;
+          var cards = document.querySelectorAll('.eventCard');
+
+          /* No cards yet — nothing to filter, keep empty state visible */
+          if (cards.length === 0) return;
+
+          var visible = 0;
+          cards.forEach(function (card) {
+            var cardType = (card.dataset.type || '').toLowerCase();
+            var show = type === 'all' || cardType === type;
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+          });
+
+          /* Show empty state if all cards are filtered out */
+          if (emptyState) emptyState.hidden = visible > 0;
+        });
+      });
+    })();
+  </script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookieBanner" id="cookieBanner" role="region" aria-label="Cookie consent">
+    <p class="cookieBannerHeading">We use cookies</p>
+    <p class="cookieBannerText">
+      This site uses cookies to improve your experience and analyse anonymous traffic.
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookieBannerActions">
+      <button class="cookieBannerAccept">Accept All</button>
+      <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup -->
+  <div class="newsletterPopup" id="newsletterPopup" role="dialog" aria-modal="true" aria-labelledby="popupHeadline">
+    <div class="newsletterPopupOverlay" id="newsletterPopupOverlay"></div>
+    <div class="newsletterPopupCard">
+      <button class="newsletterPopupClose" id="newsletterPopupClose" aria-label="Close newsletter popup">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <div class="newsletterPopupIcon" aria-hidden="true"><i class="ri-mail-open-line"></i></div>
+      <span class="newsletterPopupLabel">Stay Connected</span>
+      <h2 class="newsletterPopupHeadline" id="popupHeadline">Don't Miss Nyema's Latest Research</h2>
+      <p class="newsletterPopupSubtext">Join parents and practitioners receiving evidence-based natural health insights directly in their inbox.</p>
+      <div class="newsletterPopupBenefits" aria-label="What you receive">
+        <span><i class="ri-check-line" aria-hidden="true"></i> Research Insights</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Clinical Guidance</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Book Updates</span>
+      </div>
+      <form class="newsletterPopupForm" id="newsletterPopupForm" novalidate>
+        <label for="newsletterPopupEmail" class="srOnly">Email Address</label>
+        <input type="email" id="newsletterPopupEmail" name="email" class="newsletterPopupInput" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="newsletterPopupSubmit">Subscribe Now</button>
+      </form>
+      <div class="newsletterPopupSuccess" id="newsletterPopupSuccess" role="status">
+        Thank you for subscribing. You will hear from Nyema soon.
+      </div>
+      <p class="newsletterPopupPrivacy"><i class="ri-lock-line" aria-hidden="true"></i> No spam. Unsubscribe anytime.</p>
+      <span class="newsletterPopupSkip" id="newsletterPopupSkip">No thanks</span>
+    </div>
+  </div>
+
+</body>
+</html>

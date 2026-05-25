@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  HOW TO ADD A NEW BLOG POST — Read This First                   ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║                                                                  ║
+  ║  STEP 1 — Open your Google Sheet                                 ║
+  ║    Link: (paste your sheet URL here once created)                ║
+  ║                                                                  ║
+  ║  STEP 2 — Add a new row with these columns in order:             ║
+  ║    A: Title         — The post headline                          ║
+  ║    B: Date          — Format: DD/MM/YYYY  e.g. 25/05/2026        ║
+  ║    C: Category      — e.g. Autism, Nutrition, Pregnancy          ║
+  ║    D: Excerpt       — 1-2 sentence summary shown on the card     ║
+  ║    E: Content       — Full article text (plain text or HTML)     ║
+  ║    F: Image URL     — Direct URL to an image (optional)          ║
+  ║    G: Published     — Type exactly:  YES  to make it live        ║
+  ║                       Type:          NO   to keep it hidden       ║
+  ║                                                                  ║
+  ║  STEP 3 — Type YES in column G                                   ║
+  ║    The post appears on the website within seconds.               ║
+  ║    No code changes needed. No developer required.                ║
+  ║                                                                  ║
+  ║  SHEET SETUP (one time only):                                    ║
+  ║    In Google Sheets: File → Share → Share with others            ║
+  ║    → Change "General access" to "Anyone with the link"           ║
+  ║    → Set permission to "Viewer"  → Copy the Sheet ID             ║
+  ║    → Paste the Sheet ID into the SHEET_ID variable below         ║
+  ║                                                                  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Nyema Hermiston</title>
+  <meta name="description" content="Evidence-based natural health articles by Nyema Hermiston — Registered Nurse, Naturopath, and Homeopath. Research, clinical insights, and practical guidance for parents and practitioners.">
+
+  <meta property="og:title" content="Blog — Nyema Hermiston">
+  <meta property="og:description" content="Evidence-based natural health articles by Nyema Hermiston.">
+  <meta property="og:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+  <meta property="og:url" content="https://nyemahermiston.com.au/blog.html">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Nyema Hermiston">
+  <meta name="twitter:description" content="Evidence-based natural health articles by Nyema Hermiston.">
+  <meta name="twitter:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+
+  <link rel="canonical" href="https://nyemahermiston.com.au/blog.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0B2B'/><text x='16' y='23' text-anchor='middle' font-family='serif' font-weight='700' font-size='16' fill='%23C9952A'>NH</text></svg>">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <meta name="theme-color" content="#5862a3">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/newsletter.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/features.css">
+
+  <style>
+    /* ── Blog Hero ── */
+    .blogHero {
+      background: linear-gradient(148deg, #5460ac 0%, #3e4a9c 40%, #2d3888 70%, #1e2870 100%);
+      padding: calc(88px + var(--spaceXl)) 0 var(--spaceLg);
+      position: relative;
+      overflow: hidden;
+    }
+    .blogHero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .blogHeroContent { position: relative; z-index: 1; }
+    .blogHeroTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--spaceSm);
+    }
+    .blogHeroRule {
+      display: block;
+      width: 44px;
+      height: 3px;
+      background: var(--colorSecondary);
+      border-radius: 2px;
+      margin: var(--spaceSm) 0;
+    }
+    .blogHeroDesc {
+      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      color: rgba(255,255,255,0.74);
+      line-height: 1.82;
+      max-width: 560px;
+    }
+
+    /* ── Filter / Search Bar ── */
+    .blogFilterBar {
+      background: var(--colorBackground);
+      padding: var(--spaceMd) 0;
+      border-bottom: 1px solid rgba(88,98,163,0.10);
+      position: sticky;
+      top: 64px;
+      z-index: 100;
+    }
+    .blogFilterInner {
+      display: flex;
+      align-items: center;
+      gap: var(--spaceSm);
+      flex-wrap: wrap;
+    }
+    .blogFilterLabel {
+      font-family: var(--fontBody);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--colorTextOnLight);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+    .blogCategoryBtn {
+      font-family: var(--fontBody);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--colorTextOnLight);
+      background: transparent;
+      border: 1px solid rgba(88,98,163,0.22);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      cursor: pointer;
+      transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+      min-height: 0;
+    }
+    .blogCategoryBtn:hover,
+    .blogCategoryBtn.active {
+      background: var(--colorPrimary);
+      border-color: var(--colorPrimary);
+      color: #fff;
+    }
+
+    /* ── Blog Section ── */
+    .blogSection {
+      background: var(--colorBackground);
+      padding: var(--spaceSection) 0;
+      position: relative;
+    }
+    .blogSection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* ── Blog Grid ── */
+    .blogGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spaceMd);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Post Card ── */
+    .blogCard {
+      background: #fff;
+      border: 1px solid rgba(88,98,163,0.10);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(88,98,163,0.06), 0 8px 28px rgba(88,98,163,0.08);
+      transition: transform 0.32s ease, box-shadow 0.32s ease;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .blogCard:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(88,98,163,0.12), 0 24px 56px rgba(88,98,163,0.14);
+    }
+    .blogCardImg {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .blogCardImgPlaceholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(145deg, #5460ac 0%, #3e4a9c 60%, #2d3888 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .blogCardImgPlaceholder i {
+      font-size: 2.5rem;
+      color: rgba(255,255,255,0.25);
+    }
+    .blogCardBody {
+      padding: var(--spaceMd);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spaceSm);
+      flex: 1;
+    }
+    .blogCardMeta {
+      display: flex;
+      align-items: center;
+      gap: var(--spaceXs);
+      flex-wrap: wrap;
+    }
+    .blogCardCategory {
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--colorPrimary);
+      background: rgba(88,98,163,0.08);
+      border-radius: 100px;
+      padding: 2px 10px;
+    }
+    .blogCardDate {
+      font-size: 0.75rem;
+      color: var(--colorTextOnLight);
+      opacity: 0.5;
+      margin-left: auto;
+    }
+    .blogCardTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+      font-weight: 600;
+      color: var(--colorTextOnLight);
+      line-height: 1.3;
+      margin-bottom: 0;
+    }
+    .blogCardExcerpt {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorTextOnLight);
+      opacity: 0.7;
+      line-height: 1.8;
+      flex: 1;
+    }
+    .blogCardReadMore {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fontBody);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--colorPrimary);
+      text-decoration: none;
+      margin-top: auto;
+      padding-top: var(--spaceSm);
+      border-top: 1px solid rgba(88,98,163,0.08);
+      transition: gap 0.22s ease, color 0.22s ease;
+      background: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .blogCardReadMore i { font-size: 1rem; transition: transform 0.22s ease; }
+    .blogCard:hover .blogCardReadMore { color: #3a4395; gap: 10px; }
+    .blogCard:hover .blogCardReadMore i { transform: translateX(3px); }
+
+    /* ── Loading / Error states ── */
+    .blogLoading {
+      text-align: center;
+      padding: var(--spaceXl) var(--spaceMd);
+      position: relative;
+      z-index: 1;
+    }
+    .blogSpinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(88,98,163,0.15);
+      border-top-color: var(--colorPrimary);
+      border-radius: 50%;
+      animation: blogSpin 0.8s linear infinite;
+      margin: 0 auto var(--spaceMd);
+    }
+    @keyframes blogSpin { to { transform: rotate(360deg); } }
+    .blogLoadingText {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorTextOnLight);
+      opacity: 0.5;
+    }
+
+    .blogError {
+      text-align: center;
+      padding: var(--spaceXl) var(--spaceMd);
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .blogErrorIcon {
+      font-size: 2.5rem;
+      color: var(--colorPrimary);
+      opacity: 0.3;
+      display: block;
+      margin-bottom: var(--spaceMd);
+    }
+    .blogErrorTitle {
+      font-family: var(--fontDisplay);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--colorTextOnLight);
+      margin-bottom: var(--spaceSm);
+    }
+    .blogErrorDesc {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorTextOnLight);
+      opacity: 0.6;
+      line-height: 1.8;
+    }
+
+    .blogEmpty {
+      text-align: center;
+      padding: var(--spaceXl) var(--spaceMd);
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .blogEmptyIcon {
+      font-size: 3rem;
+      color: var(--colorPrimary);
+      opacity: 0.2;
+      display: block;
+      margin-bottom: var(--spaceMd);
+    }
+    .blogEmptyTitle {
+      font-family: var(--fontDisplay);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--colorTextOnLight);
+      margin-bottom: var(--spaceSm);
+    }
+    .blogEmptyDesc {
+      font-size: var(--fontSizeSmall);
+      color: var(--colorTextOnLight);
+      opacity: 0.6;
+      line-height: 1.8;
+    }
+
+    /* ── Article Modal ── */
+    .blogModal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: var(--spaceMd);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .blogModal.open {
+      pointer-events: auto;
+      opacity: 1;
+      visibility: visible;
+    }
+    .blogModalOverlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .blogModalCard {
+      position: relative;
+      z-index: 1;
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 760px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.28);
+      margin-top: 40px;
+      transform: translateY(20px);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .blogModal.open .blogModalCard {
+      transform: translateY(0);
+    }
+    .blogModalImg {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      border-radius: 20px 20px 0 0;
+    }
+    .blogModalImgPlaceholder {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(145deg, #5460ac 0%, #3e4a9c 60%, #2d3888 100%);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blogModalImgPlaceholder i {
+      font-size: 3rem;
+      color: rgba(255,255,255,0.2);
+    }
+    .blogModalBody {
+      padding: var(--spaceLg);
+    }
+    .blogModalMeta {
+      display: flex;
+      align-items: center;
+      gap: var(--spaceXs);
+      margin-bottom: var(--spaceMd);
+      flex-wrap: wrap;
+    }
+    .blogModalCategory {
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--colorPrimary);
+      background: rgba(88,98,163,0.08);
+      border-radius: 100px;
+      padding: 3px 12px;
+    }
+    .blogModalDate {
+      font-size: 0.82rem;
+      color: var(--colorTextOnLight);
+      opacity: 0.5;
+    }
+    .blogModalTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.625rem, 3vw, 2.25rem);
+      font-weight: 700;
+      color: var(--colorTextOnLight);
+      line-height: 1.2;
+      margin-bottom: var(--spaceMd);
+    }
+    .blogModalRule {
+      display: block;
+      width: 44px;
+      height: 3px;
+      background: var(--colorSecondary);
+      border-radius: 2px;
+      margin-bottom: var(--spaceMd);
+    }
+    .blogModalContent {
+      font-size: var(--fontSizeBody);
+      color: var(--colorTextOnLight);
+      line-height: 1.85;
+      opacity: 0.85;
+    }
+    .blogModalContent p { margin-bottom: 1em; }
+    .blogModalContent h2,
+    .blogModalContent h3 {
+      font-family: var(--fontDisplay);
+      font-weight: 600;
+      color: var(--colorTextOnLight);
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    .blogModalClose {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      min-height: 0;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.22s ease;
+      z-index: 10;
+    }
+    .blogModalClose:hover { background: rgba(0,0,0,0.55); }
+
+    /* ── Hero sectionLabel on dark background ── */
+    .blogHero .sectionLabel {
+      color: var(--colorSecondary);
+      letter-spacing: 0.18em;
+    }
+
+    /* ── Error state retry button spacing ── */
+    .blogError .btnPrimary {
+      margin-top: var(--spaceMd);
+    }
+
+    @media (max-width: 992px) {
+      .blogGrid { grid-template-columns: repeat(2, 1fr); }
+      .blogFilterBar { position: static; }
+    }
+    @media (max-width: 576px) {
+      .blogGrid { grid-template-columns: 1fr; }
+      .blogModalBody { padding: var(--spaceMd); }
+    }
+  </style>
+
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skipToContent">Skip to main content</a>
+
+  <div class="pageLoader" id="pageLoader">
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrollProgressBar" id="scrollProgressBar"></div>
+  <div class="customCursor" id="customCursor"></div>
+
+  <!-- Navigation -->
+  <nav class="siteNav scrolled" id="siteNav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navInner">
+        <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
+          <span class="navLogoText">
+            <span class="navLogoName">Nyema Hermiston</span>
+            <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span>
+          </span>
+        </a>
+        <ul class="navLinks" role="list">
+          <li><a href="index.html" class="navLink">Home</a></li>
+          <li><a href="about.html" class="navLink">About</a></li>
+          <li><a href="books.html" class="navLink">Books</a></li>
+          <li><a href="mediaPress.html" class="navLink">Media</a></li>
+          <li><a href="speaking.html" class="navLink">Speaking</a></li>
+          <li><a href="blog.html" class="navLink active">Blog</a></li>
+          <li><a href="events.html" class="navLink">Events</a></li>
+          <li><a href="contact.html" class="navLink navCta btnPrimary">Contact</a></li>
+        </ul>
+        <button class="navHamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
+    <div class="navOverlayInner">
+      <nav class="navOverlayLinks">
+        <a href="index.html" class="navOverlayLink">Home</a>
+        <a href="about.html" class="navOverlayLink">About</a>
+        <a href="books.html" class="navOverlayLink">Books</a>
+        <a href="mediaPress.html" class="navOverlayLink">Media</a>
+        <a href="speaking.html" class="navOverlayLink">Speaking</a>
+        <a href="blog.html" class="navOverlayLink">Blog</a>
+        <a href="events.html" class="navOverlayLink">Events</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="blogHero" aria-label="Blog hero">
+      <div class="container blogHeroContent" data-aos="fade-up">
+        <span class="sectionLabel">Research &amp; Insights</span>
+        <h1 class="blogHeroTitle">The Blog</h1>
+        <span class="blogHeroRule" aria-hidden="true"></span>
+        <p class="blogHeroDesc">
+          Evidence-based articles on natural health, neurodevelopment, pregnancy, and parenting — written by a clinician, for parents and practitioners who want the full picture.
+        </p>
+      </div>
+    </section>
+
+    <!-- Category Filter Bar -->
+    <div class="blogFilterBar" role="navigation" aria-label="Filter posts by category">
+      <div class="container">
+        <div class="blogFilterInner" id="blogFilterInner">
+          <span class="blogFilterLabel">Category</span>
+          <button class="blogCategoryBtn active" data-cat="all">All Posts</button>
+          <!-- Category buttons are injected by JS after posts load -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Posts -->
+    <section class="blogSection" aria-labelledby="blogSectionTitle">
+      <div class="container">
+
+        <div class="text-center mb-5" data-aos="fade-up">
+          <span class="sectionLabel">Latest Writing</span>
+          <h2 class="sectionTitle sectionTitleDark" id="blogSectionTitle">Articles &amp; Research</h2>
+          <span class="goldUnderlineCentered"></span>
+        </div>
+
+        <!-- Loading state — replaced by JS -->
+        <div class="blogLoading" id="blogLoading" role="status" aria-live="polite">
+          <div class="blogSpinner" aria-hidden="true"></div>
+          <p class="blogLoadingText">Loading posts…</p>
+        </div>
+
+        <!-- Posts are injected here by JS -->
+        <div class="blogGrid" id="blogGrid" aria-live="polite" aria-label="Blog posts"></div>
+
+        <!-- Error state — shown if fetch fails -->
+        <div class="blogError" id="blogError" hidden>
+          <i class="ri-error-warning-line blogErrorIcon" aria-hidden="true"></i>
+          <h3 class="blogErrorTitle">Could Not Load Posts</h3>
+          <p class="blogErrorDesc">
+            Please check your internet connection and try again. If the problem continues, contact the site administrator and ensure the Google Sheet is shared publicly.
+          </p>
+          <button class="btnPrimary" onclick="loadBlogPosts()">Try Again</button>
+        </div>
+
+        <!-- Empty state — shown if sheet has no published posts -->
+        <div class="blogEmpty" id="blogEmpty" hidden>
+          <i class="ri-article-line blogEmptyIcon" aria-hidden="true"></i>
+          <h3 class="blogEmptyTitle">No Posts Yet</h3>
+          <p class="blogEmptyDesc">
+            No published posts found. Add a row to the Google Sheet with YES in the Published column to make a post appear here.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Article Modal -->
+  <div class="blogModal" id="blogModal" role="dialog" aria-modal="true" aria-labelledby="blogModalTitleEl">
+    <div class="blogModalOverlay" id="blogModalOverlay"></div>
+    <div class="blogModalCard" id="blogModalCard" tabindex="-1">
+      <button class="blogModalClose" id="blogModalClose" aria-label="Close article">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <div id="blogModalImgWrap"></div>
+      <div class="blogModalBody">
+        <div class="blogModalMeta">
+          <span class="blogModalCategory" id="blogModalCat"></span>
+          <span class="blogModalDate" id="blogModalDateEl"></span>
+        </div>
+        <h2 class="blogModalTitle" id="blogModalTitleEl"></h2>
+        <span class="blogModalRule" aria-hidden="true"></span>
+        <div class="blogModalContent" id="blogModalContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="siteFooter" role="contentinfo">
+    <div class="container">
+      <div class="footerMission" aria-hidden="true">
+        <span class="footerMissionQuote">Empowering parents through evidence, not fear.</span>
+      </div>
+      <div class="footerGrid">
+        <div class="footerBrand">
+          <a href="index.html" aria-label="Nyema Hermiston Home"><span class="footerLogoName">Nyema Hermiston</span></a>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <span class="footerColHeading">Explore</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="index.html" class="footerLink">Home</a></li>
+            <li><a href="about.html" class="footerLink">About</a></li>
+            <li><a href="books.html" class="footerLink">Books</a></li>
+            <li><a href="mediaPress.html" class="footerLink">Media &amp; Press</a></li>
+            <li><a href="speaking.html" class="footerLink">Speaking</a></li>
+            <li><a href="blog.html" class="footerLink">Blog</a></li>
+            <li><a href="events.html" class="footerLink">Events</a></li>
+            <li><a href="contact.html" class="footerLink">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <span class="footerColHeading">Affiliations</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
+            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
+          </ul>
+        </div>
+        <div>
+          <span class="footerColHeading">Connect</span>
+          <div class="footerSocial">
+            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ri-instagram-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ri-facebook-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads"><i class="ri-book-open-fill" aria-hidden="true"></i></a>
+            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon"><i class="ri-amazon-fill" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <span class="footerCopyright">© 2026 Nyema Hermiston. All rights reserved.</span>
+        <div class="footerLegal">
+          <a href="privacy.html" class="footerLegalLink">Privacy Policy</a>
+          <span class="footerLegalSep" aria-hidden="true"></span>
+          <a href="https://tubedra.com" class="footerLegalLink" target="_blank" rel="noopener noreferrer">Site by Tubedra</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="backToTop" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/navScroll.js"></script>
+  <script src="assets/js/features.js"></script>
+
+  <script>
+    /* ============================================================
+       BLOG — Google Sheets JSON feed
+       ============================================================
+       HOW TO CONNECT YOUR SHEET:
+       1. Open your Google Sheet
+       2. Click  File → Share → Share with others
+       3. Under "General access" choose "Anyone with the link"
+       4. Set the role to "Viewer"  → click Done
+       5. Copy the long ID from the sheet URL:
+            https://docs.google.com/spreadsheets/d/  >>>COPY THIS<<<  /edit
+       6. Paste it below in place of  YOUR_GOOGLE_SHEET_ID
+    ============================================================ */
+    var SHEET_ID = 'YOUR_GOOGLE_SHEET_ID';
+
+    /* Column index (0-based) — matches the sheet spec exactly */
+    var COL = { TITLE:0, DATE:1, CATEGORY:2, EXCERPT:3, CONTENT:4, IMAGE:5, PUBLISHED:6 };
+
+    var allPosts   = [];
+    var activeCategory = 'all';
+
+    /* ── Fetch posts from Google Sheets JSON API ── */
+    function loadBlogPosts() {
+      var grid    = document.getElementById('blogGrid');
+      var loading = document.getElementById('blogLoading');
+      var error   = document.getElementById('blogError');
+      var empty   = document.getElementById('blogEmpty');
+
+      grid.innerHTML = '';
+      loading.hidden  = false;
+      error.hidden    = true;
+      empty.hidden    = true;
+
+      var url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID +
+                '/gviz/tq?tqx=out:json';
+
+      fetch(url)
+        .then(function(res) {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.text();
+        })
+        .then(function(text) {
+          /* Google wraps the JSON in  google.visualization.Query.setResponse(…)  */
+          var json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/)[1]);
+          return parseSheet(json);
+        })
+        .then(function(posts) {
+          loading.hidden = true;
+          allPosts = posts;
+
+          if (posts.length === 0) {
+            empty.hidden = false;
+            return;
+          }
+
+          buildCategoryButtons(posts);
+          renderPosts(posts);
+        })
+        .catch(function(err) {
+          console.error('Blog fetch error:', err);
+          loading.hidden = true;
+          error.hidden   = false;
+        });
+    }
+
+    /* ── Parse the raw GViz response into an array of post objects ── */
+    function parseSheet(json) {
+      var rows = (json.table && json.table.rows) || [];
+      var posts = [];
+
+      rows.forEach(function(row) {
+        if (!row.c) return;
+        function cell(i) { return row.c[i] && row.c[i].v != null ? String(row.c[i].v).trim() : ''; }
+
+        /* Only include rows where Published column = YES (case-insensitive) */
+        if (cell(COL.PUBLISHED).toLowerCase() !== 'yes') return;
+
+        var title    = cell(COL.TITLE);
+        var dateRaw  = cell(COL.DATE);
+        var category = cell(COL.CATEGORY);
+        var excerpt  = cell(COL.EXCERPT);
+        var content  = cell(COL.CONTENT);
+        var image    = cell(COL.IMAGE);
+
+        if (!title) return;
+
+        /* Parse date — handles DD/MM/YYYY or Date() format from Sheets */
+        var dateObj = parseDateCell(dateRaw);
+
+        posts.push({ title: title, date: dateObj, dateRaw: dateRaw,
+                     category: category, excerpt: excerpt,
+                     content: content, image: image });
+      });
+
+      /* Sort newest first */
+      posts.sort(function(a, b) {
+        if (!a.date && !b.date) return 0;
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return b.date - a.date;
+      });
+
+      return posts;
+    }
+
+    /* ── Parse various date formats from Google Sheets ── */
+    function parseDateCell(raw) {
+      if (!raw) return null;
+      /* Google Sheets often returns Date(year,month,day) */
+      var gMatch = raw.match(/Date\((\d+),(\d+),(\d+)\)/);
+      if (gMatch) return new Date(+gMatch[1], +gMatch[2], +gMatch[3]);
+      /* DD/MM/YYYY */
+      var dmyMatch = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (dmyMatch) return new Date(+dmyMatch[3], +dmyMatch[2]-1, +dmyMatch[1]);
+      /* Fallback — let JS try */
+      var d = new Date(raw);
+      return isNaN(d) ? null : d;
+    }
+
+    /* ── Format a Date object to  "25 May 2026" ── */
+    function formatDate(d) {
+      if (!d) return '';
+      var months = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+      return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    /* ── Build category filter buttons ── */
+    function buildCategoryButtons(posts) {
+      var seen = {};
+      var cats = [];
+      posts.forEach(function(p) {
+        if (p.category && !seen[p.category]) {
+          seen[p.category] = true;
+          cats.push(p.category);
+        }
+      });
+
+      var bar = document.getElementById('blogFilterInner');
+      /* Remove old dynamic buttons (keep first two: label + All) */
+      var existing = bar.querySelectorAll('.blogCategoryBtn');
+      for (var i = 1; i < existing.length; i++) existing[i].remove();
+
+      cats.forEach(function(cat) {
+        var btn = document.createElement('button');
+        btn.className = 'blogCategoryBtn';
+        btn.dataset.cat = cat;
+        btn.textContent = cat;
+        btn.addEventListener('click', function() { filterByCategory(cat); });
+        bar.appendChild(btn);
+      });
+    }
+
+    /* ── Filter displayed posts by category ── */
+    function filterByCategory(cat) {
+      activeCategory = cat;
+      /* Update button active states */
+      document.querySelectorAll('.blogCategoryBtn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+      });
+      var filtered = cat === 'all'
+        ? allPosts
+        : allPosts.filter(function(p) { return p.category === cat; });
+      renderPosts(filtered);
+    }
+
+    /* Attach "All Posts" button listener */
+    document.querySelector('.blogCategoryBtn[data-cat="all"]')
+      .addEventListener('click', function() { filterByCategory('all'); });
+
+    /* ── Render post cards into the grid ── */
+    function renderPosts(posts) {
+      var grid  = document.getElementById('blogGrid');
+      var empty = document.getElementById('blogEmpty');
+      grid.innerHTML = '';
+
+      if (posts.length === 0) {
+        empty.hidden = false;
+        return;
+      }
+      empty.hidden = true;
+
+      posts.forEach(function(post, idx) {
+        var card = document.createElement('div');
+        card.className = 'blogCard';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', String(Math.min(idx * 50, 300)));
+        card.setAttribute('role', 'article');
+        card.setAttribute('tabindex', '0');
+
+        var imgHtml = post.image
+          ? '<img src="' + escHtml(post.image) + '" alt="" class="blogCardImg" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=\\\"blogCardImgPlaceholder\\\"><i class=\\\"ri-article-line\\\" aria-hidden=\\\"true\\\"></i></div>\'">'
+          : '<div class="blogCardImgPlaceholder" aria-hidden="true"><i class="ri-article-line"></i></div>';
+
+        var dateStr = formatDate(post.date);
+        var catHtml = post.category
+          ? '<span class="blogCardCategory">' + escHtml(post.category) + '</span>' : '';
+
+        card.innerHTML =
+          imgHtml +
+          '<div class="blogCardBody">' +
+            '<div class="blogCardMeta">' + catHtml +
+              (dateStr ? '<span class="blogCardDate">' + escHtml(dateStr) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="blogCardTitle">' + escHtml(post.title) + '</h3>' +
+            (post.excerpt ? '<p class="blogCardExcerpt">' + escHtml(post.excerpt) + '</p>' : '') +
+            '<button class="blogCardReadMore" aria-label="Read full article: ' + escHtml(post.title) + '">' +
+              'Read More <i class="ri-arrow-right-line" aria-hidden="true"></i>' +
+            '</button>' +
+          '</div>';
+
+        card.querySelector('.blogCardReadMore').addEventListener('click', function(e) {
+          e.stopPropagation();
+          openModal(post);
+        });
+        card.addEventListener('click', function() { openModal(post); });
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(post); }
+        });
+
+        grid.appendChild(card);
+      });
+
+      /* Re-init AOS for newly rendered cards */
+      if (typeof AOS !== 'undefined') AOS.refresh();
+    }
+
+    /* ── Modal ── */
+    function openModal(post) {
+      var modal   = document.getElementById('blogModal');
+      var imgWrap = document.getElementById('blogModalImgWrap');
+      var cat     = document.getElementById('blogModalCat');
+      var dateEl  = document.getElementById('blogModalDateEl');
+      var titleEl = document.getElementById('blogModalTitleEl');
+      var content = document.getElementById('blogModalContent');
+      var card    = document.getElementById('blogModalCard');
+
+      imgWrap.innerHTML = post.image
+        ? '<img src="' + escHtml(post.image) + '" alt="" class="blogModalImg" loading="lazy">'
+        : '<div class="blogModalImgPlaceholder" aria-hidden="true"><i class="ri-article-line"></i></div>';
+
+      cat.textContent     = post.category || '';
+      cat.hidden          = !post.category;
+      dateEl.textContent  = formatDate(post.date);
+      titleEl.textContent = post.title;
+
+      /* Render content — treat as plain text, but preserve line breaks.
+         If content contains HTML tags, render them directly. */
+      if (/<[a-z][\s\S]*>/i.test(post.content)) {
+        content.innerHTML = post.content;
+      } else {
+        content.innerHTML = '<p>' +
+          escHtml(post.content).replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>') +
+          '</p>';
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      card.scrollTop = 0;
+      card.focus();
+    }
+
+    function closeModal() {
+      document.getElementById('blogModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('blogModalClose').addEventListener('click', closeModal);
+    document.getElementById('blogModalOverlay').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ── HTML escape helper ── */
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* ── Kick off on page load ── */
+    document.addEventListener('DOMContentLoaded', loadBlogPosts);
+  </script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookieBanner" id="cookieBanner" role="region" aria-label="Cookie consent">
+    <p class="cookieBannerHeading">We use cookies</p>
+    <p class="cookieBannerText">
+      This site uses cookies to improve your experience and analyse anonymous traffic.
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookieBannerActions">
+      <button class="cookieBannerAccept">Accept All</button>
+      <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup -->
+  <div class="newsletterPopup" id="newsletterPopup" role="dialog" aria-modal="true" aria-labelledby="popupHeadline">
+    <div class="newsletterPopupOverlay" id="newsletterPopupOverlay"></div>
+    <div class="newsletterPopupCard">
+      <button class="newsletterPopupClose" id="newsletterPopupClose" aria-label="Close newsletter popup">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <div class="newsletterPopupIcon" aria-hidden="true"><i class="ri-mail-open-line"></i></div>
+      <span class="newsletterPopupLabel">Stay Connected</span>
+      <h2 class="newsletterPopupHeadline" id="popupHeadline">Don't Miss Nyema's Latest Research</h2>
+      <p class="newsletterPopupSubtext">Join parents and practitioners receiving evidence-based natural health insights directly in their inbox.</p>
+      <div class="newsletterPopupBenefits" aria-label="What you receive">
+        <span><i class="ri-check-line" aria-hidden="true"></i> Research Insights</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Clinical Guidance</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Book Updates</span>
+      </div>
+      <form class="newsletterPopupForm" id="newsletterPopupForm" novalidate>
+        <label for="newsletterPopupEmail" class="srOnly">Email Address</label>
+        <input type="email" id="newsletterPopupEmail" name="email" class="newsletterPopupInput" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="newsletterPopupSubmit">Subscribe Now</button>
+      </form>
+      <div class="newsletterPopupSuccess" id="newsletterPopupSuccess" role="status">
+        Thank you for subscribing. You will hear from Nyema soon.
+      </div>
+      <p class="newsletterPopupPrivacy"><i class="ri-lock-line" aria-hidden="true"></i> No spam. Unsubscribe anytime.</p>
+      <span class="newsletterPopupSkip" id="newsletterPopupSkip">No thanks</span>
+    </div>
+  </div>
+
+</body>
+</html>
