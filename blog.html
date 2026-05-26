@@ -478,13 +478,38 @@
       opacity: 0.85;
     }
     .blogModalContent p { margin-bottom: 1em; }
+
+    /* Headings — brand purple */
     .blogModalContent h2,
     .blogModalContent h3 {
       font-family: var(--fontDisplay);
       font-weight: 600;
-      color: var(--colorTextOnLight);
+      color: #5862a3;
       margin-top: 1.5em;
       margin-bottom: 0.5em;
+      opacity: 1;
+    }
+
+    /* Images — always responsive, never overflow the modal */
+    .blogModalContent img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      margin: 1.25em 0;
+    }
+
+    /* Links — brand purple, no underline, subtle hover */
+    .blogModalContent a {
+      color: #5862a3;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(88, 98, 163, 0.30);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .blogModalContent a:hover {
+      color: #3a4395;
+      border-bottom-color: #5862a3;
+      text-decoration: none;
     }
     .blogModalClose {
       position: absolute;
@@ -759,7 +784,7 @@
             https://docs.google.com/spreadsheets/d/  >>>COPY THIS<<<  /edit
        6. Paste it below in place of  YOUR_GOOGLE_SHEET_ID
     ============================================================ */
-    var SHEET_ID = 'YOUR_GOOGLE_SHEET_ID';
+    var SHEET_ID = '1wj6hNhSy0Ip82YZnXBmHJp44xjzCVBQuafaXpPCB0OM';
 
     /* Column index (0-based) — matches the sheet spec exactly */
     var COL = { TITLE:0, DATE:1, CATEGORY:2, EXCERPT:3, CONTENT:4, IMAGE:5, PUBLISHED:6 };
@@ -992,13 +1017,20 @@
       dateEl.textContent  = formatDate(post.date);
       titleEl.textContent = post.title;
 
-      /* Render content — treat as plain text, but preserve line breaks.
-         If content contains HTML tags, render them directly. */
-      if (/<[a-z][\s\S]*>/i.test(post.content)) {
-        content.innerHTML = post.content;
+      /* Render content using innerHTML so HTML tags always display correctly.
+         — If Nyema pastes HTML (headings, links, images, bold etc.) → rendered as-is.
+         — If Nyema types plain text → wrapped in <p> tags, double line breaks
+           become new paragraphs, single line breaks become <br>.            */
+      var raw = post.content || '';
+      if (/<[a-z][\s\S]*>/i.test(raw)) {
+        /* HTML content — render directly */
+        content.innerHTML = raw;
       } else {
+        /* Plain text — convert line breaks to paragraphs */
         content.innerHTML = '<p>' +
-          escHtml(post.content).replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>') +
+          escHtml(raw)
+            .replace(/\n\n+/g, '</p><p>')
+            .replace(/\n/g, '<br>') +
           '</p>';
       }
 
@@ -1054,7 +1086,7 @@
       </button>
       <div class="newsletterPopupIcon" aria-hidden="true"><i class="ri-mail-open-line"></i></div>
       <span class="newsletterPopupLabel">Stay Connected</span>
-      <h2 class="newsletterPopupHeadline" id="popupHeadline">Don't Miss Nyema's Latest Research</h2>
+      <h2 class="newsletterPopupHeadline" id="popupHeadline">Discover Nyema's Latest Research</h2>
       <p class="newsletterPopupSubtext">Join parents and practitioners receiving evidence-based natural health insights directly in their inbox.</p>
       <div class="newsletterPopupBenefits" aria-label="What you receive">
         <span><i class="ri-check-line" aria-hidden="true"></i> Research Insights</span>

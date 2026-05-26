@@ -8,10 +8,9 @@
 
   /* ── Pre-fill from URL params (e.g. ?type=media&subject=press-kit) ── */
   (function prefillFromUrl() {
-    var params = new URLSearchParams(window.location.search);
-    var type    = params.get('type');
-    var subject = params.get('subject');
-
+    var params     = new URLSearchParams(window.location.search);
+    var type       = params.get('type');
+    var subject    = params.get('subject');
     var typeSelect = form.querySelector('[name="enquiryType"]');
     var msgField   = form.querySelector('[name="message"]');
 
@@ -31,60 +30,119 @@
     }
   })();
 
+  /* ── Show/hide the error message under a field ── */
   const showError = (fieldId, show) => {
     const err = document.getElementById(fieldId + 'Error');
     if (err) err.classList.toggle('visible', show);
   };
 
-  const validate = () => {
-    let valid = true;
-
-    const name = form.querySelector('[name="fullName"]');
-    const email = form.querySelector('[name="email"]');
-    const message = form.querySelector('[name="message"]');
-
-    if (name) {
-      const ok = name.value.trim().length >= 2;
-      showError('fullName', !ok);
-      if (!ok) valid = false;
-    }
-
-    if (email) {
-      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-      showError('email', !ok);
-      if (!ok) valid = false;
-    }
-
-    if (message) {
-      const ok = message.value.trim().length >= 10;
-      showError('message', !ok);
-      if (!ok) valid = false;
-    }
-
-    return valid;
+  /* ── Add/remove the error border on the field itself ── */
+  const markField = (el, hasError) => {
+    if (el) el.classList.toggle('formControlError', hasError);
   };
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+  /* ── Validate a single field by its name attribute ──
+     Returns true = valid, false = invalid.
+     Only shows errors for fields the user has actually touched
+     (called on blur/input/change). When called from the submit
+     handler it validates everything regardless.               ── */
+  const validateField = (fieldName) => {
+    const el = form.querySelector('[name="' + fieldName + '"]');
+    if (!el) return true;
 
-    const submitBtn = form.querySelector('[type="submit"]');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
+    let ok = true;
+
+    switch (fieldName) {
+
+      case 'fullName':
+        ok = el.value.trim().length >= 2;
+        showError('fullName', !ok);
+        markField(el, !ok);
+        break;
+
+      case 'email':
+        /* Empty → "required" message; filled but wrong → "valid email" message */
+        if (el.value.trim() === '') {
+          ok = false;
+          showError('email', true);
+          markField(el, true);
+        } else {
+          ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+          showError('email', !ok);
+          markField(el, !ok);
+        }
+        break;
+
+      case 'enquiryType':
+        ok = el.value !== '';
+        showError('enquiryType', !ok);
+        markField(el, !ok);
+        break;
+
+      case 'message':
+        ok = el.value.trim().length >= 10;
+        showError('message', !ok);
+        markField(el, !ok);
+        break;
     }
 
-    /* Simulated submit — replace with real endpoint */
-    setTimeout(() => {
-      form.style.display = 'none';
-      const success = document.getElementById('formSuccess');
-      if (success) success.classList.add('visible');
-    }, 800);
+    return ok;
+  };
+
+  /* ── Run all fields — used on submit ── */
+  const validateAll = () => {
+    return ['fullName', 'email', 'enquiryType', 'message']
+      .map(validateField)
+      .every(Boolean);
+  };
+
+  /* ── Live feedback per field ──
+     • blur  → validate just this field (first time the user leaves it)
+     • input → validate as the user types (clears error while correcting)
+     • change → handles <select> which fires change, not input            ── */
+  form.querySelectorAll('.formControl').forEach(field => {
+    field.addEventListener('blur',   () => { if (field.name) validateField(field.name); });
+    field.addEventListener('input',  () => { if (field.name) validateField(field.name); });
+    field.addEventListener('change', () => { if (field.name) validateField(field.name); });
   });
 
-  /* Live validation on blur */
-  form.querySelectorAll('.formControl').forEach(field => {
-    field.addEventListener('blur', validate);
+  /* ── Form submit ── */
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    /* Validate everything — show all errors at once if multiple fields empty */
+    if (!validateAll()) return;
+
+    const submitBtn  = form.querySelector('[type="submit"]');
+    const networkErr = document.getElementById('formNetworkError');
+
+    if (submitBtn) {
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Sending…';
+    }
+    if (networkErr) networkErr.classList.remove('visible');
+
+    fetch('https://formspree.io/f/mlgvpozb', {
+      method:  'POST',
+      headers: { 'Accept': 'application/json' },
+      body:    new FormData(form)
+    })
+    .then(function (res) {
+      if (res.ok) {
+        form.style.display = 'none';
+        const success = document.getElementById('formSuccess');
+        if (success) success.classList.add('visible');
+      } else {
+        throw new Error('Server responded with ' + res.status);
+      }
+    })
+    .catch(function () {
+      if (submitBtn) {
+        submitBtn.disabled    = false;
+        submitBtn.textContent = 'Send Message';
+      }
+      if (networkErr) networkErr.classList.add('visible');
+    });
   });
 
 })();

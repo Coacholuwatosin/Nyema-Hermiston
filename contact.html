@@ -183,7 +183,7 @@
 
               <div class="formGroup">
                 <label for="enquiryType" class="formLabel">Enquiry Type</label>
-                <select id="enquiryType" name="enquiryType" class="formControl formControlSelect">
+                <select id="enquiryType" name="enquiryType" class="formControl formControlSelect" aria-describedby="enquiryTypeError">
                   <option value="">Select enquiry type</option>
                   <option value="reader">Reader</option>
                   <option value="media">Media</option>
@@ -191,6 +191,7 @@
                   <option value="professional">Professional</option>
                   <option value="other">Other</option>
                 </select>
+                <span class="formError" id="enquiryTypeError" role="alert">Please select an enquiry type.</span>
               </div>
 
               <div class="formGroup">
@@ -200,6 +201,9 @@
               </div>
 
               <button type="submit" class="btnPrimary btnBlock">Send Message</button>
+              <p class="formNetworkError" id="formNetworkError" role="alert">
+                Something went wrong — please try again or email Nyema directly.
+              </p>
 
             </form>
 
