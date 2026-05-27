@@ -54,6 +54,7 @@
   <link rel="stylesheet" href="assets/css/endorsements.css">
   <link rel="stylesheet" href="assets/css/research.css">
   <link rel="stylesheet" href="assets/css/newsletter.css">
+  <link rel="stylesheet" href="assets/css/aurum.css">
   <link rel="stylesheet" href="assets/css/contact.css">
   <link rel="stylesheet" href="assets/css/footer.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
@@ -428,7 +429,7 @@
                     </a>
                   </div>
                 </div>
-                <a href="books.html" class="btnSecondary">Full Details</a>
+                <a href="books.html#book01" class="btnSecondary">Full Details</a>
               </div>
             </div>
           </article>
@@ -467,7 +468,7 @@
                     </a>
                   </div>
                 </div>
-                <a href="books.html" class="btnSecondary">Full Details</a>
+                <a href="books.html#book02" class="btnSecondary">Full Details</a>
               </div>
             </div>
           </article>
@@ -506,7 +507,7 @@
                     </a>
                   </div>
                 </div>
-                <a href="books.html" class="btnSecondary">Full Details</a>
+                <a href="books.html#book03" class="btnSecondary">Full Details</a>
               </div>
             </div>
           </article>
@@ -515,8 +516,8 @@
           <article class="booksShowcase" data-aos="fade-up" data-aos-delay="100">
             <div class="booksShowcaseCoverWrap">
               <div class="booksShowcaseCoverInner lightboxTrigger">
-                <img src="assets/images/GoodNews_Cover.webp"
-                     alt="Good News for People with Bad News"
+                <img src="assets/images/Goodnews%20second%20edition%20cover.jpg"
+                     alt="Good News for People with Bad News — Second Edition"
                      loading="lazy"
                      onerror="this.style.display='none'">
               </div>
@@ -545,7 +546,7 @@
                     </a>
                   </div>
                 </div>
-                <a href="books.html" class="btnSecondary">Full Details</a>
+                <a href="books.html#book04" class="btnSecondary">Full Details</a>
               </div>
             </div>
           </article>
@@ -570,7 +571,6 @@
         <div class="reviewsSectionHeader" data-aos="fade-up">
           <span class="sectionLabel">Reader Testimonials</span>
           <h2 class="sectionTitle sectionTitleDark" id="reviewsSectionTitle">What Readers Are Saying</h2>
-          <span class="goldUnderlineCentered"></span>
         </div>
 
         <div class="reviewsCarouselWrap">
@@ -841,6 +841,7 @@
     =============================== -->
     <section class="endorsementsSection" aria-labelledby="endorsementsSectionTitle">
       <div class="container">
+
         <div class="endorsementsSectionHeader" data-aos="fade-up">
           <span class="sectionLabel">Professional Endorsements</span>
           <h2 class="sectionTitle sectionTitleDark" id="endorsementsSectionTitle">What Medical Professionals Say</h2>
@@ -849,32 +850,35 @@
 
         <div class="endorsementsGrid">
 
+          <!-- Left column — long featured card -->
           <article class="endorsementCard" data-aos="fade-up" data-aos-delay="100">
-            <span class="endorsementQuoteIcon" aria-hidden="true">"</span>
-            <p class="endorsementQuote">Nyema Hermiston brings clinical rigour and genuine compassion to a subject that deserves both. Her research-based approach to neurodevelopmental health is exactly what parents and practitioners need.</p>
+            <p class="endorsementQuote">Planning Parenthood in the Age of Autism by Nyema Hermiston is a clear, informative, and empowering guide for anyone planning to start a family. Drawing on the latest research, the book outlines the many factors that contribute to neurodevelopment and autism risk with compassion and clarity. It's an invaluable resource for anyone wanting the best start for their family.</p>
             <div class="endorsementAttribution">
               <span class="endorsementName">Dr Stephen Lyon</span>
               <span class="endorsementCredentials">Medical Doctor</span>
             </div>
           </article>
 
-          <article class="endorsementCard" data-aos="fade-up" data-aos-delay="200">
-            <span class="endorsementQuoteIcon" aria-hidden="true">"</span>
-            <p class="endorsementQuote">This is an important book written by someone who has spent decades earning the right to write it. I recommend it without hesitation to parents who want to take an active role in their child's health.</p>
-            <div class="endorsementAttribution">
-              <span class="endorsementName">Dr Nindhi Ahilan</span>
-              <span class="endorsementCredentials">Medical Doctor</span>
-            </div>
-          </article>
+          <!-- Right column — two short cards stacked tightly -->
+          <div class="endorsementsRightCol">
 
-          <article class="endorsementCard" data-aos="fade-up" data-aos-delay="300">
-            <span class="endorsementQuoteIcon" aria-hidden="true">"</span>
-            <p class="endorsementQuote">Nyema's work fills a critical gap between conventional medicine and the practical guidance families are searching for. Her credibility as both a clinician and a researcher is evident on every page.</p>
-            <div class="endorsementAttribution">
-              <span class="endorsementName">Dr Sabina Vatter</span>
-              <span class="endorsementCredentials">Medical Doctor</span>
-            </div>
-          </article>
+            <article class="endorsementCard" data-aos="fade-up" data-aos-delay="200">
+              <p class="endorsementQuote">This book is a brilliant exploration into the very misunderstood topic of Autism.</p>
+              <div class="endorsementAttribution">
+                <span class="endorsementName">Martene McGuire</span>
+                <span class="endorsementCredentials">Teacher, Mother</span>
+              </div>
+            </article>
+
+            <article class="endorsementCard" data-aos="fade-up" data-aos-delay="300">
+              <p class="endorsementQuote">Nyema brings a rare and powerful perspective…the result of years of professional experience.</p>
+              <div class="endorsementAttribution">
+                <span class="endorsementName">Dr Nindhi Ahilan</span>
+                <span class="endorsementCredentials">Medical Doctor</span>
+              </div>
+            </article>
+
+          </div>
 
         </div>
       </div>
@@ -935,18 +939,20 @@
          SECTION 08 — AURUM PROJECT
     =============================== -->
     <section class="aurumSection" aria-labelledby="aurumTitle">
-      <div class="container text-center" data-aos="zoom-in">
+      <div class="aurumInner" data-aos="fade-up">
         <img src="assets/images/Final-Aurum-Logo-320x160-1.png"
              alt="The Aurum Project Logo"
              class="aurumLogo"
              loading="lazy"
              onerror="this.style.display='none'">
-        <span class="sectionLabel aurumSectionLabel">Organisation</span>
-        <h2 class="sectionTitle aurumSectionTitle" id="aurumTitle">The Aurum Project</h2>
-        <p class="aurumSectionDesc">
+        <span class="aurumEyebrow">Organisation</span>
+        <h2 class="aurumHeading" id="aurumTitle">The Aurum Project</h2>
+        <p class="aurumDesc">
           Nyema serves as President of The Aurum Project, a charitable organisation dedicated to advancing homeopathic research and making evidence-based natural health resources accessible to families worldwide.
         </p>
-        <a href="https://aurumproject.org.au/" class="btnDark" target="_blank" rel="noopener noreferrer">Visit The Aurum Project →</a>
+        <a href="https://aurumproject.org.au/" class="aurumCta" target="_blank" rel="noopener noreferrer">
+          Visit The Aurum Project <span class="aurumCtaArrow">→</span>
+        </a>
       </div>
     </section>
 

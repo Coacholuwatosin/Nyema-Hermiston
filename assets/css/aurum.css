@@ -1,0 +1,139 @@
+/* ===================================================
+   AURUM.CSS — The Aurum Project Section
+   Clean Editorial Block · White Background
+   =================================================== */
+
+/* ── SECTION ─────────────────────────────────────── */
+.aurumSection {
+  background: var(--colorBackground);
+  padding: 100px 24px;
+  clip-path: none;           /* remove legacy diagonal edge */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle dot-texture overlay (override main.css value) */
+.aurumSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(88, 98, 163, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── INNER FLEX CONTAINER ────────────────────────── */
+.aurumInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── LOGO ────────────────────────────────────────── */
+/* Override main.css .aurumLogo */
+.aurumSection .aurumLogo {
+  height: 80px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  display: block;
+  margin: 0 0 2.25rem 0;
+}
+
+/* ── EYEBROW ─────────────────────────────────────── */
+.aurumEyebrow {
+  display: block;
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--colorPrimary);
+  margin-bottom: 0.75rem;
+  /* no dot pseudo-element — clean, spacious, editorial */
+}
+
+/* ── HEADING ─────────────────────────────────────── */
+.aurumHeading {
+  font-family: var(--fontDisplay);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+/* ── DESCRIPTION ─────────────────────────────────── */
+.aurumDesc {
+  font-family: var(--fontBody);
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.7;
+  max-width: 650px;
+  margin: 0 auto 2.75rem;
+}
+
+/* ── CTA BUTTON ──────────────────────────────────── */
+.aurumCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--colorPrimary);
+  color: #ffffff;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-family: var(--fontBody);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1.5px solid var(--colorPrimary);
+  box-shadow: 0 2px 8px rgba(88, 98, 163, 0.14);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.hasCursor .aurumCta {
+  cursor: none;
+}
+
+.aurumCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  background: #4a539b;
+  border-color: #4a539b;
+  color: #ffffff;
+}
+
+/* Arrow character slides right on hover */
+.aurumCtaArrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aurumCta:hover .aurumCtaArrow {
+  transform: translateX(5px);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .aurumSection {
+    padding: 72px 20px;
+  }
+
+  .aurumDesc {
+    font-size: 1rem;
+  }
+
+  .aurumCta {
+    padding: 13px 26px;
+    font-size: 0.75rem;
+  }
+}

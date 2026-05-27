@@ -1,126 +1,155 @@
 /* ===================================================
    ENDORSEMENTS.CSS — Professional Endorsements
+   Asymmetric Bento Grid · Modern Design System
    =================================================== */
 
+/* ── SECTION ─────────────────────────────────────── */
 .endorsementsSection {
   position: relative;
-  background: var(--colorBackground);
-  padding: var(--spaceSection) 0 calc(var(--spaceSection) * 0.75);
+  background: #f8fafc;
+  padding: var(--spaceSection) 0;
   overflow: hidden;
 }
 
+/* Subtle dot-grid texture */
 .endorsementsSection::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(88,98,163,0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(79, 70, 229, 0.06) 1px, transparent 1px);
   background-size: 28px 28px;
   pointer-events: none;
   z-index: 0;
 }
 
-.endorsementsSection::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: none;
-  pointer-events: none;
-  z-index: 0;
-}
-
+/* ── HEADER ──────────────────────────────────────── */
 .endorsementsSectionHeader {
   text-align: center;
-  margin-bottom: var(--spaceLg);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
   position: relative;
   z-index: 1;
 }
 
+/* ── ASYMMETRIC BENTO GRID ───────────────────────── */
 .endorsementsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spaceMd);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
   position: relative;
   z-index: 1;
+  align-items: start;
 }
 
-/* Endorsement Card — floating glass on light canvas */
+/* Right column — two cards stacked tightly, no gaps */
+.endorsementsRightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── CARD BASE ───────────────────────────────────── */
 .endorsementCard {
   position: relative;
-  background: rgba(255,255,255,0.82);
-  border: 1px solid rgba(88,98,163,0.10);
-  padding: var(--spaceLg) var(--spaceMd) var(--spaceMd);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow:
-    0 2px 6px rgba(88,98,163,0.06),
-    0 8px 24px rgba(88,98,163,0.09),
-    0 24px 56px rgba(88,98,163,0.07),
-    0 1px 0 rgba(255,255,255,0.92) inset;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
-  border-radius: 20px;
 }
 
 .endorsementCard:hover {
-  transform: translateY(-10px);
-  box-shadow:
-    0 4px 12px rgba(88,98,163,0.08),
-    0 16px 40px rgba(88,98,163,0.13),
-    0 40px 80px rgba(88,98,163,0.10),
-    0 1px 0 rgba(255,255,255,0.96) inset;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 4px 20px -2px rgba(79, 70, 229, 0.08);
 }
 
-/* Large decorative quote mark */
-.endorsementQuoteIcon {
+/* Right-column cards fill the flex container naturally */
+.endorsementsRightCol .endorsementCard {
+  height: auto;
+}
+
+/* Decorative oversized opening quote mark */
+.endorsementCard::before {
+  content: '\201C';
   position: absolute;
-  top: -8px;
-  left: var(--spaceSm);
+  top: 12px;
+  right: 20px;
   font-family: var(--fontDisplay);
-  font-size: clamp(5rem, 8vw, 8rem);
+  font-size: clamp(5rem, 7vw, 7rem);
   line-height: 1;
-  color: var(--colorPrimary);
-  opacity: 0.07;
+  color: #4f46e5;
+  opacity: 0.06;
   pointer-events: none;
   user-select: none;
 }
 
+/* ── QUOTE TEXT ──────────────────────────────────── */
 .endorsementQuote {
-  font-family: var(--fontBody);
-  font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
-  font-style: normal;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: clamp(0.9375rem, 1.35vw, 1.0625rem);
   font-weight: 400;
-  color: var(--colorTextOnLight);
-  line-height: 1.9;
-  margin-bottom: var(--spaceMd);
+  font-style: normal;
+  color: #334155;
+  line-height: 1.85;
+  margin: 0 0 1.5rem 0;
   position: relative;
   z-index: 1;
-  letter-spacing: 0.01em;
+  flex: 1;
 }
 
+/* ── ATTRIBUTION ─────────────────────────────────── */
 .endorsementAttribution {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding-top: var(--spaceSm);
-  border-top: 1px solid rgba(88,98,163,0.10);
+  gap: 0.3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f1f5f9;
+  margin-top: 0;
   position: relative;
   z-index: 1;
 }
 
 .endorsementName {
-  font-family: var(--fontBody);
-  font-size: var(--fontSizeSmall);
-  font-weight: 600;
-  color: var(--colorPrimary);
-  letter-spacing: 0.05em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
 }
 
 .endorsementCredentials {
-  font-family: var(--fontBody);
-  font-size: var(--fontSizeCredential);
-  color: var(--colorTextOnLight);
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.7;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .endorsementsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .endorsementsRightCol {
+    gap: 20px;
+  }
+
+  .endorsementCard {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .endorsementCard {
+    padding: 20px;
+  }
 }

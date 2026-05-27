@@ -1,168 +1,179 @@
 /* ===================================================
    REVIEWS.CSS — Reader Reviews Carousel
+   Modern Warm-Cream Design System
    =================================================== */
 
+/* ── SECTION ─────────────────────────────────────── */
 .reviewsSection {
   position: relative;
-  background: var(--colorBackgroundAlt);
+  background: #faf8f5;
   padding: var(--spaceSection) 0;
-  clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-  padding-top: calc(var(--spaceSection) + 3rem);
-  padding-bottom: calc(var(--spaceSection) + 3rem);
   overflow: hidden;
 }
 
-.reviewsSectionHeader {
-  text-align: center;
-  margin-bottom: var(--spaceLg);
+/* Subtle dot-texture overlay */
+.reviewsSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(88, 98, 163, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Carousel Container */
+/* ── HEADER ──────────────────────────────────────── */
+.reviewsSectionHeader {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── CAROUSEL WRAP ───────────────────────────────── */
 .reviewsCarouselWrap {
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
-/* Fade edges removed (no gradients) */
+/* Soft fade mask on each side */
 .reviewsCarouselWrap::before,
 .reviewsCarouselWrap::after {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 120px;
+  width: clamp(32px, 6vw, 80px);
   z-index: 2;
   pointer-events: none;
 }
 
 .reviewsCarouselWrap::before {
   left: 0;
-  background: none;
+  background: linear-gradient(to right, #faf8f5, transparent);
 }
 
 .reviewsCarouselWrap::after {
   right: 0;
-  background: none;
+  background: linear-gradient(to left, #faf8f5, transparent);
 }
 
+/* ── TRACK ───────────────────────────────────────── */
 .reviewsTrack {
   display: flex;
-  gap: var(--spaceMd);
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  gap: 24px;
+  align-items: stretch;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ===========================
-   REVIEW CARD
-=========================== */
+/* ── CARD ────────────────────────────────────────── */
 .reviewCard {
-  flex: 0 0 clamp(300px, 38vw, 460px);
-  background: rgba(255,255,255,0.97);
-  border: 1px solid rgba(88,98,163,0.07);
-  border-radius: 20px;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow:
-    0 1px 2px rgba(88,98,163,0.05),
-    0 4px 16px rgba(88,98,163,0.08),
-    0 16px 40px rgba(88,98,163,0.07);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  flex: 0 0 clamp(290px, 36vw, 440px);
   display: flex;
   flex-direction: column;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #efece6;
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.03);
   overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .reviewCard:hover {
-  transform: translateY(-8px);
-  box-shadow:
-    0 2px 4px rgba(88,98,163,0.06),
-    0 8px 24px rgba(88,98,163,0.12),
-    0 24px 56px rgba(88,98,163,0.10);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.06);
 }
 
-/* Top accent bar removed — clean borderless card */
+/* Top accent stripe matching brand colour */
 .reviewCard::before {
-  display: none;
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--colorPrimary), rgba(88, 98, 163, 0.20));
+  border-radius: 20px 20px 0 0;
+  flex-shrink: 0;
 }
 
-/* Card body padding wrapper */
+/* ── CARD BODY ───────────────────────────────────── */
 .reviewCardBody {
-  padding: 1.5rem 1.5rem 1.25rem;
+  padding: 28px 28px 24px;
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 1rem;
-  min-height: 240px;
 }
 
-/* Header: stars left, platform tag right */
+/* ── HEADER ROW — stars left, badge right ─────────── */
 .reviewCardHeader {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 0.5rem;
 }
 
 .reviewCardStars {
-  color: #c8a800;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  color: #c8920a;
+  font-size: 0.8125rem;
+  letter-spacing: 1.5px;
   line-height: 1;
 }
 
 .reviewCardPlatformTag {
-  font-family: var(--fontBody);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--colorPrimary);
-  background: rgba(88,98,163,0.08);
-  border: none;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
   padding: 0.25rem 0.625rem;
   border-radius: 100px;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-/* Review text */
+/* ── QUOTE BODY TEXT ─────────────────────────────── */
 .reviewCardText {
-  font-family: var(--fontBody);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.9375rem;
   font-style: normal;
   font-weight: 400;
-  color: var(--colorTextOnLight);
-  line-height: 1.78;
+  color: #4a4a4a;
+  line-height: 1.6;
   flex: 1;
   margin: 0;
 }
 
-/* Attribution row — soft divider */
+/* ── ATTRIBUTION ─────────────────────────────────── */
 .reviewCardAttribution {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding-top: 0.875rem;
-  border-top: 1px solid rgba(88,98,163,0.10);
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0ede8;
   margin-top: auto;
 }
 
-/* Initials avatar — soft neutral circle */
+/* Pastel initials circle */
 .reviewCardAvatar {
-  width: 34px;
-  height: 34px;
-  min-width: 34px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
   border-radius: 50%;
-  background: rgba(88,98,163,0.10);
-  border: 1px solid rgba(88,98,163,0.15);
+  background: #eeecf8;
+  border: 1px solid #e0dcf2;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--fontBody);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.5625rem;
   font-weight: 700;
   color: var(--colorPrimary);
   letter-spacing: 0.04em;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .reviewCardMeta {
@@ -173,47 +184,47 @@
 }
 
 .reviewCardName {
-  font-family: var(--fontBody);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--colorTextOnLight);
-  line-height: 1;
+  color: #1e293b;
+  line-height: 1.2;
 }
 
 .reviewCardSource {
-  font-family: var(--fontBody);
-  font-size: 0.625rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.5625rem;
   font-weight: 400;
   letter-spacing: 0.03em;
-  color: var(--colorTextOnLight);
+  color: #94a3b8;
   line-height: 1;
 }
 
-/* Carousel Controls */
+/* ── CONTROLS — centered below track ─────────────── */
 .reviewsControls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--spaceSm);
-  margin-top: var(--spaceMd);
+  gap: 0.875rem;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .reviewsBtn {
-  width: 46px;
-  height: 46px;
-  min-height: 46px;
-  border: 1.5px solid rgba(88,98,163,0.28);
-  background: rgba(255,255,255,0.90);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--colorPrimary);
+  width: 48px;
+  height: 48px;
+  min-height: 48px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 50%;
+  color: #334155;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
   font-size: 1rem;
-  box-shadow: 0 2px 12px rgba(88,98,163,0.10);
-  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 body.hasCursor .reviewsBtn {
@@ -222,20 +233,21 @@ body.hasCursor .reviewsBtn {
 
 .reviewsBtn:hover {
   border-color: var(--colorPrimary);
-  background: var(--colorPrimary);
-  color: var(--colorTextOnDark);
-  box-shadow: 0 4px 20px rgba(88,98,163,0.22);
-  transform: scale(1.08);
+  color: var(--colorPrimary);
+  box-shadow: 0 4px 16px rgba(88, 98, 163, 0.14);
+  transform: scale(1.06);
 }
 
-/* Dots */
+/* ── DOTS ────────────────────────────────────────── */
 .reviewsDots {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin-top: var(--spaceXs);
+  margin-top: 1rem;
   padding: 0.25rem 0;
+  position: relative;
+  z-index: 1;
 }
 
 .reviewsDot {
@@ -250,7 +262,7 @@ body.hasCursor .reviewsBtn {
   height: 8px;
   min-height: 0 !important;
   border-radius: 50%;
-  background: rgba(88,98,163,0.22);
+  background: rgba(88, 98, 163, 0.18);
   border: none;
   transition: background 0.3s ease, width 0.35s ease, border-radius 0.35s ease;
   flex-shrink: 0;
@@ -266,4 +278,21 @@ body.hasCursor .reviewsDot {
   height: 8px;
   border-radius: 4px;
   box-shadow: none;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .reviewCard {
+    flex: 0 0 min(88vw, 340px);
+  }
+
+  .reviewCardBody {
+    padding: 22px 20px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviewCard {
+    flex: 0 0 85vw;
+  }
 }

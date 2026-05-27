@@ -350,13 +350,14 @@
 
 .aboutBioGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 55% 45%;
   gap: var(--spaceLg);
+  align-items: start;
 }
 
 .aboutBioText {
   font-size: var(--fontSizeBody);
-  line-height: var(--lineHeightBody);
+  line-height: 1.7;
   color: var(--colorTextOnLight);
 }
 
@@ -367,6 +368,18 @@
 .aboutBioText strong {
   color: var(--colorPrimary);
   font-weight: 500;
+}
+
+.aboutBioLink {
+  color: var(--colorPrimary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(88, 98, 163, 0.35);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.aboutBioLink:hover {
+  color: #3a4395;
+  border-bottom-color: var(--colorPrimary);
 }
 
 .aboutCredentialsList {
@@ -409,6 +422,18 @@
   margin-bottom: 0.2rem;
 }
 
+/* Credentials column card wrapper */
+.aboutCredentialsCard {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(88, 98, 163, 0.12);
+  padding: var(--spaceMd);
+  box-shadow:
+    0 2px 8px rgba(88, 98, 163, 0.04),
+    0 8px 28px rgba(88, 98, 163, 0.07);
+  height: 100%;
+}
+
 /* === Timeline Section === */
 .aboutTimelineSection {
   background: var(--colorBackgroundDark);
@@ -430,46 +455,79 @@
 
 .aboutTimeline {
   position: relative;
-  max-width: 720px;
+  max-width: 900px;
   margin: var(--spaceLg) auto 0;
 }
 
+/* Center vertical axis line */
 .aboutTimeline::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--colorSecondary);
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateX(-50%);
+  z-index: 0;
 }
 
+/* Each row is a full-width flex container */
 .aboutTimelineItem {
   position: relative;
-  padding-left: var(--spaceLg);
+  display: flex;
   padding-bottom: var(--spaceLg);
 }
 
+/* Odd items — left side of axis */
+.aboutTimelineItem:nth-child(odd) {
+  justify-content: flex-end;
+  padding-right: calc(50% + 2.5rem);
+}
+
+/* Even items — right side of axis */
+.aboutTimelineItem:nth-child(even) {
+  justify-content: flex-start;
+  padding-left: calc(50% + 2.5rem);
+}
+
+/* Node circle on the center axis */
 .aboutTimelineItem::before {
   content: '';
   position: absolute;
-  left: -5px;
-  top: 8px;
-  width: 12px;
-  height: 12px;
+  left: calc(50% - 7px);
+  top: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--colorSecondary);
   border: 2px solid var(--colorBackgroundDark);
-  box-shadow: none;
+  z-index: 2;
+}
+
+/* Milestone card */
+.aboutTimelineCard {
+  width: 100%;
+  padding: 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.aboutTimelineCard:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .aboutTimelineYear {
+  display: block;
   font-family: var(--fontDisplay);
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 600;
   color: var(--colorSecondary);
   line-height: 1;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .aboutTimelineTitle {
@@ -477,12 +535,37 @@
   font-size: var(--fontSizeBody);
   font-weight: 500;
   color: var(--colorTextOnDark);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
 }
 
 .aboutTimelineDesc {
   font-family: var(--fontBody);
   font-size: var(--fontSizeSmall);
-  color: var(--colorTextOnDark);
+  color: rgba(255, 255, 255, 0.80);
   line-height: var(--lineHeightBody);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Bio grid — collapse to single column */
+  .aboutBioGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Timeline — collapse axis to the left */
+  .aboutTimeline::before {
+    left: 20px;
+    transform: none;
+  }
+
+  .aboutTimelineItem:nth-child(odd),
+  .aboutTimelineItem:nth-child(even) {
+    padding-left: 60px;
+    padding-right: 0;
+    justify-content: flex-start;
+  }
+
+  .aboutTimelineItem::before {
+    left: 13px;
+  }
 }
