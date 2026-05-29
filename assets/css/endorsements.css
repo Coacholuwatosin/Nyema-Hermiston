@@ -30,6 +30,12 @@
   z-index: 1;
 }
 
+.endorsementsSectionHeader .sectionTitle {
+  max-width: 660px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ── ASYMMETRIC BENTO GRID ───────────────────────── */
 .endorsementsGrid {
   display: grid;

@@ -503,6 +503,15 @@
   line-height: var(--lineHeightBody);
 }
 
+.booksPageHeroCredentials {
+  font-family: var(--fontBody);
+  font-size: var(--fontSizeCredential);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.50);
+  margin-top: var(--spaceSm);
+}
+
 /* Individual Book Entry */
 .bookEntry {
   padding: var(--spaceSection) 0;
