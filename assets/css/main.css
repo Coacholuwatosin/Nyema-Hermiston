@@ -23,7 +23,7 @@
   --fontSizeSectionTitle: clamp(2rem, 4vw, 3.5rem);
   --fontSizeSubTitle: clamp(1.25rem, 2.5vw, 1.75rem);
   --fontSizeBody: clamp(1rem, 1.5vw, 1.125rem);
-  --fontSizeSmall: clamp(0.875rem, 1.2vw, 1rem);
+  --fontSizeSmall: clamp(0.875rem, 1.2vw, 0.92rem);
   --fontSizeCredential: clamp(0.75rem, 1vw, 0.875rem);
 
   --lineHeightDisplay: 1.1;
