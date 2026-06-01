@@ -2,6 +2,22 @@
    MAIN.JS — Core Site Functionality
    =================================================== */
 
+/* Scroll-lock helpers — compensate for scrollbar width so the
+   page never jumps left/right when overflow is toggled.
+   Exposed globally so features.js can reuse them. */
+function lockBody() {
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  document.body.style.overflow = 'hidden';
+  if (scrollbarWidth > 0) {
+    document.body.style.paddingRight = scrollbarWidth + 'px';
+  }
+}
+
+function unlockBody() {
+  document.body.style.overflow = '';
+  document.body.style.paddingRight = '';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Page Loader ---------- */
@@ -85,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.classList.toggle('open');
       const isOpen = overlay.classList.contains('open');
       hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      isOpen ? lockBody() : unlockBody();
     });
   }
 
@@ -93,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.classList.remove('open');
       overlay.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
+      unlockBody();
     });
   }
 
@@ -103,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.setAttribute('aria-expanded', 'false');
       }
       if (overlay) overlay.classList.remove('open');
+      unlockBody();
     });
   });
 

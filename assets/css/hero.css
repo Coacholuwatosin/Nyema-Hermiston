@@ -744,7 +744,7 @@ body.hasCursor .heroAllBooks { cursor: none; }
 }
 
 .heroBadgeLeft {
-  bottom: 18%;
+  bottom: 4%;
   left: -8%;
   animation-delay: 0.5s;
 }

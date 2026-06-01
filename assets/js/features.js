@@ -114,12 +114,12 @@
       lightboxImg.src = src;
       lightboxImg.alt = alt || '';
       lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      lockBody();
     }
 
     function closeLightbox() {
       lightbox.classList.remove('open');
-      document.body.style.overflow = '';
+      unlockBody();
       setTimeout(function () { lightboxImg.src = ''; }, 350);
     }
 
@@ -352,12 +352,12 @@
       shown = true;
       sessionStorage.setItem('nhPopupSeen', '1');
       popup.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      lockBody();
     }
 
     function hidePopup() {
       popup.classList.remove('active');
-      document.body.style.overflow = '';
+      unlockBody();
     }
 
     setTimeout(showPopup, 45000);
