@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videos — Nyema Hermiston</title>
+  <meta name="description" content="Watch Nyema Hermiston share her research, insights, and interviews on natural health, autism, and evidence-based approaches to wellbeing.">
+
+  <meta property="og:title" content="Videos — Nyema Hermiston">
+  <meta property="og:description" content="Watch Nyema share her research, insights, and interviews on natural health, autism, and evidence-based approaches to wellbeing.">
+  <meta property="og:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+  <meta property="og:url" content="https://nyemahermiston.com.au/videos.html">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Videos — Nyema Hermiston">
+  <meta name="twitter:description" content="Watch Nyema share her research, insights, and interviews on natural health, autism, and evidence-based approaches to wellbeing.">
+  <meta name="twitter:image" content="https://nyemahermiston.com.au/assets/images/social%20sharing%20banner.png">
+
+  <link rel="canonical" href="https://nyemahermiston.com.au/videos.html">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0B2B'/><text x='16' y='23' text-anchor='middle' font-family='serif' font-weight='700' font-size='16' fill='%23C9952A'>NH</text></svg>">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0D0B2B">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- RemixIcon -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/newsletter.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/features.css">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       VIDEOS PAGE — Full Redesign
+    ═══════════════════════════════════════════════════ */
+
+    /* ── HERO ──────────────────────────────────────────── */
+    .videosHero {
+      background: linear-gradient(145deg, #5862a3 0%, #434d96 45%, #333e87 100%);
+      padding: calc(var(--spaceXl) + 80px) 0 120px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      min-height: 440px;
+      display: flex;
+      align-items: center;
+    }
+    /* Dot grid overlay */
+    .videosHero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Decorative glow blob — top right */
+    .videosHero::after {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,236,150,0.09) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Second glow blob — bottom left */
+    .videosHeroBlobBL {
+      position: absolute;
+      bottom: -60px; left: -80px;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .videosHeroContent {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--spaceMd);
+    }
+    .videosHero .sectionLabel {
+      color: var(--colorSecondary);
+      background: rgba(255, 236, 150, 0.10);
+    }
+    .videosHeroTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(4rem, 9vw, 7rem);
+      font-weight: 700;
+      color: var(--colorTextOnDark);
+      line-height: var(--lineHeightDisplay);
+      margin-top: var(--spaceSm);
+      margin-bottom: var(--spaceSm);
+      letter-spacing: -0.01em;
+    }
+    .videosHeroSubtitle {
+      font-family: var(--fontBody);
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      color: rgba(255,255,255,0.72);
+      max-width: 540px;
+      margin: 0 auto var(--spaceMd);
+      line-height: 1.7;
+    }
+    /* Floating pill stats row */
+    .videosHeroStats {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .videosHeroStat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-family: var(--fontBody);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(6px);
+    }
+    .videosHeroStat i {
+      color: var(--colorSecondary);
+      font-size: 0.875rem;
+    }
+    /* Wave transition at hero bottom */
+    .videosHeroWave {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      z-index: 2;
+    }
+    .videosHeroWave svg {
+      display: block;
+      width: 100%;
+      height: 64px;
+    }
+
+    /* ── FEATURED SECTION ──────────────────────────────── */
+    .videosFeaturedSection {
+      background: #ffffff;
+      position: relative;
+      padding: var(--spaceXl) 0 calc(var(--spaceXl) * 1.25);
+    }
+    .videosFeaturedSection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .videosFeaturedHeader {
+      text-align: center;
+      margin-bottom: var(--spaceLg);
+      position: relative;
+      z-index: 1;
+    }
+    .videosFeaturedSectionTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--colorTextOnLight);
+      line-height: 1.1;
+      margin-bottom: var(--spaceXs);
+    }
+    .videosIntro {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto var(--spaceLg);
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeBody);
+      color: #555555;
+      line-height: var(--lineHeightBody);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Corner-bracket frame around featured video */
+    .videosFeaturedFrame {
+      position: relative;
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 18px;
+      z-index: 1;
+    }
+    /* Top-left bracket */
+    .videosFeaturedFrame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border-top: 3px solid var(--colorSecondary);
+      border-left: 3px solid var(--colorSecondary);
+    }
+    /* Bottom-right bracket */
+    .videosFeaturedFrame::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 40px; height: 40px;
+      border-bottom: 3px solid var(--colorSecondary);
+      border-right: 3px solid var(--colorSecondary);
+    }
+    /* Top-right bracket */
+    .videosFeaturedCornerTR {
+      position: absolute;
+      top: 0; right: 0;
+      width: 40px; height: 40px;
+      border-top: 3px solid var(--colorSecondary);
+      border-right: 3px solid var(--colorSecondary);
+      pointer-events: none;
+    }
+    /* Bottom-left bracket */
+    .videosFeaturedCornerBL {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 40px; height: 40px;
+      border-bottom: 3px solid var(--colorSecondary);
+      border-left: 3px solid var(--colorSecondary);
+      pointer-events: none;
+    }
+    /* "Featured" badge overlaid on the video */
+    .videosFeaturedBadge {
+      position: absolute;
+      top: 34px; left: 34px;
+      background: var(--colorSecondary);
+      color: #333e87;
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.8rem;
+      border-radius: 100px;
+      z-index: 3;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    /* 16:9 iframe wrapper */
+    .videosFeaturedEmbed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 24px 64px rgba(88,98,163,0.24), 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .videosFeaturedEmbed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+      border-radius: 10px;
+    }
+
+    /* Info card below featured video */
+    .videosFeaturedInfo {
+      max-width: 940px;
+      margin: var(--spaceMd) auto 0;
+      background: linear-gradient(135deg, #5862a3 0%, #434d96 100%);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 8px 32px rgba(88,98,163,0.22);
+      border-left: 4px solid var(--colorSecondary);
+    }
+    .videosFeaturedInfoIcon {
+      width: 50px; height: 50px;
+      background: rgba(255,236,150,0.12);
+      border: 1.5px solid rgba(255,236,150,0.28);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--colorSecondary);
+      font-size: 1.375rem;
+      flex-shrink: 0;
+    }
+    .videosFeaturedCaption {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      font-weight: 600;
+      color: var(--colorSecondary);
+      margin-bottom: 0.375rem;
+      line-height: 1.3;
+    }
+    .videosFeaturedDesc {
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeSmall);
+      color: rgba(255,255,255,0.78);
+      line-height: var(--lineHeightBody);
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      .videosFeaturedInfo { flex-direction: column; gap: 1rem; padding: 1.25rem 1.25rem; }
+      .videosFeaturedInfoIcon { width: 42px; height: 42px; font-size: 1.125rem; }
+    }
+
+    /* ── GALLERY SECTION ───────────────────────────────── */
+    .videosGallerySection {
+      background: #f6f5fb;
+      padding: var(--spaceXl) 0 calc(var(--spaceXl) * 1.1);
+      position: relative;
+    }
+    .videosGallerySection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(88,98,163,0.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    .videosGalleryHeader {
+      text-align: center;
+      margin-bottom: var(--spaceLg);
+      position: relative;
+      z-index: 1;
+    }
+    .videosGallerySectionTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--colorTextOnLight);
+      line-height: 1.1;
+      margin-bottom: var(--spaceXs);
+    }
+
+    /* ── GALLERY GRID ──────────────────────────────────── */
+    .videosGalleryGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.875rem;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 767px) {
+      .videosGalleryGrid { grid-template-columns: 1fr; }
+    }
+
+    /* ── VIDEO CARD ────────────────────────────────────── */
+    .videoCard {
+      background: linear-gradient(160deg, #5862a3 0%, #434d96 100%);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(88,98,163,0.16), 0 1px 4px rgba(0,0,0,0.07);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      border-top: 3px solid var(--colorSecondary);
+    }
+    .videoCard:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 60px rgba(88,98,163,0.30), 0 4px 12px rgba(0,0,0,0.10);
+    }
+
+    /* Wrapper that holds the embed + subtle hover overlay */
+    .videoCardEmbedOuter {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .videoCardEmbedOuter::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(67,77,150,0.55) 100%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .videoCard:hover .videoCardEmbedOuter::after {
+      opacity: 1;
+    }
+
+    /* 16:9 embed */
+    .videoCardEmbed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .videoCardEmbed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* Number badge */
+    .videoCardNum {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: rgba(255,236,150,0.92);
+      color: #333e87;
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      padding: 0.18rem 0.55rem;
+      border-radius: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Placeholder (cards without video yet) */
+    .videoCardPlaceholder {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: linear-gradient(160deg, #434d96 0%, #333e87 100%);
+      flex-shrink: 0;
+    }
+    /* Decorative vertical stripe lines */
+    .videoCardPlaceholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,236,150,0.035) 0px,
+        rgba(255,236,150,0.035) 1px,
+        transparent 1px,
+        transparent 36px
+      );
+      pointer-events: none;
+    }
+    .videoCardPlaceholderInner {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      z-index: 1;
+    }
+    /* Pulsing ring on the play icon */
+    .videoCardPlaceholderIcon {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: rgba(255,236,150,0.09);
+      border: 2px solid rgba(255,236,150,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--colorSecondary);
+      animation: vPulse 2.6s ease-in-out infinite;
+    }
+    @keyframes vPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(255,236,150,0.22); }
+      50%      { box-shadow: 0 0 0 14px rgba(255,236,150,0); }
+    }
+    .videoCardPlaceholderText {
+      font-family: var(--fontBody);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,236,150,0.50);
+    }
+
+    /* Card body */
+    .videoCardBody {
+      padding: 1.375rem 1.625rem 1.75rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .videoCardTitle {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+      font-weight: 600;
+      color: var(--colorSecondary);
+      margin-bottom: 0.625rem;
+      line-height: 1.3;
+    }
+    /* Short gold rule between title and description */
+    .videoCardDivider {
+      width: 28px;
+      height: 1.5px;
+      background: rgba(255,236,150,0.28);
+      border-radius: 1px;
+      margin-bottom: 0.75rem;
+      flex-shrink: 0;
+    }
+    .videoCardDesc {
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeSmall);
+      color: rgba(255,255,255,0.68);
+      line-height: 1.72;
+      margin: 0;
+    }
+
+    /* ── YOUTUBE CTA STRIP ─────────────────────────────── */
+    .videosYtSection {
+      background: linear-gradient(135deg, #5862a3 0%, #333e87 100%);
+      padding: var(--spaceLg) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .videosYtSection::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+    .videosYtInner {
+      position: relative;
+      z-index: 1;
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 0 var(--spaceMd);
+    }
+    .videosYtIconWrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(255,236,150,0.12);
+      border: 1.5px solid rgba(255,236,150,0.25);
+      margin-bottom: var(--spaceSm);
+    }
+    .videosYtIconWrap i {
+      font-size: 1.875rem;
+      color: var(--colorSecondary);
+    }
+    .videosYtHeading {
+      font-family: var(--fontDisplay);
+      font-size: clamp(1.625rem, 3vw, 2.375rem);
+      font-weight: 700;
+      color: var(--colorTextOnDark);
+      margin-bottom: 0.625rem;
+      line-height: 1.15;
+    }
+    .videosYtSubtext {
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeBody);
+      color: rgba(255,255,255,0.68);
+      margin-bottom: var(--spaceMd);
+      line-height: 1.68;
+    }
+    .videosYtBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2.125rem;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.90);
+      font-family: var(--fontBody);
+      font-size: var(--fontSizeSmall);
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      backdrop-filter: blur(4px);
+    }
+    .videosYtBtn:hover {
+      background: rgba(255,236,150,0.14);
+      border-color: var(--colorSecondary);
+      color: var(--colorSecondary);
+      transform: translateY(-3px);
+    }
+    .videosYtBtn i { font-size: 1rem; }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skipToContent">Skip to main content</a>
+
+  <!-- Page Loader -->
+  <div class="pageLoader" id="pageLoader">
+    <div class="pageLoaderInner">
+      <span class="pageLoaderText">Nyema Hermiston</span>
+      <div class="pageLoaderBar" aria-hidden="true">
+        <div class="pageLoaderBarFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scrollProgressBar" id="scrollProgressBar"></div>
+
+  <!-- Custom Cursor -->
+  <div class="customCursor" id="customCursor"></div>
+
+  <!-- ==============================
+       NAVIGATION
+  =============================== -->
+  <nav class="siteNav scrolled" id="siteNav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navInner">
+        <a href="index.html" class="navLogo" aria-label="Nyema Hermiston Home">
+          <span class="navLogoText"><span class="navLogoName">Nyema Hermiston</span>
+          <span class="navLogoTagline">RN ND Adv Dip Hom, BScHons</span></span>
+        </a>
+        <ul class="navLinks" role="list">
+          <li><a href="index.html" class="navLink">Home</a></li>
+          <li><a href="about.html" class="navLink">About</a></li>
+          <li><a href="books.html" class="navLink">Books</a></li>
+          <li><a href="mediaPress.html" class="navLink">Media</a></li>
+          <li><a href="speaking.html" class="navLink">Speaking</a></li>
+          <li><a href="blog.html" class="navLink">Blog</a></li>
+          <li><a href="videos.html" class="navLink active">Videos</a></li>
+          <li><a href="events.html" class="navLink">Events</a></li>
+          <li><a href="contact.html" class="navLink navCta btnPrimary">Contact</a></li>
+        </ul>
+        <button class="navHamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+          <span class="navHamburgerLine"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Overlay Nav -->
+  <div class="navOverlay" id="navOverlay" role="navigation" aria-label="Mobile navigation">
+    <div class="navOverlayInner">
+      <nav class="navOverlayLinks">
+        <a href="index.html" class="navOverlayLink">Home</a>
+        <a href="about.html" class="navOverlayLink">About</a>
+        <a href="books.html" class="navOverlayLink">Books</a>
+        <a href="mediaPress.html" class="navOverlayLink">Media</a>
+        <a href="speaking.html" class="navOverlayLink">Speaking</a>
+        <a href="blog.html" class="navOverlayLink">Blog</a>
+        <a href="videos.html" class="navOverlayLink">Videos</a>
+        <a href="events.html" class="navOverlayLink">Events</a>
+        <a href="contact.html" class="navOverlayLink navOverlayLinkCta">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ==============================
+         HERO
+    =============================== -->
+    <section class="videosHero" aria-labelledby="videosPageTitle">
+      <span class="videosHeroBlobBL" aria-hidden="true"></span>
+      <div class="container videosHeroContent" data-aos="fade-up">
+        <span class="sectionLabel">Watch &amp; Listen</span>
+        <h1 class="videosHeroTitle" id="videosPageTitle">Videos</h1>
+        <p class="videosHeroSubtitle">Watch Nyema share her research, insights, and interviews on natural health, autism, and evidence-based approaches to wellbeing.</p>
+        <div class="videosHeroStats" data-aos="fade-up" data-aos-delay="150">
+          <span class="videosHeroStat"><i class="ri-play-circle-fill" aria-hidden="true"></i> Research Interviews</span>
+          <span class="videosHeroStat"><i class="ri-mic-fill" aria-hidden="true"></i> Expert Conversations</span>
+          <span class="videosHeroStat"><i class="ri-book-2-fill" aria-hidden="true"></i> Book Overviews</span>
+        </div>
+      </div>
+      <!-- Wave transition into white section -->
+      <div class="videosHeroWave" aria-hidden="true">
+        <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,64 L0,32 Q360,0 720,32 Q1080,64 1440,32 L1440,64 Z" fill="#ffffff"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ==============================
+         FEATURED VIDEO
+    =============================== -->
+    <section class="videosFeaturedSection" aria-labelledby="videosFeaturedTitle">
+      <div class="container">
+
+        <div class="videosFeaturedHeader" data-aos="fade-up">
+          <span class="sectionLabel">Featured</span>
+          <h2 class="videosFeaturedSectionTitle" id="videosFeaturedTitle">Featured Video</h2>
+          <span class="goldUnderlineCentered"></span>
+        </div>
+
+        <p class="videosIntro" data-aos="fade-up" data-aos-delay="50">
+          Watch Nyema share her research, insights, and interviews on natural health, autism, and evidence-based approaches to wellbeing.
+        </p>
+
+        <!-- Corner-bracket framed player -->
+        <div class="videosFeaturedFrame" data-aos="fade-up" data-aos-delay="100">
+          <span class="videosFeaturedCornerTR" aria-hidden="true"></span>
+          <span class="videosFeaturedCornerBL" aria-hidden="true"></span>
+          <span class="videosFeaturedBadge" aria-label="Featured video">
+            <i class="ri-star-fill" aria-hidden="true"></i> Featured
+          </span>
+          <div class="videosFeaturedEmbed">
+            <iframe
+              src="https://www.youtube.com/embed/DpMtLz1PJeg"
+              title="Reducing Autism Risk Factors — Homeopathy Hangout"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Caption info card -->
+        <div class="videosFeaturedInfo" data-aos="fade-up" data-aos-delay="150">
+          <div class="videosFeaturedInfoIcon" aria-hidden="true">
+            <i class="ri-vidicon-fill"></i>
+          </div>
+          <div>
+            <p class="videosFeaturedCaption">Reducing Autism Risk Factors — Homeopathy Hangout</p>
+            <p class="videosFeaturedDesc">Nyema joins the Homeopathy Hangout to share her research on autism risk factors and the practical evidence-based steps parents can take to reduce them.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==============================
+         VIDEO GALLERY
+    =============================== -->
+    <section class="videosGallerySection" aria-labelledby="videosGalleryTitle">
+      <div class="container">
+
+        <div class="videosGalleryHeader" data-aos="fade-up">
+          <span class="sectionLabel">More Videos</span>
+          <h2 class="videosGallerySectionTitle" id="videosGalleryTitle">Watch More</h2>
+          <span class="goldUnderlineCentered"></span>
+        </div>
+
+        <div class="videosGalleryGrid">
+
+          <!-- Card 1 -->
+          <article class="videoCard" data-aos="fade-up" data-aos-delay="100">
+            <div class="videoCardEmbedOuter">
+              <div class="videoCardEmbed">
+                <iframe
+                  src="https://www.youtube.com/embed/3IZyKYpjPJQ"
+                  title="Good News for People with Bad News"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen loading="lazy">
+                </iframe>
+              </div>
+              <span class="videoCardNum" aria-hidden="true">01</span>
+            </div>
+            <div class="videoCardBody">
+              <h3 class="videoCardTitle">Good News for People with Bad News</h3>
+              <div class="videoCardDivider" aria-hidden="true"></div>
+              <p class="videoCardDesc">A book overview introducing Nyema's guide to natural health and chronic illness management.</p>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="videoCard" data-aos="fade-up" data-aos-delay="150">
+            <div class="videoCardEmbedOuter">
+              <div class="videoCardEmbed">
+                <iframe
+                  src="https://www.youtube.com/embed/5AlsTAw3d7M"
+                  title="Treat Your Child Yourself — Homeopathy Hangout"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen loading="lazy">
+                </iframe>
+              </div>
+              <span class="videoCardNum" aria-hidden="true">02</span>
+            </div>
+            <div class="videoCardBody">
+              <h3 class="videoCardTitle">Treat Your Child Yourself — Homeopathy Hangout</h3>
+              <div class="videoCardDivider" aria-hidden="true"></div>
+              <p class="videoCardDesc">Nyema shares practical natural health tools for parents caring for children.</p>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="videoCard" data-aos="fade-up" data-aos-delay="100">
+            <div class="videoCardEmbedOuter">
+              <div class="videoCardEmbed">
+                <iframe
+                  src="https://www.youtube.com/embed/JBT33hFtd-U"
+                  title="The Biomedical Aspect of Autism Risk Factors — HomeoMitra Vartaalap"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen loading="lazy">
+                </iframe>
+              </div>
+              <span class="videoCardNum" aria-hidden="true">03</span>
+            </div>
+            <div class="videoCardBody">
+              <h3 class="videoCardTitle">The Biomedical Aspect of Autism Risk Factors — HomeoMitra Vartaalap</h3>
+              <div class="videoCardDivider" aria-hidden="true"></div>
+              <p class="videoCardDesc">An in-depth conversation on the biomedical factors behind autism risk.</p>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="videoCard" data-aos="fade-up" data-aos-delay="150">
+            <div class="videoCardEmbedOuter">
+              <div class="videoCardEmbed">
+                <iframe
+                  src="https://www.youtube.com/embed/kFrVxBoNCyc"
+                  title="An Overview of Autism"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen loading="lazy">
+                </iframe>
+              </div>
+              <span class="videoCardNum" aria-hidden="true">04</span>
+            </div>
+            <div class="videoCardBody">
+              <h3 class="videoCardTitle">An Overview of Autism</h3>
+              <div class="videoCardDivider" aria-hidden="true"></div>
+              <p class="videoCardDesc">Nyema provides a comprehensive overview of autism for parents and health professionals.</p>
+            </div>
+          </article>
+
+          <!-- Card 5 — Placeholder -->
+          <article class="videoCard" data-aos="fade-up" data-aos-delay="100">
+            <div class="videoCardPlaceholder">
+              <span class="videoCardNum" aria-hidden="true">05</span>
+              <div class="videoCardPlaceholderInner">
+                <span class="videoCardPlaceholderIcon" aria-hidden="true">
+                  <i class="ri-play-fill"></i>
+                </span>
+                <span class="videoCardPlaceholderText">Coming Soon</span>
+              </div>
+            </div>
+            <div class="videoCardBody">
+              <h3 class="videoCardTitle">The Wide Range of Autism Risk Factors</h3>
+              <div class="videoCardDivider" aria-hidden="true"></div>
+              <p class="videoCardDesc">Exploring the environmental, nutritional, and lifestyle factors that contribute to autism risk.</p>
+            </div>
+          </article>
+
+          <!-- Card 6 — Placeholder -->
+          <article class="videoCard" data-aos="fade-up" data-aos-delay="150">
+            <div class="videoCardPlaceholder">
+              <span class="videoCardNum" aria-hidden="true">06</span>
+              <div class="videoCardPlaceholderInner">
+                <span class="videoCardPlaceholderIcon" aria-hidden="true">
+                  <i class="ri-play-fill"></i>
+                </span>
+                <span class="videoCardPlaceholderText">Coming Soon</span>
+              </div>
+            </div>
+            <div class="videoCardBody">
+              <h3 class="videoCardTitle">Do Parents Wait and See if Their Child Has Autism?</h3>
+              <div class="videoCardDivider" aria-hidden="true"></div>
+              <p class="videoCardDesc">Nyema addresses the critical question of early recognition and action for parents.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         YOUTUBE CTA
+    =============================== -->
+    <section class="videosYtSection" aria-label="Watch on YouTube">
+      <div class="videosYtInner" data-aos="fade-up">
+        <div class="videosYtIconWrap" aria-hidden="true">
+          <i class="ri-youtube-fill"></i>
+        </div>
+        <h2 class="videosYtHeading">More on YouTube</h2>
+        <p class="videosYtSubtext">Subscribe to Nyema's YouTube channel for the latest interviews, research discussions, and health insights as they are released.</p>
+        <a href="https://www.youtube.com/@healthsolutionsnyema" class="videosYtBtn" target="_blank" rel="noopener noreferrer">
+          <i class="ri-youtube-fill" aria-hidden="true"></i>
+          Subscribe on YouTube
+        </a>
+      </div>
+    </section>
+
+    <!-- ==============================
+         NEWSLETTER
+    =============================== -->
+    <section class="newsletterSection" aria-labelledby="newsletterVideosHeadline">
+      <div class="container">
+        <div class="newsletterCard" data-aos="fade-up">
+
+          <div class="newsletterCardLeft">
+            <div class="newsletterDecoIcon" aria-hidden="true">
+              <i class="ri-mail-open-line"></i>
+            </div>
+            <span class="sectionLabel">Stay Connected</span>
+            <h2 class="newsletterHeadline" id="newsletterVideosHeadline">Stay Informed.<br>Stay Empowered.</h2>
+            <p class="newsletterSubheading">Join the community to receive Nyema's latest research insights, health guidance, and book updates directly.</p>
+            <div class="newsletterBenefits" aria-label="What you receive">
+              <div class="newsletterBenefit">
+                <i class="ri-check-line" aria-hidden="true"></i>
+                <span>Research Insights</span>
+              </div>
+              <div class="newsletterBenefit">
+                <i class="ri-check-line" aria-hidden="true"></i>
+                <span>Clinical Guidance</span>
+              </div>
+              <div class="newsletterBenefit">
+                <i class="ri-check-line" aria-hidden="true"></i>
+                <span>Book Updates</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="newsletterCardRight">
+            <p class="newsletterFormHeading">Get Nyema's insights in your inbox</p>
+            <p class="newsletterFormSubtext">Join readers who stay ahead with evidence-based natural health updates.</p>
+            <form class="newsletterForm" id="newsletterFormVideos" novalidate>
+              <label for="newsletterEmailVideos" class="srOnly">Email Address</label>
+              <input type="email" id="newsletterEmailVideos" name="email" class="newsletterInput" placeholder="Your email address" required autocomplete="email">
+              <button type="submit" class="newsletterSubmit">Subscribe Now</button>
+            </form>
+            <div class="newsletterSuccess" id="newsletterSuccessVideos" role="status">
+              Thank you for subscribing. You will hear from Nyema soon.
+            </div>
+            <p class="newsletterPrivacy">
+              <i class="ri-lock-line" aria-hidden="true"></i>
+              No spam. No sharing. Unsubscribe anytime.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==============================
+       FOOTER
+  =============================== -->
+  <footer class="siteFooter" role="contentinfo">
+    <div class="container">
+
+      <div class="footerGrid">
+
+        <div class="footerBrand">
+          <a href="index.html" aria-label="Nyema Hermiston Home">
+            <span class="footerLogoName">Nyema Hermiston</span>
+          </a>
+          <span class="footerLogoTagline">RN ND Adv Dip Hom, BScHons</span>
+          <p class="footerTagline">Evidence-based natural health writing for parents and practitioners who want the full picture.</p>
+        </div>
+
+        <nav aria-label="Footer navigation">
+          <span class="footerColHeading">Explore</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="index.html" class="footerLink">Home</a></li>
+            <li><a href="about.html" class="footerLink">About</a></li>
+            <li><a href="books.html" class="footerLink">Books</a></li>
+            <li><a href="mediaPress.html" class="footerLink">Media &amp; Press</a></li>
+            <li><a href="speaking.html" class="footerLink">Speaking</a></li>
+            <li><a href="blog.html" class="footerLink">Blog</a></li>
+            <li><a href="videos.html" class="footerLink">Videos</a></li>
+            <li><a href="events.html" class="footerLink">Events</a></li>
+            <li><a href="contact.html" class="footerLink">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <span class="footerColHeading">Affiliations</span>
+          <ul class="footerLinks" role="list">
+            <li><a href="https://aurumproject.org.au/" class="footerLink" target="_blank" rel="noopener noreferrer">The Aurum Project</a></li>
+            <li><a href="https://karunahealthcare.com.au" class="footerLink" target="_blank" rel="noopener noreferrer">Karuna Health Care</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <span class="footerColHeading">Connect</span>
+          <div class="footerSocial">
+            <a class="footerSocialLink" href="https://www.instagram.com/autism_research_for_parents/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <i class="ri-instagram-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://web.facebook.com/people/Nyema-Hermiston-Author/61579045115978/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <i class="ri-facebook-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://www.goodreads.com/author/show/7400285.Nyema_Hermiston" target="_blank" rel="noopener noreferrer" aria-label="Goodreads">
+              <i class="ri-book-open-fill" aria-hidden="true"></i>
+            </a>
+            <a class="footerSocialLink" href="https://www.amazon.com/author/nyemahermiston" target="_blank" rel="noopener noreferrer" aria-label="Amazon">
+              <i class="ri-amazon-fill" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footerBottom">
+        <span class="footerCopyright">© 2026 Nyema Hermiston. All rights reserved.</span>
+        <div class="footerLegal">
+          <a href="privacy.html" class="footerLegalLink">Privacy Policy</a>
+          <span class="footerLegalSep" aria-hidden="true"></span>
+          <a href="https://tubedra.com" class="footerLegalLink" target="_blank" rel="noopener noreferrer">Site by Tubedra</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="backToTop" id="backToTop" aria-label="Back to top">↑</button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Site JS -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/navScroll.js"></script>
+  <script src="assets/js/features.js"></script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cookieBanner" id="cookieBanner" role="region" aria-label="Cookie consent">
+    <p class="cookieBannerHeading">We use cookies</p>
+    <p class="cookieBannerText">
+      This site uses cookies to improve your experience and analyse anonymous traffic.
+      <a href="privacy.html">Privacy Policy</a>
+    </p>
+    <div class="cookieBannerActions">
+      <button class="cookieBannerAccept">Accept All</button>
+      <button class="cookieBannerDecline">Decline</button>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup -->
+  <div class="newsletterPopup" id="newsletterPopup" role="dialog" aria-modal="true" aria-labelledby="popupHeadline">
+    <div class="newsletterPopupOverlay" id="newsletterPopupOverlay"></div>
+    <div class="newsletterPopupCard">
+      <button class="newsletterPopupClose" id="newsletterPopupClose" aria-label="Close newsletter popup">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <div class="newsletterPopupIcon" aria-hidden="true"><i class="ri-mail-open-line"></i></div>
+      <span class="newsletterPopupLabel">Stay Connected</span>
+      <h2 class="newsletterPopupHeadline" id="popupHeadline">Discover Nyema's Latest Research</h2>
+      <p class="newsletterPopupSubtext">Join the community to receive evidence-based natural health insights directly in their inbox.</p>
+      <div class="newsletterPopupBenefits" aria-label="What you receive">
+        <span><i class="ri-check-line" aria-hidden="true"></i> Research Insights</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Clinical Guidance</span>
+        <span><i class="ri-check-line" aria-hidden="true"></i> Book Updates</span>
+      </div>
+      <form class="newsletterPopupForm" id="newsletterPopupForm" novalidate>
+        <label for="newsletterPopupEmail" class="srOnly">Email Address</label>
+        <input type="email" id="newsletterPopupEmail" name="email" class="newsletterPopupInput" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="newsletterPopupSubmit">Subscribe Now</button>
+      </form>
+      <div class="newsletterPopupSuccess" id="newsletterPopupSuccess" role="status">
+        Thank you for subscribing. You will hear from Nyema soon.
+      </div>
+      <p class="newsletterPopupPrivacy"><i class="ri-lock-line" aria-hidden="true"></i> No spam. Unsubscribe anytime.</p>
+      <span class="newsletterPopupSkip" id="newsletterPopupSkip">No thanks</span>
+    </div>
+  </div>
+
+</body>
+</html>

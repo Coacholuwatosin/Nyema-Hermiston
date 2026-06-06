@@ -439,6 +439,69 @@
     }
     .btnDialogConfirm:hover { background: #dc2626; }
 
+    /* ── IMAGE UPLOAD ──────────────────────────────────────────────── */
+    .imgUploadArea {
+      border: 2px dashed rgba(0,0,0,0.13);
+      border-radius: 8px;
+      background: #f8fafc;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .imgUploadArea:hover         { border-color: var(--primary); background: rgba(88,98,163,0.03); }
+    .imgUploadArea.dragover      { border-color: var(--primary); background: rgba(88,98,163,0.07); }
+    .imgUploadArea.uploading     { cursor: default; pointer-events: none; }
+
+    .imgUploadEmpty {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 2rem 1rem; gap: 0.375rem; text-align: center;
+    }
+    .imgUploadIcon { font-size: 2.25rem; color: #cbd5e1; margin-bottom: 0.25rem; }
+    .imgUploadText { font-size: 0.875rem; font-weight: 500; color: var(--muted); }
+    .imgUploadHint { font-size: 0.6875rem; color: #94a3b8; }
+
+    .imgUploadProgress {
+      display: none; align-items: center; justify-content: center;
+      gap: 0.75rem; padding: 2rem;
+      font-size: 0.875rem; color: var(--muted);
+    }
+    .imgUploadProgress.active { display: flex; }
+
+    .imgSpinner {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 2px solid rgba(88,98,163,0.18);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .imgUploadPreview { display: none; position: relative; }
+    .imgUploadPreview.active { display: block; }
+
+    .imgPreviewThumb {
+      width: 100%; max-height: 190px; object-fit: cover; display: block;
+    }
+    .imgRemoveBtn {
+      position: absolute; top: 0.5rem; right: 0.5rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.6875rem;
+      font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      background: rgba(15,15,15,0.62); color: #fff;
+      border: none; border-radius: 6px; padding: 0.3rem 0.625rem;
+      cursor: pointer; display: flex; align-items: center; gap: 0.2rem;
+      transition: background 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .imgRemoveBtn:hover { background: rgba(239,68,68,0.82); }
+
+    .imgUploadSuccessTag {
+      position: absolute; bottom: 0.5rem; left: 0.5rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.625rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(16,185,129,0.88); color: #fff;
+      padding: 0.25rem 0.5rem; border-radius: 4px;
+    }
+
     /* ── RESPONSIVE ────────────────────────────────────────────────── */
     @media (max-width: 640px) {
       .statsRow { grid-template-columns: 1fr; }
@@ -572,10 +635,11 @@
             </div>
           </div>
 
-          <div class="fieldGroup cols3">
+          <div class="fieldGroup cols2">
             <div class="field">
-              <label class="fieldLabel" for="postDate">Date</label>
+              <label class="fieldLabel" for="postDate">Publication Date</label>
               <input type="date" class="fieldInput" id="postDate">
+              <span class="fieldHint" id="postDateHint"></span>
             </div>
             <div class="field">
               <label class="fieldLabel" for="postCategory">Category</label>
@@ -590,10 +654,30 @@
                 <option value="General">General</option>
               </select>
             </div>
-            <div class="field">
-              <label class="fieldLabel" for="postImage">Cover Image URL <span class="optional">(optional)</span></label>
-              <input type="url" class="fieldInput" id="postImage" placeholder="https://...">
+          </div>
+
+          <div class="field" style="margin-bottom:1rem;">
+            <label class="fieldLabel">Cover Image <span class="optional">(optional)</span></label>
+            <div class="imgUploadArea" id="imgUploadArea">
+              <input type="file" id="imgFileInput" accept="image/jpeg,image/png,image/webp,image/gif" style="display:none">
+              <div class="imgUploadEmpty" id="imgUploadEmpty">
+                <i class="ri-image-add-line imgUploadIcon"></i>
+                <span class="imgUploadText">Click to upload or drag &amp; drop a cover image</span>
+                <span class="imgUploadHint">JPG, PNG or WebP &middot; Max 10 MB</span>
+              </div>
+              <div class="imgUploadProgress" id="imgUploadProgress">
+                <div class="imgSpinner"></div>
+                <span>Uploading image...</span>
+              </div>
+              <div class="imgUploadPreview" id="imgUploadPreview">
+                <img class="imgPreviewThumb" id="imgPreviewThumb" src="" alt="Cover image preview">
+                <button type="button" class="imgRemoveBtn" id="imgRemoveBtn">
+                  <i class="ri-close-line"></i> Remove
+                </button>
+                <span class="imgUploadSuccessTag">&#10003; Ready</span>
+              </div>
             </div>
+            <input type="hidden" id="postImage">
           </div>
 
           <div class="field">
@@ -648,12 +732,9 @@
   <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
   <script>
 
-    // ─────────────────────────────────────────────────────────────────
-    //  CONFIGURATION — update these two lines after setup
-    // ─────────────────────────────────────────────────────────────────
-    const ADMIN_PASSWORD  = 'nyema2026';                 // ← Change this password
+    const ADMIN_PASSWORD  = 'nyema2026';
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKq1sB4WEff7E4o4LtrOinZokKL8800OLOvSzYQr_R9yGYoO0xQ2EDXVr_TIXtEktJ/exec';
-    // ─────────────────────────────────────────────────────────────────
+    const IMGBB_API_KEY   = '7b75f54ff3e22d4963ba367f410e7d6d';
 
     // ── State ─────────────────────────────────────────────────────────
     let allPosts    = [];
@@ -749,12 +830,18 @@
 
       if (post) {
         document.getElementById('postTitle').value    = post.title    || '';
-        document.getElementById('postDate').value     = displayToISO(post.date) || new Date().toISOString().split('T')[0];
+        document.getElementById('postDate').value     = displayToISO(post.date) || '';
+        document.getElementById('postDateHint').textContent = 'Original date — only change if needed.';
         document.getElementById('postCategory').value = post.category || '';
-        document.getElementById('postImage').value    = post.imageUrl || '';
         excerptEl.value = post.excerpt || '';
         counterEl.textContent = `${excerptEl.value.length} / 220`;
         quill.root.innerHTML = post.content || '';
+        if (post.imageUrl) {
+          document.getElementById('postImage').value = post.imageUrl;
+          showImagePreview(post.imageUrl);
+        } else {
+          clearImageUpload();
+        }
       } else {
         resetForm();
       }
@@ -1009,16 +1096,128 @@
     function resetForm() {
       document.getElementById('postTitle').value    = '';
       document.getElementById('postCategory').value = '';
-      document.getElementById('postImage').value    = '';
+      document.getElementById('postDateHint').textContent = '';
       excerptEl.value = '';
       counterEl.textContent = '0 / 220';
       quill.setContents([]);
       setTodayDate();
+      clearImageUpload();
     }
 
     document.getElementById('btnReset').addEventListener('click', () => {
       if (confirm('Clear all fields?')) resetForm();
     });
+
+    // ── Image Upload ──────────────────────────────────────────────────
+    const imgUploadArea     = document.getElementById('imgUploadArea');
+    const imgFileInput      = document.getElementById('imgFileInput');
+    const imgUploadEmpty    = document.getElementById('imgUploadEmpty');
+    const imgUploadProgress = document.getElementById('imgUploadProgress');
+    const imgUploadPreview  = document.getElementById('imgUploadPreview');
+    const imgPreviewThumb   = document.getElementById('imgPreviewThumb');
+    const imgRemoveBtn      = document.getElementById('imgRemoveBtn');
+    const postImageHidden   = document.getElementById('postImage');
+
+    // Click area to open file picker (ignore clicks on the remove button)
+    imgUploadArea.addEventListener('click', (e) => {
+      if (imgRemoveBtn.contains(e.target)) return;
+      if (imgUploadPreview.classList.contains('active')) return;
+      imgFileInput.click();
+    });
+
+    // Drag & drop
+    imgUploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      imgUploadArea.classList.add('dragover');
+    });
+    imgUploadArea.addEventListener('dragleave', () => {
+      imgUploadArea.classList.remove('dragover');
+    });
+    imgUploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      imgUploadArea.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) handleImageFile(file);
+    });
+
+    imgFileInput.addEventListener('change', () => {
+      if (imgFileInput.files[0]) handleImageFile(imgFileInput.files[0]);
+    });
+
+    imgRemoveBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearImageUpload();
+    });
+
+    function clearImageUpload() {
+      postImageHidden.value = '';
+      imgPreviewThumb.src   = '';
+      imgFileInput.value    = '';
+      imgUploadPreview.classList.remove('active');
+      imgUploadProgress.classList.remove('active');
+      imgUploadEmpty.style.display = '';
+      imgUploadArea.classList.remove('uploading');
+    }
+
+    function showImagePreview(url) {
+      imgPreviewThumb.src = url;
+      imgUploadEmpty.style.display = 'none';
+      imgUploadProgress.classList.remove('active');
+      imgUploadPreview.classList.add('active');
+      imgUploadArea.classList.remove('uploading');
+    }
+
+    async function handleImageFile(file) {
+      const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+      if (!allowed.includes(file.type)) {
+        showToast('Please upload a JPG, PNG or WebP image.', 'error'); return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        showToast('Image must be under 10 MB.', 'error'); return;
+      }
+
+      imgUploadEmpty.style.display = 'none';
+      imgUploadPreview.classList.remove('active');
+      imgUploadProgress.classList.add('active');
+      imgUploadArea.classList.add('uploading');
+
+      if (IMGBB_API_KEY === 'YOUR_IMGBB_KEY_HERE') {
+        showToast('ImgBB API key not set — ask Elena to add it.', 'error');
+        clearImageUpload();
+        return;
+      }
+
+      try {
+        const base64 = await toBase64(file);
+        const form   = new FormData();
+        form.append('image', base64.split(',')[1]);
+
+        const res  = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+          method: 'POST', body: form
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          postImageHidden.value = data.data.url;
+          showImagePreview(data.data.url);
+          showToast('✓ Image uploaded successfully.', 'success');
+        } else {
+          throw new Error('Upload rejected');
+        }
+      } catch {
+        showToast('Image upload failed. Please try again.', 'error');
+        clearImageUpload();
+      }
+    }
+
+    function toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload  = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
 
     // ── Toast ─────────────────────────────────────────────────────────
     function showToast(msg, type = 'success') {
