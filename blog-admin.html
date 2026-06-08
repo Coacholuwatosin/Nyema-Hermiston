@@ -750,7 +750,7 @@
   <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
   <script>
 
-    const ADMIN_PASSWORD  = 'nyema2026';
+    const ADMIN_PASSWORD  = 'Author@Nyema26!';
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKq1sB4WEff7E4o4LtrOinZokKL8800OLOvSzYQr_R9yGYoO0xQ2EDXVr_TIXtEktJ/exec';
     const IMGBB_API_KEY   = '7b75f54ff3e22d4963ba367f410e7d6d';
 
@@ -879,7 +879,7 @@
       }
 
       try {
-        const res  = await fetch(`${APPS_SCRIPT_URL}?action=list`, { redirect: 'follow' });
+        const res  = await fetch(`${APPS_SCRIPT_URL}?action=list&password=${encodeURIComponent(ADMIN_PASSWORD)}`, { redirect: 'follow' });
         const data = await res.json();
         allPosts   = data.posts || [];
         updateStats(allPosts);
@@ -1021,7 +1021,8 @@
         title, category, excerpt, content,
         date:      isoToDisplay(date),
         imageUrl:  image,
-        published: publish ? 'YES' : 'NO'
+        published: publish ? 'YES' : 'NO',
+        password:  ADMIN_PASSWORD
       };
 
       try {
@@ -1091,7 +1092,7 @@
         const res  = await fetch(APPS_SCRIPT_URL, {
           method: 'POST', redirect: 'follow',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'toggleStatus', id })
+          body: JSON.stringify({ action: 'toggleStatus', id, password: ADMIN_PASSWORD })
         });
         const data = await res.json();
         if (data.status === 'success') {
@@ -1123,7 +1124,7 @@
         const res  = await fetch(APPS_SCRIPT_URL, {
           method: 'POST', redirect: 'follow',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'delete', id: deleteTarget })
+          body: JSON.stringify({ action: 'delete', id: deleteTarget, password: ADMIN_PASSWORD })
         });
         const data = await res.json();
         if (data.status === 'success') {
