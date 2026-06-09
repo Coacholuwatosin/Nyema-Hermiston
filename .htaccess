@@ -1,10 +1,9 @@
+Options +FollowSymLinks -MultiViews
 RewriteEngine On
+RewriteBase /
 
-# 1. Remove .html from the end of URLs
+# Force search for .html files if no extension is supplied
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
-
-# 2. Redirect index.html to the main domain root
-RewriteCond %{THE_REQUEST} /index\.html [NC]
-RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+RewriteRule ^(.*)$ $1.html [L]
