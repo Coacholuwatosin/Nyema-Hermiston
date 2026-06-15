@@ -98,6 +98,19 @@
     .loginError { font-size: 0.8125rem; color: #f87171; margin-top: 0.75rem; display: none; }
     .loginNote  { font-size: 0.6875rem; color: rgba(255,255,255,0.16); margin-top: 1.75rem; }
 
+    .ipPanel    { display: none; }
+    .ipSpinner  {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.12);
+      border-top-color: var(--gold);
+      animation: spin 0.8s linear infinite;
+      margin: 0.5rem auto 1.25rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ipDesc     { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .ipDeniedIcon { font-size: 2.5rem; color: #f87171; margin-bottom: 0.75rem; }
+    .ipSubNote  { font-size: 0.75rem; color: rgba(255,255,255,0.28); margin-top: 0.75rem; }
+
     /* ── SHELL ─────────────────────────────────────────────────────── */
     .adminShell { display: none; min-height: 100vh; flex-direction: column; }
     .adminShell.visible { display: flex; }
@@ -441,6 +454,24 @@
     }
     .btnDialogCancel:hover { background: #e2e8f0; }
 
+    .ipListSection { margin-bottom: 1.5rem; }
+    .ipListHeading { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.625rem; }
+    .ipListEmpty   { font-size: 0.875rem; color: var(--muted); padding: 0.75rem 0; }
+    .ipListRow {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.65rem 0.875rem; border-radius: 8px;
+      background: #f8fafc; margin-bottom: 0.375rem;
+      border: 1px solid #e8edf3;
+    }
+    .ipListRow:last-child { margin-bottom: 0; }
+    .ipAddress  { font-family: monospace; font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .ipBadge    { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; margin-left: 0.625rem; }
+    .ipBadgePerm { background: #ede9fe; color: #6d28d9; }
+    .ipBadgeTemp { background: #dcfce7; color: #15803d; }
+    .ipExpiry   { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+    .btnRemoveIp { font-size: 0.75rem; font-weight: 600; color: #ef4444; background: #fee2e2; border: none; border-radius: 6px; padding: 0.3rem 0.75rem; cursor: pointer; transition: background 0.15s; flex-shrink: 0; }
+    .btnRemoveIp:hover { background: #fecaca; }
+
     .btnDialogConfirm {
       font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 600;
       color: #fff; background: var(--red); border: none;
@@ -535,9 +566,41 @@
       <div class="loginMonogram">NH</div>
       <h1 class="loginTitle">Blog Admin</h1>
       <p class="loginSub">Nyema Hermiston · Private Access Only</p>
-      <input type="password" class="loginInput" id="loginInput" placeholder="Enter your password" autocomplete="current-password">
-      <button class="loginBtn" id="loginBtn"><i class="ri-lock-unlock-line"></i> Access Admin</button>
-      <p class="loginError" id="loginError">Incorrect password — please try again.</p>
+
+      <!-- Checking IP -->
+      <div class="ipPanel" id="ipCheckPanel">
+        <div class="ipSpinner"></div>
+      </div>
+
+      <!-- Password form -->
+      <div class="ipPanel" id="loginPanel">
+        <input type="password" class="loginInput" id="loginInput" placeholder="Enter your password" autocomplete="current-password">
+        <button class="loginBtn" id="loginBtn"><i class="ri-lock-unlock-line"></i> Access Admin</button>
+        <p class="loginError" id="loginError">Incorrect password — please try again.</p>
+      </div>
+
+      <!-- Request access -->
+      <div class="ipPanel" id="requestPanel">
+        <p class="ipDesc">Your device is not on the access list.</p>
+        <input type="text" class="loginInput" id="requestName" placeholder="Your name or a short note (optional)" autocomplete="off" style="letter-spacing:0;text-align:left;margin-bottom:0.75rem">
+        <button class="loginBtn" id="btnRequestAccess"><i class="ri-mail-send-line"></i> Request Access</button>
+        <p class="ipSubNote">An approval request will be sent to the site owner.</p>
+      </div>
+
+      <!-- Pending approval -->
+      <div class="ipPanel" id="pendingPanel">
+        <div class="ipSpinner"></div>
+        <p class="ipDesc">Request sent. Waiting for approval…</p>
+        <p class="ipSubNote">This page will update automatically once access is granted.</p>
+      </div>
+
+      <!-- Denied -->
+      <div class="ipPanel" id="deniedPanel">
+        <div class="ipDeniedIcon"><i class="ri-close-circle-line"></i></div>
+        <p class="ipDesc">Access was not approved.</p>
+        <p class="ipSubNote">Contact the site owner if you believe this is a mistake.</p>
+      </div>
+
       <p class="loginNote">This page is private and not linked from the website.</p>
     </div>
   </div>
@@ -557,6 +620,9 @@
       <div class="adminBarRight">
         <button class="adminBarBtn" id="btnViewSite" onclick="window.open('blog.html','_blank')">
           <i class="ri-external-link-line"></i> View Blog
+        </button>
+        <button class="adminBarBtn" id="btnAccessList">
+          <i class="ri-shield-check-line"></i> Access List
         </button>
         <button class="adminBarBtn" id="logoutBtn">
           <i class="ri-logout-box-line"></i> Log Out
@@ -734,6 +800,22 @@
     <span id="toastMsg"></span>
   </div>
 
+  <!-- Access List Modal -->
+  <div class="dialogOverlay" id="accessListOverlay">
+    <div class="dialog" style="max-width:580px;width:calc(100% - 2rem)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+        <div>
+          <div class="dialogTitle" style="margin-bottom:0.15rem"><i class="ri-shield-check-line" style="color:var(--primary)"></i> Approved Access List</div>
+          <div style="font-size:0.8rem;color:var(--muted)">Manage who can reach the admin login page</div>
+        </div>
+        <button class="btnDialogCancel" id="accessListClose" style="padding:0.5rem 1rem">Close</button>
+      </div>
+      <div id="accessListBody">
+        <div style="text-align:center;padding:2rem;color:var(--muted)">Loading…</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Delete Confirm Dialog -->
   <div class="dialogOverlay" id="dialogOverlay">
     <div class="dialog">
@@ -750,45 +832,188 @@
   <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
   <script>
 
-    const ADMIN_PASSWORD  = 'Author@Nyema26!';
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzKq1sB4WEff7E4o4LtrOinZokKL8800OLOvSzYQr_R9yGYoO0xQ2EDXVr_TIXtEktJ/exec';
-    const IMGBB_API_KEY   = '7b75f54ff3e22d4963ba367f410e7d6d';
+    const IMGBB_API_KEY = '7b75f54ff3e22d4963ba367f410e7d6d';
 
     // ── State ─────────────────────────────────────────────────────────
     let allPosts    = [];
     let editingId   = null;   // null = new post
     let deleteTarget = null;
 
-    // ── Login ─────────────────────────────────────────────────────────
+    // ── Login / IP access ─────────────────────────────────────────────
     const loginScreen = document.getElementById('loginScreen');
     const adminShell  = document.getElementById('adminShell');
     const loginInput  = document.getElementById('loginInput');
     const loginError  = document.getElementById('loginError');
+    let   pollTimer   = null;
 
-    function doLogin() {
-      if (loginInput.value === ADMIN_PASSWORD) {
-        loginScreen.style.display = 'none';
-        adminShell.classList.add('visible');
-        sessionStorage.setItem('nhAdmin', '1');
-        loadPosts();
-      } else {
-        loginError.style.display = 'block';
-        loginInput.value = '';
-        loginInput.focus();
-      }
+    function showPanel(id) {
+      ['ipCheckPanel','loginPanel','requestPanel','pendingPanel','deniedPanel']
+        .forEach(p => document.getElementById(p).style.display = p === id ? 'block' : 'none');
     }
 
-    if (sessionStorage.getItem('nhAdmin') === '1') {
+    function grantAccess() {
       loginScreen.style.display = 'none';
       adminShell.classList.add('visible');
       loadPosts();
     }
 
+    function startPolling() {
+      if (pollTimer) return;
+      pollTimer = setInterval(async () => {
+        try {
+          const r = await fetch('auth.php?action=check_ip');
+          const d = await r.json();
+          if (d.status === 'allowed') { clearInterval(pollTimer); showPanel('loginPanel'); loginInput.focus(); }
+          else if (d.status === 'denied') { clearInterval(pollTimer); showPanel('deniedPanel'); }
+        } catch {}
+      }, 5000);
+    }
+
+    async function doLogin() {
+      const pw = loginInput.value;
+      if (!pw) return;
+      loginError.style.display = 'none';
+      const fd = new FormData();
+      fd.append('action', 'login');
+      fd.append('password', pw);
+      try {
+        const res  = await fetch('auth.php', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (data.status === 'success') {
+          grantAccess();
+        } else {
+          loginError.textContent = data.message || 'Incorrect password.';
+          loginError.style.display = 'block';
+          loginInput.value = '';
+          loginInput.focus();
+        }
+      } catch {
+        loginError.textContent = 'Connection error. Please try again.';
+        loginError.style.display = 'block';
+      }
+    }
+
+    (async () => {
+      showPanel('ipCheckPanel');
+      try {
+        const sr   = await fetch('auth.php?action=check');
+        const sd   = await sr.json();
+        if (sd.status === 'ok') { grantAccess(); return; }
+
+        const ir   = await fetch('auth.php?action=check_ip');
+        const id_  = await ir.json();
+        if      (id_.status === 'allowed')  { showPanel('loginPanel'); loginInput.focus(); }
+        else if (id_.status === 'pending')  { showPanel('pendingPanel'); startPolling(); }
+        else if (id_.status === 'denied')   { showPanel('deniedPanel'); }
+        else                                { showPanel('requestPanel'); }
+      } catch { showPanel('requestPanel'); }
+    })();
+
+    document.getElementById('btnRequestAccess').addEventListener('click', async () => {
+      const btn  = document.getElementById('btnRequestAccess');
+      const name = document.getElementById('requestName').value.trim();
+      btn.disabled = true;
+      btn.innerHTML = '<i class="ri-loader-4-line"></i> Sending…';
+      try {
+        const fd = new FormData();
+        fd.append('action', 'request_access');
+        fd.append('name', name);
+        const r  = await fetch('auth.php', { method: 'POST', body: fd });
+        const d  = await r.json();
+        if (d.status === 'pending' || d.status === 'already_pending') {
+          showPanel('pendingPanel'); startPolling();
+        }
+      } catch {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ri-mail-send-line"></i> Request Access';
+      }
+    });
+
+    function handleSessionExpiry() {
+      showToast('Your session has expired. Please log in again.', 'error');
+      setTimeout(() => location.reload(), 2000);
+    }
+
     document.getElementById('loginBtn').addEventListener('click', doLogin);
     loginInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      sessionStorage.removeItem('nhAdmin');
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('auth.php?action=logout');
       location.reload();
+    });
+
+    // ── Access List ───────────────────────────────────────────────────
+    async function openAccessList() {
+      document.getElementById('accessListOverlay').classList.add('show');
+      document.getElementById('accessListBody').innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">Loading…</div>';
+      try {
+        const res  = await fetch('auth.php?action=list_ips');
+        if (res.status === 401) { handleSessionExpiry(); return; }
+        const data = await res.json();
+        renderAccessList(data);
+      } catch {
+        document.getElementById('accessListBody').innerHTML = '<div style="color:#ef4444;padding:1rem">Could not load access list.</div>';
+      }
+    }
+
+    function renderAccessList(data) {
+      const perm = data.permanent || [];
+      const temp = data.temporary || [];
+      let html = '';
+
+      html += '<div class="ipListSection">';
+      html += '<div class="ipListHeading">Permanent Access</div>';
+      if (perm.length === 0) {
+        html += '<div class="ipListEmpty">No permanent IPs approved yet.</div>';
+      } else {
+        perm.forEach(ip => {
+          html += `<div class="ipListRow">
+            <div>
+              <div><span class="ipAddress">${ip}</span><span class="ipBadge ipBadgePerm">Permanent</span></div>
+            </div>
+            <button class="btnRemoveIp" onclick="removeIp('${ip}','permanent')">Remove</button>
+          </div>`;
+        });
+      }
+      html += '</div>';
+
+      html += '<div class="ipListSection">';
+      html += '<div class="ipListHeading">Session Access (24 hrs)</div>';
+      if (temp.length === 0) {
+        html += '<div class="ipListEmpty">No active session approvals.</div>';
+      } else {
+        temp.forEach(t => {
+          html += `<div class="ipListRow">
+            <div>
+              <div><span class="ipAddress">${t.ip}</span><span class="ipBadge ipBadgeTemp">Session</span></div>
+              <div class="ipExpiry">Expires ${t.expires_human}</div>
+            </div>
+            <button class="btnRemoveIp" onclick="removeIp('${t.ip}','temporary')">Remove</button>
+          </div>`;
+        });
+      }
+      html += '</div>';
+
+      document.getElementById('accessListBody').innerHTML = html;
+    }
+
+    async function removeIp(ip, type) {
+      if (!confirm(`Remove ${ip} from the ${type} access list?`)) return;
+      try {
+        const res  = await fetch('auth.php?action=remove_ip', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ip, type })
+        });
+        if (res.status === 401) { handleSessionExpiry(); return; }
+        const data = await res.json();
+        if (data.status === 'success') { showToast('IP removed.', 'success'); openAccessList(); }
+        else showToast('Could not remove IP.', 'error');
+      } catch { showToast('Connection error.', 'error'); }
+    }
+
+    document.getElementById('btnAccessList').addEventListener('click', openAccessList);
+    document.getElementById('accessListClose').addEventListener('click', () => {
+      document.getElementById('accessListOverlay').classList.remove('show');
     });
 
     // ── Quill ─────────────────────────────────────────────────────────
@@ -872,20 +1097,15 @@
     async function loadPosts() {
       renderPostsLoading();
 
-      if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-        renderPostsEmpty('Not connected yet', 'The Google Sheet connection will be set up shortly.');
-        updateStats([]);
-        return;
-      }
-
       try {
-        const res  = await fetch(`${APPS_SCRIPT_URL}?action=list&password=${encodeURIComponent(ADMIN_PASSWORD)}`, { redirect: 'follow' });
+        const res  = await fetch('proxy.php', { method: 'GET' });
+        if (res.status === 401) { handleSessionExpiry(); return; }
         const data = await res.json();
         allPosts   = data.posts || [];
         updateStats(allPosts);
         applyFilters();
       } catch(err) {
-        renderPostsEmpty('Could not load posts', 'Check that your Apps Script is deployed and try refreshing.');
+        renderPostsEmpty('Could not load posts', 'Check your connection and try refreshing.');
         updateStats([]);
       }
     }
@@ -1007,10 +1227,6 @@
       if (!excerpt)                            { showToast('Please add a short excerpt.', 'error'); return; }
       if (quill.getText().trim().length < 30)  { showToast('Post content is too short.',  'error'); return; }
 
-      if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-        showToast('Not connected to your sheet yet.', 'error'); return;
-      }
-
       const btnD = document.getElementById('btnDraft');
       const btnP = document.getElementById('btnPublish');
       btnD.disabled = btnP.disabled = true;
@@ -1021,16 +1237,16 @@
         title, category, excerpt, content,
         date:      isoToDisplay(date),
         imageUrl:  image,
-        published: publish ? 'YES' : 'NO',
-        password:  ADMIN_PASSWORD
+        published: publish ? 'YES' : 'NO'
       };
 
       try {
-        const res  = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST', redirect: 'follow',
+        const res  = await fetch('proxy.php', {
+          method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
+        if (res.status === 401) { handleSessionExpiry(); return; }
         const data = await res.json();
 
         if (data.status === 'success') {
@@ -1057,7 +1273,7 @@
     document.getElementById('btnDraft').addEventListener('click',   () => submitPost(false));
     document.getElementById('btnPublish').addEventListener('click', () => submitPost(true));
 
-    // ── Insert CTA Button into content ────────────────────────────────
+    // ── Insert CTA Button ─────────────────────────────────────────────
     document.getElementById('btnInsertCtaBtn').addEventListener('click', () => {
       const label = prompt('Button text (e.g. "Buy the Book" or "Learn More"):');
       if (!label || !label.trim()) return;
@@ -1069,13 +1285,11 @@
     });
 
     // ── Tidy Up Text ──────────────────────────────────────────────────
-    // Removes stray empty paragraphs and trailing whitespace.
-    // Preserves all existing bold, italic, links, headings etc.
     document.getElementById('btnTidyText').addEventListener('click', () => {
       const raw = quill.root.innerHTML;
       const cleaned = raw
-        .replace(/<p>(\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, '')   // empty paragraphs
-        .replace(/(<br\s*\/?>\s*){3,}/gi, '<br><br>')         // 3+ consecutive BRs → 2
+        .replace(/<p>(\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, '')
+        .replace(/(<br\s*\/?>\s*){3,}/gi, '<br><br>')
         .replace(/ /g, ' ')                              // &nbsp; → normal space
         .trim();
       if (cleaned === raw) { showToast('Content is already tidy!', 'success'); return; }
@@ -1086,14 +1300,13 @@
 
     // ── Toggle status ─────────────────────────────────────────────────
     async function toggleStatus(id) {
-      if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') { showToast('Not connected yet.', 'error'); return; }
-
       try {
-        const res  = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST', redirect: 'follow',
+        const res  = await fetch('proxy.php', {
+          method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'toggleStatus', id, password: ADMIN_PASSWORD })
+          body: JSON.stringify({ action: 'toggleStatus', id })
         });
+        if (res.status === 401) { handleSessionExpiry(); return; }
         const data = await res.json();
         if (data.status === 'success') {
           showToast(data.published === 'YES' ? '✓ Post published.' : '✓ Post set to draft.', 'success');
@@ -1121,11 +1334,12 @@
       if (!deleteTarget) return;
 
       try {
-        const res  = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST', redirect: 'follow',
+        const res  = await fetch('proxy.php', {
+          method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ action: 'delete', id: deleteTarget, password: ADMIN_PASSWORD })
+          body: JSON.stringify({ action: 'delete', id: deleteTarget })
         });
+        if (res.status === 401) { handleSessionExpiry(); return; }
         const data = await res.json();
         if (data.status === 'success') {
           showToast('Post deleted.', 'success');

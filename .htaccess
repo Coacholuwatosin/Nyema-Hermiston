@@ -9,8 +9,36 @@ Options +FollowSymLinks -MultiViews
 RewriteEngine On
 RewriteBase /
 
-# Force search for .html files if no extension is supplied
+# ── Force HTTPS ───────────────────────────────────────────────────────────
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ── Clean URLs (.html extension stripping) ────────────────────────────────
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*)$ $1.html [L]
+
+# ── Security headers ──────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  # Prevent clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Stop browsers from guessing file types
+  Header always set X-Content-Type-Options "nosniff"
+  # Only send referrer on same origin
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Hide Apache version
+  Header always unset X-Powered-By
+  Header always unset Server
+  # Basic XSS protection for older browsers
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# ── Deny access to sensitive files ───────────────────────────────────────
+<FilesMatch "^(generate_hash\.php)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# ── Disable directory listing ────────────────────────────────────────────
+Options -Indexes

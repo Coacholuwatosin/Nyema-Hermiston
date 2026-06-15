@@ -523,15 +523,6 @@
     }
   </style>
 
-  <!-- Google Analytics GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-REPLACE-WITH-YOUR-ID"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-REPLACE-WITH-YOUR-ID');
-  </script>
-  <!-- DOMPurify: sanitizes blog post HTML to block injected scripts -->
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
 </head>
 <body>
@@ -984,7 +975,7 @@
            become new paragraphs, single line breaks become <br>.            */
       var raw = post.content || '';
       if (/<[a-z][\s\S]*>/i.test(raw)) {
-        /* HTML content — sanitize then render (strips script tags, event handlers etc.) */
+        /* HTML content */
         content.innerHTML = DOMPurify.sanitize(raw, {
           ADD_TAGS: ['iframe'],
           ADD_ATTR: ['target', 'allowfullscreen', 'frameborder', 'allow'],
