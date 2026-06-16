@@ -407,6 +407,48 @@
     .btnPublish:hover { background: var(--primaryDark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(88,98,163,0.28); }
     .btnDraft:disabled, .btnPublish:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
+    .btnPreview {
+      font-family: 'DM Sans', sans-serif; font-size: 0.8125rem;
+      font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #2d9c6e; background: rgba(45,156,110,0.08);
+      border: 1.5px solid rgba(45,156,110,0.25); border-radius: 8px;
+      padding: 0.7rem 1.375rem; cursor: pointer;
+      display: flex; align-items: center; gap: 0.4rem; transition: all 0.2s;
+    }
+    .btnPreview:hover { background: rgba(45,156,110,0.15); }
+
+    .previewModal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.55); align-items: center; justify-content: center; padding: 1.5rem;
+    }
+    .previewModal.open { display: flex; }
+    .previewModalInner {
+      background: #fff; border-radius: 16px; max-width: 760px; width: 100%;
+      max-height: 88vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+    }
+    .previewModalHeader {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem; border-bottom: 1px solid #e8ecf0;
+      position: sticky; top: 0; background: #fff; z-index: 1; border-radius: 16px 16px 0 0;
+    }
+    .previewModalHeader span { font-weight: 700; color: #5862a3; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.07em; }
+    .previewCloseBtn {
+      background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #888; line-height: 1;
+    }
+    .previewModalBody { padding: 0 0 2rem; }
+    .previewCoverImg { width: 100%; max-height: 320px; object-fit: cover; border-radius: 0; display: block; }
+    .previewContent { padding: 1.5rem 2rem; }
+    .previewCat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5862a3; margin-bottom: 0.5rem; }
+    .previewTitle { font-size: 1.75rem; font-weight: 800; color: #1e293b; line-height: 1.25; margin-bottom: 0.5rem; }
+    .previewDate { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; }
+    .previewBody { font-size: 1rem; color: #374151; line-height: 1.75; }
+    .previewBody h1,.previewBody h2,.previewBody h3 { color: #1e293b; margin: 1rem 0 0.4rem; }
+    .previewBody p { margin: 0 0 0.9rem; }
+    .previewBody ul,.previewBody ol { padding-left: 1.5rem; margin-bottom: 0.9rem; }
+    .previewBody blockquote { border-left: 3px solid #5862a3; padding-left: 1rem; color: #64748b; margin: 1rem 0; }
+    .previewBody a { color: #5862a3; }
+    .previewBody img { max-width: 100%; border-radius: 8px; margin: 0.5rem 0; }
+
     /* ── TOAST ─────────────────────────────────────────────────────── */
     .toast {
       position: fixed; bottom: 2rem; right: 2rem;
@@ -777,6 +819,14 @@
           </div>
         </div>
 
+        <!-- Auto-save indicator -->
+        <div id="autoSaveBar" style="display:none;font-size:0.78rem;color:#94a3b8;text-align:right;padding:0 0.25rem 0.5rem;display:flex;align-items:center;justify-content:space-between">
+          <span id="autoSaveStatus"></span>
+          <button id="btnRestoreDraft" style="display:none;font-size:0.78rem;background:rgba(88,98,163,0.1);border:1px solid rgba(88,98,163,0.25);color:#5862a3;border-radius:6px;padding:0.3rem 0.75rem;cursor:pointer;font-family:inherit">
+            <i class="ri-history-line"></i> Restore unsaved draft
+          </button>
+        </div>
+
         <!-- Action Bar -->
         <div class="editorActions">
           <div class="editorActionsLeft">
@@ -784,6 +834,7 @@
           </div>
           <div class="editorActionsRight">
             <button class="btnDraft"   id="btnDraft"><i class="ri-save-line"></i> Save as Draft</button>
+            <button class="btnPreview" id="btnPreview" type="button"><i class="ri-eye-line"></i> Preview</button>
             <button class="btnPublish" id="btnPublish"><i class="ri-global-line"></i> Publish to Website</button>
           </div>
         </div>
@@ -816,6 +867,25 @@
     </div>
   </div>
 
+  <!-- Preview Modal -->
+  <div class="previewModal" id="previewModal">
+    <div class="previewModalInner">
+      <div class="previewModalHeader">
+        <span><i class="ri-eye-line"></i> Post Preview</span>
+        <button class="previewCloseBtn" id="previewClose" title="Close">&times;</button>
+      </div>
+      <div class="previewModalBody">
+        <div id="previewCoverWrap"></div>
+        <div class="previewContent">
+          <div class="previewCat"  id="previewCat"></div>
+          <div class="previewTitle" id="previewTitle"></div>
+          <div class="previewDate"  id="previewDate"></div>
+          <div class="previewBody"  id="previewBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Delete Confirm Dialog -->
   <div class="dialogOverlay" id="dialogOverlay">
     <div class="dialog">
@@ -830,9 +900,21 @@
   </div>
 
   <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
   <script>
 
     const IMGBB_API_KEY = '7b75f54ff3e22d4963ba367f410e7d6d';
+
+    // ── Device token (persists in browser across IP changes) ──────────
+    function getDeviceToken() {
+      let t = localStorage.getItem('nh_device_token');
+      if (!t) {
+        t = Array.from(crypto.getRandomValues(new Uint8Array(24))).map(b => b.toString(16).padStart(2,'0')).join('');
+        localStorage.setItem('nh_device_token', t);
+      }
+      return t;
+    }
+    const DEVICE_TOKEN = getDeviceToken();
 
     // ── State ─────────────────────────────────────────────────────────
     let allPosts    = [];
@@ -855,13 +937,22 @@
       loginScreen.style.display = 'none';
       adminShell.classList.add('visible');
       loadPosts();
+      // Ping every 10 minutes to keep session alive while Nyema is writing
+      setInterval(async () => {
+        try {
+          const r = await fetch('auth.php?action=check');
+          const d = await r.json();
+          if (d.status === 'expired' || d.status === 'unauthenticated') handleSessionExpiry();
+        } catch {}
+      }, 600000);
+      startAutoSave();
     }
 
     function startPolling() {
       if (pollTimer) return;
       pollTimer = setInterval(async () => {
         try {
-          const r = await fetch('auth.php?action=check_ip');
+          const r = await fetch('auth.php?action=check_ip&device_token=' + DEVICE_TOKEN);
           const d = await r.json();
           if (d.status === 'allowed') { clearInterval(pollTimer); showPanel('loginPanel'); loginInput.focus(); }
           else if (d.status === 'denied') { clearInterval(pollTimer); showPanel('deniedPanel'); }
@@ -900,7 +991,7 @@
         const sd   = await sr.json();
         if (sd.status === 'ok') { grantAccess(); return; }
 
-        const ir   = await fetch('auth.php?action=check_ip');
+        const ir   = await fetch('auth.php?action=check_ip&device_token=' + DEVICE_TOKEN);
         const id_  = await ir.json();
         if      (id_.status === 'allowed')  { showPanel('loginPanel'); loginInput.focus(); }
         else if (id_.status === 'pending')  { showPanel('pendingPanel'); startPolling(); }
@@ -918,6 +1009,7 @@
         const fd = new FormData();
         fd.append('action', 'request_access');
         fd.append('name', name);
+        fd.append('device_token', DEVICE_TOKEN);
         const r  = await fetch('auth.php', { method: 'POST', body: fd });
         const d  = await r.json();
         if (d.status === 'pending' || d.status === 'already_pending') {
@@ -1026,7 +1118,7 @@
           ['bold', 'italic', 'underline'],
           [{ color: [] }],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          ['blockquote', 'link', 'image'],
+          ['blockquote', 'link'],
           ['clean']
         ]
       }
@@ -1247,24 +1339,34 @@
           body: JSON.stringify(payload)
         });
         if (res.status === 401) { handleSessionExpiry(); return; }
-        const data = await res.json();
+
+        let data;
+        try { data = await res.json(); } catch {
+          showToast('Server returned an unexpected response. Please try again.', 'error');
+          return;
+        }
 
         if (data.status === 'success') {
+          clearAutoSave();
           showToast(
             publish
-              ? (editingId ? '✓ Post updated and published.' : '🎉 Post published! It\'s now live on your website.')
-              : (editingId ? '✓ Changes saved as draft.'     : '📝 Saved as draft.'),
+              ? (editingId ? '✓ Post updated and published.' : 'Post published! It\'s now live on your website.')
+              : (editingId ? '✓ Changes saved as draft.'     : 'Saved as draft.'),
             'success'
           );
           await loadPosts();
           showView('viewList');
           editingId = null;
         } else {
-          showToast('Something went wrong. Please try again.', 'error');
+          showToast(data.message || 'Something went wrong. Please try again.', 'error');
         }
 
       } catch(err) {
-        showToast('Connection error. Please try again.', 'error');
+        if (!navigator.onLine) {
+          showToast('You appear to be offline. Check your internet and try again.', 'error');
+        } else {
+          showToast('Could not reach the server. Please try again in a moment.', 'error');
+        }
       } finally {
         btnD.disabled = btnP.disabled = false;
       }
@@ -1272,6 +1374,35 @@
 
     document.getElementById('btnDraft').addEventListener('click',   () => submitPost(false));
     document.getElementById('btnPublish').addEventListener('click', () => submitPost(true));
+
+    document.getElementById('btnPreview').addEventListener('click', () => {
+      const title    = document.getElementById('postTitle').value.trim();
+      const category = document.getElementById('postCategory').value;
+      const date     = document.getElementById('postDate').value;
+      const image    = document.getElementById('postImage').value.trim();
+      const content  = quill.root.innerHTML;
+
+      document.getElementById('previewTitle').textContent = title || '(No title)';
+      document.getElementById('previewCat').textContent   = category || '';
+      document.getElementById('previewDate').textContent  = date ? new Date(date).toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' }) : '';
+      document.getElementById('previewBody').innerHTML    = DOMPurify.sanitize(content);
+
+      const coverWrap = document.getElementById('previewCoverWrap');
+      if (image) {
+        coverWrap.innerHTML = '<img src="' + image + '" alt="" class="previewCoverImg" onerror="this.style.display=\'none\'">';
+      } else {
+        coverWrap.innerHTML = '';
+      }
+
+      document.getElementById('previewModal').classList.add('open');
+    });
+
+    document.getElementById('previewClose').addEventListener('click', () => {
+      document.getElementById('previewModal').classList.remove('open');
+    });
+    document.getElementById('previewModal').addEventListener('click', e => {
+      if (e.target === document.getElementById('previewModal')) document.getElementById('previewModal').classList.remove('open');
+    });
 
     // ── Insert CTA Button ─────────────────────────────────────────────
     document.getElementById('btnInsertCtaBtn').addEventListener('click', () => {
@@ -1365,7 +1496,72 @@
     }
 
     document.getElementById('btnReset').addEventListener('click', () => {
-      if (confirm('Clear all fields?')) resetForm();
+      if (confirm('Clear all fields?')) { resetForm(); clearAutoSave(); }
+    });
+
+    // ── Auto-save ─────────────────────────────────────────────────────
+    const AUTOSAVE_KEY = 'nh_autosave_draft';
+
+    function autoSaveSnapshot() {
+      const title   = document.getElementById('postTitle').value.trim();
+      const content = quill.getText().trim();
+      if (!title && !content) return;
+      const snapshot = {
+        title:    document.getElementById('postTitle').value,
+        date:     document.getElementById('postDate').value,
+        category: document.getElementById('postCategory').value,
+        excerpt:  excerptEl.value,
+        content:  quill.root.innerHTML,
+        imageUrl: document.getElementById('postImage').value,
+        editingId: editingId,
+        savedAt:  Date.now()
+      };
+      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(snapshot));
+      const t = new Date().toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('autoSaveStatus').textContent = 'Draft auto-saved at ' + t;
+    }
+
+    function clearAutoSave() {
+      localStorage.removeItem(AUTOSAVE_KEY);
+      document.getElementById('autoSaveStatus').textContent = '';
+      document.getElementById('btnRestoreDraft').style.display = 'none';
+    }
+
+    function startAutoSave() {
+      document.getElementById('autoSaveBar').style.display = 'flex';
+      const saved = localStorage.getItem(AUTOSAVE_KEY);
+      if (saved) {
+        try {
+          const s = JSON.parse(saved);
+          const mins = Math.round((Date.now() - s.savedAt) / 60000);
+          const label = mins < 1 ? 'just now' : mins + ' minute' + (mins > 1 ? 's' : '') + ' ago';
+          document.getElementById('autoSaveStatus').textContent = 'Unsaved draft found (' + label + ')';
+          document.getElementById('btnRestoreDraft').style.display = 'inline-flex';
+        } catch {}
+      }
+      setInterval(autoSaveSnapshot, 30000);
+    }
+
+    document.getElementById('btnRestoreDraft').addEventListener('click', () => {
+      const saved = localStorage.getItem(AUTOSAVE_KEY);
+      if (!saved) return;
+      try {
+        const s = JSON.parse(saved);
+        editingId = s.editingId || null;
+        document.getElementById('postTitle').value    = s.title    || '';
+        document.getElementById('postDate').value     = s.date     || '';
+        document.getElementById('postCategory').value = s.category || '';
+        excerptEl.value = s.excerpt || '';
+        counterEl.textContent = `${excerptEl.value.length} / 220`;
+        quill.root.innerHTML = s.content || '';
+        if (s.imageUrl) {
+          document.getElementById('postImage').value = s.imageUrl;
+          showImagePreview(s.imageUrl);
+        }
+        document.getElementById('btnRestoreDraft').style.display = 'none';
+        document.getElementById('autoSaveStatus').textContent = 'Draft restored.';
+        showView('viewEditor');
+      } catch { showToast('Could not restore draft.', 'error'); }
     });
 
     // ── Image Upload ──────────────────────────────────────────────────

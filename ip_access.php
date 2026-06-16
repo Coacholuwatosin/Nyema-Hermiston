@@ -28,7 +28,9 @@ if ($data['status'] !== 'pending') {
     die(page('Already Handled', 'This request has already been actioned.', '#888'));
 }
 
-$ip = $data['ip'];
+$ip          = $data['ip'];
+$deviceToken = $data['device_token'] ?? '';
+$dtFile      = __DIR__ . '/private/device_tokens.json';
 
 if ($action === 'forever') {
     $wlFile    = __DIR__ . '/private/whitelist.json';
@@ -37,9 +39,14 @@ if ($action === 'forever') {
         $whitelist[] = $ip;
         file_put_contents($wlFile, json_encode($whitelist), LOCK_EX);
     }
+    if ($deviceToken) {
+        $deviceTokens = file_exists($dtFile) ? json_decode(file_get_contents($dtFile), true) : [];
+        $deviceTokens[$deviceToken] = ['expires' => 0];
+        file_put_contents($dtFile, json_encode($deviceTokens), LOCK_EX);
+    }
     $tokens[$token]['status'] = 'approved_forever';
     $title = 'Permanently Approved';
-    $body  = "IP <strong>{$ip}</strong> has been added to your permanent whitelist. They will not need approval again.";
+    $body  = "IP <strong>{$ip}</strong> has been added to the permanent whitelist. Their browser is also recognised — they will not need approval again even if their IP address changes.";
     $color = '#5862a3';
 
 } elseif ($action === 'once') {
@@ -47,6 +54,11 @@ if ($action === 'forever') {
     $tmpAccess = file_exists($tmpFile) ? json_decode(file_get_contents($tmpFile), true) : [];
     $tmpAccess[$ip] = time() + 86400;
     file_put_contents($tmpFile, json_encode($tmpAccess), LOCK_EX);
+    if ($deviceToken) {
+        $deviceTokens = file_exists($dtFile) ? json_decode(file_get_contents($dtFile), true) : [];
+        $deviceTokens[$deviceToken] = ['expires' => time() + 86400];
+        file_put_contents($dtFile, json_encode($deviceTokens), LOCK_EX);
+    }
     $tokens[$token]['status'] = 'approved_once';
     $title = 'Session Access Approved';
     $body  = "IP <strong>{$ip}</strong> has been granted access for the next 24 hours.";

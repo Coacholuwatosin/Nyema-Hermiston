@@ -15,16 +15,25 @@ define('SITE_URL',    'https://nyemahermiston.com.au');
 
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
-function ipStatus($ip) {
+function ipStatus($ip, $deviceToken = '') {
     $wl  = __DIR__ . '/private/whitelist.json';
     $tmp = __DIR__ . '/private/temp_access.json';
     $tok = __DIR__ . '/private/pending_tokens.json';
+    $dtf = __DIR__ . '/private/device_tokens.json';
 
-    $whitelist = file_exists($wl)  ? json_decode(file_get_contents($wl),  true) : [];
+    $whitelist = file_exists($wl) ? json_decode(file_get_contents($wl), true) : [];
     if (in_array($ip, $whitelist)) return 'allowed';
 
     $tmpAccess = file_exists($tmp) ? json_decode(file_get_contents($tmp), true) : [];
     if (isset($tmpAccess[$ip]) && $tmpAccess[$ip] > time()) return 'allowed';
+
+    if ($deviceToken) {
+        $deviceTokens = file_exists($dtf) ? json_decode(file_get_contents($dtf), true) : [];
+        if (isset($deviceTokens[$deviceToken])) {
+            $dt = $deviceTokens[$deviceToken];
+            if ($dt['expires'] === 0 || $dt['expires'] > time()) return 'allowed';
+        }
+    }
 
     $tokens = file_exists($tok) ? json_decode(file_get_contents($tok), true) : [];
     foreach ($tokens as $data) {
@@ -48,8 +57,9 @@ function requireAdmin() {
 // ── Login ─────────────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'login') {
 
-    $ip = $_SERVER['REMOTE_ADDR'];
-    if (!in_array(ipStatus($ip), ['allowed'])) {
+    $ip          = $_SERVER['REMOTE_ADDR'];
+    $deviceToken = trim($_POST['device_token'] ?? $_GET['device_token'] ?? '');
+    if (!in_array(ipStatus($ip, $deviceToken), ['allowed'])) {
         http_response_code(403);
         echo json_encode(['status' => 'error', 'message' => 'Access not authorised.']);
         exit;
@@ -105,15 +115,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'login') {
 // ── IP status check ───────────────────────────────────────────────────────
 } elseif ($action === 'check_ip') {
 
-    echo json_encode(['status' => ipStatus($_SERVER['REMOTE_ADDR'])]);
+    $deviceToken = trim($_GET['device_token'] ?? '');
+    echo json_encode(['status' => ipStatus($_SERVER['REMOTE_ADDR'], $deviceToken)]);
 
 // ── Request access ────────────────────────────────────────────────────────
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'request_access') {
 
-    $ip      = $_SERVER['REMOTE_ADDR'];
-    $name    = trim($_POST['name'] ?? '');
-    $tokFile = __DIR__ . '/private/pending_tokens.json';
-    $tokens  = file_exists($tokFile) ? json_decode(file_get_contents($tokFile), true) : [];
+    $ip          = $_SERVER['REMOTE_ADDR'];
+    $name        = trim($_POST['name'] ?? '');
+    $deviceToken = trim($_POST['device_token'] ?? '');
+    $tokFile     = __DIR__ . '/private/pending_tokens.json';
+    $tokens      = file_exists($tokFile) ? json_decode(file_get_contents($tokFile), true) : [];
 
     foreach ($tokens as $data) {
         if ($data['ip'] === $ip && $data['status'] === 'pending' && $data['expires'] > time()) {
@@ -124,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'login') {
 
     $token   = bin2hex(random_bytes(32));
     $expires = time() + 86400;
-    $tokens[$token] = ['ip' => $ip, 'name' => $name, 'created' => time(), 'expires' => $expires, 'status' => 'pending'];
+    $tokens[$token] = ['ip' => $ip, 'name' => $name, 'device_token' => $deviceToken, 'created' => time(), 'expires' => $expires, 'status' => 'pending'];
     file_put_contents($tokFile, json_encode($tokens), LOCK_EX);
 
     $time     = gmdate('d M Y, H:i') . ' UTC';
@@ -200,6 +212,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'login') {
         unset($tmpAccess[$ip]);
         file_put_contents($tmpFile, json_encode($tmpAccess), LOCK_EX);
     }
+
+    // Revoke any device tokens linked to this IP via pending_tokens records
+    $tokFile      = __DIR__ . '/private/pending_tokens.json';
+    $dtFile       = __DIR__ . '/private/device_tokens.json';
+    $pendingToks  = file_exists($tokFile) ? json_decode(file_get_contents($tokFile), true) : [];
+    $deviceTokens = file_exists($dtFile)  ? json_decode(file_get_contents($dtFile),  true) : [];
+    foreach ($pendingToks as $rec) {
+        if (($rec['ip'] ?? '') === $ip && !empty($rec['device_token'])) {
+            unset($deviceTokens[$rec['device_token']]);
+        }
+    }
+    file_put_contents($dtFile, json_encode($deviceTokens), LOCK_EX);
+
     echo json_encode(['status' => 'success']);
 
 // ── Logout ────────────────────────────────────────────────────────────────
