@@ -295,6 +295,7 @@
       margin: 0 auto 1rem;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .spinIcon { display: inline-block; animation: spin 0.8s linear infinite; }
 
     /* ── EDITOR VIEW ───────────────────────────────────────────────── */
     .editorHeader {
@@ -356,6 +357,9 @@
     /* Quill */
     .quillWrap { border-radius: 8px; overflow: hidden; border: 1px solid rgba(0,0,0,0.09); transition: box-shadow 0.2s; }
     .quillWrap:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(88,98,163,0.09); }
+    .ql-editor img { cursor: pointer; transition: outline 0.15s; outline: 2px solid transparent; outline-offset: 2px; }
+    .ql-editor img:hover { outline-color: rgba(88,98,163,0.45); }
+
     .editorHelpers { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.625rem; }
     .helperBtn {
       display: inline-flex; align-items: center; gap: 0.35rem;
@@ -368,7 +372,7 @@
     .helperBtn i { font-size: 0.9rem; }
     .ql-toolbar   { border: none !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important; background: #f8fafc; padding: 0.625rem 0.75rem !important; }
     .ql-container { border: none !important; font-family: 'DM Sans', sans-serif !important; font-size: 1rem !important; }
-    .ql-editor    { min-height: 280px; padding: 1.25rem 1.5rem !important; line-height: 1.8 !important; color: var(--text) !important; }
+    .ql-editor    { min-height: 280px; max-height: 520px; overflow-y: auto; padding: 1.25rem 1.5rem !important; line-height: 1.8 !important; color: var(--text) !important; }
     .ql-editor.ql-blank::before { color: #94a3b8 !important; font-style: normal !important; }
 
     /* Editor action bar */
@@ -436,7 +440,7 @@
       background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #888; line-height: 1;
     }
     .previewModalBody { padding: 0 0 2rem; }
-    .previewCoverImg { width: 100%; max-height: 320px; object-fit: cover; border-radius: 0; display: block; }
+    .previewCoverImg { width: 100%; max-height: 420px; object-fit: contain; border-radius: 0; display: block; background: #f1f3f8; }
     .previewContent { padding: 1.5rem 2rem; }
     .previewCat { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5862a3; margin-bottom: 0.5rem; }
     .previewTitle { font-size: 1.75rem; font-weight: 800; color: #1e293b; line-height: 1.25; margin-bottom: 0.5rem; }
@@ -463,7 +467,14 @@
     }
     .toast.show    { transform: translateY(0); opacity: 1; }
     .toast.success { border-left: 3px solid var(--green); }
-    .toast.error   { border-left: 3px solid var(--red); }
+    .toast.error   {
+      border-left: 4px solid var(--red);
+      bottom: auto; right: auto; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.92);
+      max-width: 440px; text-align: left; padding: 1.25rem 1.5rem;
+      font-size: 0.9rem; line-height: 1.5;
+    }
+    .toast.error.show { transform: translate(-50%, -50%) scale(1); }
 
     /* ── CONFIRM DIALOG ────────────────────────────────────────────── */
     .dialogOverlay {
@@ -563,7 +574,7 @@
     .imgUploadPreview.active { display: block; }
 
     .imgPreviewThumb {
-      width: 100%; max-height: 190px; object-fit: cover; display: block;
+      width: 100%; max-height: 320px; object-fit: contain; display: block; background: #f1f3f8;
     }
     .imgRemoveBtn {
       position: absolute; top: 0.5rem; right: 0.5rem;
@@ -1124,6 +1135,51 @@
       }
     });
 
+    // Prevent images pasted/dropped directly into the editor from being embedded
+    // as base64 (which bloats the saved content and breaks Save/Publish).
+    // Instead, upload to ImgBB and insert the hosted URL.
+    async function insertImageAtCursor(file) {
+      const range = quill.getSelection(true) || { index: quill.getLength() };
+      showToast('Uploading image…', 'success');
+      try {
+        const url = await uploadToImgBB(file);
+        quill.insertEmbed(range.index, 'image', url, 'user');
+        quill.setSelection(range.index + 1);
+      } catch (err) {
+        showToast(err.message || 'Image upload failed. Please try again.', 'error');
+      }
+    }
+
+    quill.root.addEventListener('paste', (e) => {
+      const items = (e.clipboardData && e.clipboardData.files) || [];
+      const file  = Array.from(items).find(f => f.type.startsWith('image/'));
+      if (file) {
+        e.preventDefault();
+        e.stopPropagation();
+        insertImageAtCursor(file);
+      }
+    }, true);
+
+    quill.root.addEventListener('drop', (e) => {
+      const items = (e.dataTransfer && e.dataTransfer.files) || [];
+      const file  = Array.from(items).find(f => f.type.startsWith('image/'));
+      if (file) {
+        e.preventDefault();
+        e.stopPropagation();
+        insertImageAtCursor(file);
+      }
+    }, true);
+
+    // ── Click an image inside the post body to remove it ───────────────
+    quill.root.addEventListener('click', (e) => {
+      if (e.target.tagName === 'IMG') {
+        if (confirm('Remove this image from your post?')) {
+          e.target.remove();
+          quill.update('user'); // resync Quill's internal model with the DOM change
+        }
+      }
+    });
+
     // ── Excerpt counter ───────────────────────────────────────────────
     const excerptEl = document.getElementById('postExcerpt');
     const counterEl = document.getElementById('excerptCounter');
@@ -1304,6 +1360,44 @@
       return `${y}-${m}-${d}`;
     }
 
+    // Detects any base64-embedded images left over in post content — from this
+    // post or any post saved before the paste/drop fix existed — and silently
+    // converts them to small hosted links so saving never breaks on size again.
+    async function sanitizeContentImages(html) {
+      if (!html.includes('data:image') && !html.includes('blob:')) return html;
+
+      const div  = document.createElement('div');
+      div.innerHTML = html;
+      const imgs = Array.from(div.querySelectorAll('img[src^="data:image"], img[src^="blob:"]'));
+      if (imgs.length === 0) return html;
+
+      showToast('Optimising embedded image(s) before saving…', 'success');
+
+      for (const img of imgs) {
+        try {
+          const blobRes = await fetch(img.src);
+          const blob    = await blobRes.blob();
+          const file    = new File([blob], 'embedded-image.png', { type: blob.type || 'image/png' });
+          const url     = await uploadToImgBB(file);
+          img.src = url;
+        } catch {
+          img.remove(); // better to drop an oversized broken embed than fail the whole save
+        }
+      }
+      return div.innerHTML;
+    }
+
+    // Google Sheets has a hard 50,000-character limit per cell. Catch this
+    // BEFORE sending so Nyema gets an instant, specific reason instead of a
+    // vague server failure after a long wait.
+    const SHEET_CELL_LIMIT = 48000;
+    function findOversizedField(payload) {
+      if (payload.content.length > SHEET_CELL_LIMIT) return 'content';
+      if (payload.excerpt.length  > SHEET_CELL_LIMIT) return 'excerpt';
+      if (payload.title.length    > SHEET_CELL_LIMIT) return 'title';
+      return null;
+    }
+
     // ── Submit post (create or update) ────────────────────────────────
     async function submitPost(publish) {
       const title    = document.getElementById('postTitle').value.trim();
@@ -1311,7 +1405,7 @@
       const category = document.getElementById('postCategory').value;
       const excerpt  = excerptEl.value.trim();
       const image    = document.getElementById('postImage').value.trim();
-      const content  = quill.root.innerHTML;
+      let   content  = quill.root.innerHTML;
 
       if (!title)                              { showToast('Please add a post title.',    'error'); return; }
       if (!date)                               { showToast('Please select a date.',       'error'); return; }
@@ -1319,9 +1413,22 @@
       if (!excerpt)                            { showToast('Please add a short excerpt.', 'error'); return; }
       if (quill.getText().trim().length < 30)  { showToast('Post content is too short.',  'error'); return; }
 
-      const btnD = document.getElementById('btnDraft');
-      const btnP = document.getElementById('btnPublish');
-      btnD.disabled = btnP.disabled = true;
+      content = await sanitizeContentImages(content);
+      quill.root.innerHTML = content;
+
+      const btnD  = document.getElementById('btnDraft');
+      const btnP  = document.getElementById('btnPublish');
+      const btnPv = document.getElementById('btnPreview');
+      const activeBtn     = publish ? btnP : btnD;
+      const activeOrigHTML = activeBtn.innerHTML;
+
+      btnD.disabled = btnP.disabled = btnPv.disabled = true;
+      activeBtn.innerHTML = '<i class="ri-loader-4-line spinIcon"></i> ' + (publish ? 'Publishing…' : 'Saving…');
+
+      // Let her know if it's taking unusually long, so it never feels frozen
+      const slowNotice = setTimeout(() => {
+        showToast('Still working — this can take a little longer than usual. Please wait…', 'success');
+      }, 8000);
 
       const payload = {
         action:    editingId ? 'update' : 'create',
@@ -1332,17 +1439,34 @@
         published: publish ? 'YES' : 'NO'
       };
 
+      const oversizedField = findOversizedField(payload);
+      if (oversizedField) {
+        clearTimeout(slowNotice);
+        btnD.disabled = btnP.disabled = btnPv.disabled = false;
+        activeBtn.innerHTML = activeOrigHTML;
+        showToast(
+          `Your post's ${oversizedField} is too long to save (Google Sheets has a 48,000-character limit per field). ` +
+          (oversizedField === 'content' ? 'This is usually caused by an image stuck inside the writing area — click on it and remove it, then try again.' : 'Please shorten it and try again.'),
+          'error'
+        );
+        return;
+      }
+
+      const controller = new AbortController();
+      const abortTimer  = setTimeout(() => controller.abort(), 40000);
+
       try {
-        const res  = await fetch('proxy.php', {
-          method: 'POST',
+        const res = await fetch('proxy.php', {
+          method:  'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
+          body:    JSON.stringify(payload),
+          signal:  controller.signal
         });
         if (res.status === 401) { handleSessionExpiry(); return; }
 
         let data;
         try { data = await res.json(); } catch {
-          showToast('Server returned an unexpected response. Please try again.', 'error');
+          showToast('The server sent back something unexpected. Your post was NOT saved — please try again.', 'error');
           return;
         }
 
@@ -1358,17 +1482,22 @@
           showView('viewList');
           editingId = null;
         } else {
-          showToast(data.message || 'Something went wrong. Please try again.', 'error');
+          showToast(data.message ? ('Not saved: ' + data.message) : 'Something went wrong. Your post was NOT saved — please try again.', 'error');
         }
 
       } catch(err) {
-        if (!navigator.onLine) {
-          showToast('You appear to be offline. Check your internet and try again.', 'error');
+        if (err.name === 'AbortError') {
+          showToast('This is taking too long to respond. Your post may NOT have saved — please check and try again.', 'error');
+        } else if (!navigator.onLine) {
+          showToast('You appear to be offline. Your post was NOT saved — check your internet and try again.', 'error');
         } else {
-          showToast('Could not reach the server. Please try again in a moment.', 'error');
+          showToast('Could not reach the server. Your post was NOT saved — please try again in a moment.', 'error');
         }
       } finally {
-        btnD.disabled = btnP.disabled = false;
+        clearTimeout(slowNotice);
+        clearTimeout(abortTimer);
+        btnD.disabled = btnP.disabled = btnPv.disabled = false;
+        activeBtn.innerHTML = activeOrigHTML;
       }
     }
 
@@ -1623,45 +1752,37 @@
       imgUploadArea.classList.remove('uploading');
     }
 
-    async function handleImageFile(file) {
+    async function uploadToImgBB(file) {
       const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-      if (!allowed.includes(file.type)) {
-        showToast('Please upload a JPG, PNG or WebP image.', 'error'); return;
-      }
-      if (file.size > 10 * 1024 * 1024) {
-        showToast('Image must be under 10 MB.', 'error'); return;
-      }
+      if (!allowed.includes(file.type)) throw new Error('Please upload a JPG, PNG or WebP image.');
+      if (file.size > 10 * 1024 * 1024) throw new Error('Image must be under 10 MB.');
+      if (IMGBB_API_KEY === 'YOUR_IMGBB_KEY_HERE') throw new Error('ImgBB API key not set — ask Elena to add it.');
 
+      const base64 = await toBase64(file);
+      const form   = new FormData();
+      form.append('image', base64.split(',')[1]);
+
+      const res  = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: 'POST', body: form
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error('Upload rejected');
+      return data.data.url;
+    }
+
+    async function handleImageFile(file) {
       imgUploadEmpty.style.display = 'none';
       imgUploadPreview.classList.remove('active');
       imgUploadProgress.classList.add('active');
       imgUploadArea.classList.add('uploading');
 
-      if (IMGBB_API_KEY === 'YOUR_IMGBB_KEY_HERE') {
-        showToast('ImgBB API key not set — ask Elena to add it.', 'error');
-        clearImageUpload();
-        return;
-      }
-
       try {
-        const base64 = await toBase64(file);
-        const form   = new FormData();
-        form.append('image', base64.split(',')[1]);
-
-        const res  = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-          method: 'POST', body: form
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          postImageHidden.value = data.data.url;
-          showImagePreview(data.data.url);
-          showToast('✓ Image uploaded successfully.', 'success');
-        } else {
-          throw new Error('Upload rejected');
-        }
-      } catch {
-        showToast('Image upload failed. Please try again.', 'error');
+        const url = await uploadToImgBB(file);
+        postImageHidden.value = url;
+        showImagePreview(url);
+        showToast('✓ Image uploaded successfully.', 'success');
+      } catch (err) {
+        showToast(err.message || 'Image upload failed. Please try again.', 'error');
         clearImageUpload();
       }
     }
@@ -1681,7 +1802,7 @@
       document.getElementById('toastIcon').textContent = type === 'success' ? '✓' : '✕';
       document.getElementById('toastMsg').textContent  = msg;
       el.className = `toast ${type} show`;
-      setTimeout(() => el.classList.remove('show'), 5000);
+      setTimeout(() => el.classList.remove('show'), type === 'error' ? 8000 : 5000);
     }
 
   </script>
