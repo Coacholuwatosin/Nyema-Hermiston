@@ -916,7 +916,7 @@
         card.setAttribute('tabindex', '0');
 
         var imgHtml = post.image
-          ? '<img src="' + escHtml(post.image) + '" alt="" class="blogCardImg" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=\\\"blogCardImgPlaceholder\\\"><i class=\\\"ri-article-line\\\" aria-hidden=\\\"true\\\"></i></div>\'">'
+          ? '<img src="' + escHtml(post.image) + '" alt="" class="blogCardImg" loading="lazy" onerror="blogCardImgFallback(this)">'
           : '<div class="blogCardImgPlaceholder" aria-hidden="true"><i class="ri-article-line"></i></div>';
 
         var dateStr = formatDate(post.date);
@@ -1016,6 +1016,14 @@
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    }
+
+    function blogCardImgFallback(imgEl) {
+      var placeholder = document.createElement('div');
+      placeholder.className = 'blogCardImgPlaceholder';
+      placeholder.setAttribute('aria-hidden', 'true');
+      placeholder.innerHTML = '<i class="ri-article-line"></i>';
+      imgEl.parentNode.replaceChild(placeholder, imgEl);
     }
 
     /* ── Kick off on page load ── */
