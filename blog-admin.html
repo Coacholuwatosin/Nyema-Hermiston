@@ -596,6 +596,28 @@
       padding: 0.25rem 0.5rem; border-radius: 4px;
     }
 
+    /* ── HISTORY MODAL ────────────────────────────────────────────── */
+    .historyItem {
+      background: #f8fafc; border: 1px solid #e8edf3;
+      border-radius: 8px; padding: 0.875rem 1rem;
+      margin-bottom: 0.5rem; display: flex;
+      align-items: flex-start; gap: 0.75rem;
+    }
+    .historyMeta { flex: 1; min-width: 0; }
+    .historyDate { font-size: 0.75rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
+    .historyNote { font-size: 0.6875rem; color: var(--muted); }
+    .historyPostTitle { font-size: 0.8rem; color: var(--text); margin-top: 0.2rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .btnRestore {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--primary); background: rgba(88,98,163,0.08);
+      border: 1px solid rgba(88,98,163,0.20); border-radius: 6px;
+      padding: 0.35rem 0.875rem; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+      transition: background 0.15s; display: flex; align-items: center; gap: 0.3rem;
+    }
+    .btnRestore:hover { background: rgba(88,98,163,0.16); }
+    .dateReadOnly { cursor: default; background: #f8fafc !important; color: var(--muted) !important; }
+
     /* ── RESPONSIVE ────────────────────────────────────────────────── */
     @media (max-width: 640px) {
       .statsRow { grid-template-columns: 1fr; }
@@ -910,6 +932,25 @@
     </div>
   </div>
 
+  <!-- History Modal -->
+  <div class="dialogOverlay" id="historyOverlay">
+    <div class="dialog" style="max-width:580px;width:calc(100% - 2rem);max-height:82vh;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-shrink:0">
+        <div>
+          <div class="dialogTitle" style="margin-bottom:0.15rem"><i class="ri-history-line" style="color:var(--primary)"></i> Edit History</div>
+          <div style="font-size:0.8rem;color:var(--muted)" id="historyPostTitle">—</div>
+        </div>
+        <button class="btnDialogCancel" id="historyClose" style="padding:0.5rem 1rem">Close</button>
+      </div>
+      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:0.875rem;flex-shrink:0">
+        Each version below was saved automatically before an edit was applied. Click <strong>Restore</strong> to load any version into the editor for review — you must then save it to confirm.
+      </div>
+      <div id="historyBody" style="overflow-y:auto;flex:1">
+        <div style="text-align:center;padding:2rem;color:var(--muted)">Loading…</div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
   <script>
@@ -928,9 +969,12 @@
     const DEVICE_TOKEN = getDeviceToken();
 
     // ── State ─────────────────────────────────────────────────────────
-    let allPosts    = [];
-    let editingId   = null;   // null = new post
-    let deleteTarget = null;
+    let allPosts           = [];
+    let editingId          = null;   // null = new post
+    let editingOriginalDate = null;  // DD/MM/YYYY of the post being edited
+    let deleteTarget       = null;
+    let historyTargetId    = null;
+    let historySnapshots   = [];
 
     // ── Login / IP access ─────────────────────────────────────────────
     const loginScreen = document.getElementById('loginScreen');
@@ -1222,8 +1266,6 @@
 
       if (post) {
         document.getElementById('postTitle').value    = post.title    || '';
-        document.getElementById('postDate').value     = displayToISO(post.date) || '';
-        document.getElementById('postDateHint').textContent = 'Original date — only change if needed.';
         document.getElementById('postCategory').value = post.category || '';
         excerptEl.value = post.excerpt || '';
         counterEl.textContent = `${excerptEl.value.length} / 220`;
@@ -1234,7 +1276,17 @@
         } else {
           clearImageUpload();
         }
+
+        // Lock the publication date on edit — original date is preserved automatically
+        editingOriginalDate = post.date || '';
+        const dateInput = document.getElementById('postDate');
+        dateInput.value = displayToISO(post.date) || '';
+        dateInput.classList.add('dateReadOnly');
+        dateInput.setAttribute('readonly', 'readonly');
+        document.getElementById('postDateHint').innerHTML =
+          'Published ' + (post.date || '') + ' — <button type="button" onclick="unlockDate()" style="background:none;border:none;color:var(--primary);cursor:pointer;padding:0;font-size:0.6875rem;font-family:inherit;font-weight:600;text-decoration:underline">change date</button>';
       } else {
+        editingOriginalDate = null;
         resetForm();
       }
 
@@ -1330,6 +1382,9 @@
             <button class="iconBtn" title="Edit post" onclick="openEditor(getPost('${p.id}'))">
               <i class="ri-pencil-line"></i>
             </button>
+            <button class="iconBtn" title="Edit history &amp; revert" onclick="openHistory('${p.id}')">
+              <i class="ri-history-line"></i>
+            </button>
             <button class="iconBtn iconBtnGreen" title="${p.published === 'YES' ? 'Unpublish' : 'Publish'}" onclick="toggleStatus('${p.id}')">
               <i class="ri-${p.published === 'YES' ? 'eye-off' : 'eye'}-line"></i>
             </button>
@@ -1416,6 +1471,14 @@
 
       content = await sanitizeContentImages(content);
       quill.root.innerHTML = content;
+
+      // Snapshot the current version before overwriting it so Nyema can revert
+      if (editingId) {
+        const currentPost = getPost(editingId);
+        if (currentPost) {
+          try { await saveHistorySnapshot(editingId, currentPost); } catch {}
+        }
+      }
 
       const btnD  = document.getElementById('btnDraft');
       const btnP  = document.getElementById('btnPublish');
@@ -1623,6 +1686,15 @@
       quill.setContents([]);
       setTodayDate();
       clearImageUpload();
+      unlockDate();
+      editingOriginalDate = null;
+    }
+
+    function unlockDate() {
+      const dateInput = document.getElementById('postDate');
+      dateInput.removeAttribute('readonly');
+      dateInput.classList.remove('dateReadOnly');
+      document.getElementById('postDateHint').textContent = '';
     }
 
     document.getElementById('btnReset').addEventListener('click', () => {
@@ -1796,6 +1868,115 @@
         reader.readAsDataURL(file);
       });
     }
+
+    // ── History ───────────────────────────────────────────────────────
+    async function saveHistorySnapshot(id, post) {
+      await fetch('post_history.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action:    'save_snapshot',
+          id,
+          title:     post.title     || '',
+          date:      post.date      || '',
+          category:  post.category  || '',
+          excerpt:   post.excerpt   || '',
+          content:   post.content   || '',
+          imageUrl:  post.imageUrl  || '',
+          published: post.published || '',
+          note:      'Before edit on ' + new Date().toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' })
+        })
+      });
+    }
+
+    async function openHistory(id) {
+      historyTargetId = id;
+      const post = getPost(id);
+      document.getElementById('historyPostTitle').textContent = post ? post.title : id;
+      document.getElementById('historyBody').innerHTML =
+        '<div style="text-align:center;padding:2rem"><div class="spinner"></div></div>';
+      document.getElementById('historyOverlay').classList.add('show');
+      try {
+        const res = await fetch('post_history.php?action=get_history&id=' + encodeURIComponent(id));
+        if (res.status === 401) { handleSessionExpiry(); return; }
+        const data = await res.json();
+        historySnapshots = data.history || [];
+        renderHistoryList(historySnapshots);
+      } catch {
+        document.getElementById('historyBody').innerHTML =
+          '<div style="color:#ef4444;padding:1rem">Could not load history.</div>';
+      }
+    }
+
+    function formatSavedAt(ts) {
+      if (!ts) return '—';
+      const d = new Date(ts * 1000);
+      return d.toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' }) +
+             ' at ' + d.toLocaleTimeString('en-AU', { hour:'2-digit', minute:'2-digit' });
+    }
+
+    function renderHistoryList(snapshots) {
+      const body = document.getElementById('historyBody');
+      if (!snapshots.length) {
+        body.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.875rem">' +
+          'No edit history yet.<br>History is recorded automatically each time this post is saved after editing.</div>';
+        return;
+      }
+      body.innerHTML = snapshots.map((s, i) => `
+        <div class="historyItem">
+          <div class="historyMeta">
+            <div class="historyDate">${escHtml(formatSavedAt(s.savedAt))}</div>
+            <div class="historyNote">${escHtml(s.note || 'Saved version')}</div>
+            <div class="historyPostTitle" title="${escHtml(s.title)}">${escHtml(s.title || '—')}</div>
+          </div>
+          <button class="btnRestore" onclick="loadSnapshot(${i})">
+            <i class="ri-arrow-go-back-line"></i> Restore
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function loadSnapshot(index) {
+      const snapshot = historySnapshots[index];
+      if (!snapshot) return;
+      if (!confirm('Load this version into the editor? Review it and click Save or Publish to confirm the restore.')) return;
+
+      document.getElementById('historyOverlay').classList.remove('show');
+
+      editingId = historyTargetId;
+      document.getElementById('editorTitle').textContent = 'Restoring Version';
+      document.getElementById('editorSub').textContent =
+        'Version from ' + formatSavedAt(snapshot.savedAt) + ' — save to confirm.';
+
+      document.getElementById('postTitle').value    = snapshot.title    || '';
+      document.getElementById('postCategory').value = snapshot.category || '';
+      excerptEl.value = snapshot.excerpt || '';
+      counterEl.textContent = `${excerptEl.value.length} / 220`;
+      quill.root.innerHTML = snapshot.content || '';
+
+      // Restore original publish date (unlock so it can be submitted)
+      editingOriginalDate = snapshot.date || '';
+      const dateInput = document.getElementById('postDate');
+      dateInput.value = displayToISO(snapshot.date) || '';
+      dateInput.removeAttribute('readonly');
+      dateInput.classList.remove('dateReadOnly');
+      document.getElementById('postDateHint').textContent = 'Original publish date restored.';
+
+      if (snapshot.imageUrl) {
+        document.getElementById('postImage').value = snapshot.imageUrl;
+        showImagePreview(snapshot.imageUrl);
+      } else {
+        clearImageUpload();
+      }
+
+      showView('viewEditor');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showToast('Version loaded. Review and click Save or Publish to confirm the restore.', 'success');
+    }
+
+    document.getElementById('historyClose').addEventListener('click', () => {
+      document.getElementById('historyOverlay').classList.remove('show');
+    });
 
     // ── Toast ─────────────────────────────────────────────────────────
     function showToast(msg, type = 'success') {

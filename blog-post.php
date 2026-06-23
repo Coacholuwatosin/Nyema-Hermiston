@@ -318,6 +318,35 @@ $ogUrl   = SITE_URL . '/blog/' . $post['slug'];
       margin-top: var(--spaceLg);
       text-align: center;
     }
+    .postHeroShare {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: var(--spaceMd);
+    }
+    .postHeroShareBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fontBody);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .postHeroShareBtn:hover {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
@@ -398,6 +427,14 @@ $ogUrl   = SITE_URL . '/blog/' . $post['slug'];
         </div>
         <h1 class="postHeroTitle"><?= esc($post['title']) ?></h1>
         <span class="postHeroRule" aria-hidden="true"></span>
+        <div class="postHeroShare">
+          <button class="postHeroShareBtn" id="copyLinkBtnTop" aria-label="Copy link">
+            <i class="ri-links-line" aria-hidden="true"></i> Copy Link
+          </button>
+          <button class="postHeroShareBtn" id="nativeShareBtn" aria-label="Share">
+            <i class="ri-share-forward-line" aria-hidden="true"></i> Share
+          </button>
+        </div>
       </div>
     </section>
 
@@ -521,27 +558,35 @@ $ogUrl   = SITE_URL . '/blog/' . $post['slug'];
       }
     })();
 
-    document.getElementById('copyLinkBtn').addEventListener('click', function() {
-      var btn = this;
-      var url = <?= json_encode($ogUrl) ?>;
+    var postUrl   = <?= json_encode($ogUrl) ?>;
+    var postTitle = <?= json_encode($ogTitle) ?>;
+
+    function copyToClipboard(btn) {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(function() {
+        navigator.clipboard.writeText(postUrl).then(function() {
           btn.innerHTML = '<i class="ri-check-line" aria-hidden="true"></i> Copied!';
-          setTimeout(function() {
-            btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link';
-          }, 2000);
+          setTimeout(function() { btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link'; }, 2000);
         });
       } else {
         var inp = document.createElement('input');
-        inp.value = url;
+        inp.value = postUrl;
         document.body.appendChild(inp);
         inp.select();
         document.execCommand('copy');
         document.body.removeChild(inp);
         btn.innerHTML = '<i class="ri-check-line" aria-hidden="true"></i> Copied!';
-        setTimeout(function() {
-          btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link';
-        }, 2000);
+        setTimeout(function() { btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link'; }, 2000);
+      }
+    }
+
+    document.getElementById('copyLinkBtn').addEventListener('click', function() { copyToClipboard(this); });
+    document.getElementById('copyLinkBtnTop').addEventListener('click', function() { copyToClipboard(this); });
+
+    document.getElementById('nativeShareBtn').addEventListener('click', function() {
+      if (navigator.share) {
+        navigator.share({ title: postTitle, url: postUrl });
+      } else {
+        copyToClipboard(document.getElementById('copyLinkBtnTop'));
       }
     });
   </script>
