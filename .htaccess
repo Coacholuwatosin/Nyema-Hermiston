@@ -13,6 +13,9 @@ RewriteBase /
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# ── Individual blog post URLs ─────────────────────────────────────────────
+RewriteRule ^blog/([a-z0-9-]+)/?$ blog-post.php?slug=$1 [L,QSA]
+
 # ── Clean URLs (.html extension stripping) ────────────────────────────────
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

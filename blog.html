@@ -504,6 +504,46 @@
     }
     .blogModalClose:hover { background: rgba(0,0,0,0.55); }
 
+    /* ── Modal share bar ── */
+    .blogModalShare {
+      margin-top: var(--spaceMd);
+      padding-top: var(--spaceMd);
+      border-top: 1px solid rgba(88,98,163,0.10);
+      display: flex;
+      align-items: center;
+      gap: var(--spaceXs);
+      flex-wrap: wrap;
+    }
+    .blogModalShareLabel {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--colorTextOnLight);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+    .blogModalShareBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid rgba(88,98,163,0.20);
+      background: transparent;
+      color: var(--colorPrimary);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.22s, color 0.22s, border-color 0.22s;
+    }
+    .blogModalShareBtn:hover {
+      background: var(--colorPrimary);
+      color: #fff;
+      border-color: var(--colorPrimary);
+    }
+
     /* ── Hero sectionLabel on dark background ── */
     .blogHero .sectionLabel {
       color: var(--colorSecondary);
@@ -673,6 +713,18 @@
         <h2 class="blogModalTitle" id="blogModalTitleEl"></h2>
         <span class="blogModalRule" aria-hidden="true"></span>
         <div class="blogModalContent" id="blogModalContent"></div>
+        <div class="blogModalShare">
+          <span class="blogModalShareLabel">Share</span>
+          <button class="blogModalShareBtn" id="blogModalCopyBtn">
+            <i class="ri-links-line" aria-hidden="true"></i> Copy Link
+          </button>
+          <a class="blogModalShareBtn" id="blogModalFbBtn" href="#" target="_blank" rel="noopener noreferrer">
+            <i class="ri-facebook-fill" aria-hidden="true"></i> Facebook
+          </a>
+          <a class="blogModalShareBtn" id="blogModalLinkedInBtn" href="#" target="_blank" rel="noopener noreferrer">
+            <i class="ri-linkedin-fill" aria-hidden="true"></i> LinkedIn
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -931,12 +983,13 @@
             '</div>' +
             '<h3 class="blogCardTitle">' + escHtml(post.title) + '</h3>' +
             (post.excerpt ? '<p class="blogCardExcerpt">' + escHtml(post.excerpt) + '</p>' : '') +
-            '<button class="blogCardReadMore" aria-label="Read full article: ' + escHtml(post.title) + '">' +
+            '<a href="/blog/' + slugify(post.title) + '" class="blogCardReadMore" aria-label="Read full article: ' + escHtml(post.title) + '">' +
               'Read More <i class="ri-arrow-right-line" aria-hidden="true"></i>' +
-            '</button>' +
+            '</a>' +
           '</div>';
 
         card.querySelector('.blogCardReadMore').addEventListener('click', function(e) {
+          e.preventDefault();
           e.stopPropagation();
           openModal(post);
         });
@@ -992,6 +1045,13 @@
           '</p>';
       }
 
+      var postUrl = 'https://nyemahermiston.com.au/blog/' + slugify(post.title);
+      document.getElementById('blogModalCopyBtn').dataset.url = postUrl;
+      document.getElementById('blogModalFbBtn').href =
+        'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(postUrl);
+      document.getElementById('blogModalLinkedInBtn').href =
+        'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(postUrl);
+
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
       card.scrollTop = 0;
@@ -1008,6 +1068,39 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
+
+    document.getElementById('blogModalCopyBtn').addEventListener('click', function() {
+      var btn = this;
+      var url = btn.dataset.url || '';
+      if (!url) return;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function() {
+          btn.innerHTML = '<i class="ri-check-line" aria-hidden="true"></i> Copied!';
+          setTimeout(function() {
+            btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link';
+          }, 2000);
+        });
+      } else {
+        var inp = document.createElement('input');
+        inp.value = url;
+        document.body.appendChild(inp);
+        inp.select();
+        document.execCommand('copy');
+        document.body.removeChild(inp);
+        btn.innerHTML = '<i class="ri-check-line" aria-hidden="true"></i> Copied!';
+        setTimeout(function() {
+          btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link';
+        }, 2000);
+      }
+    });
+
+    /* ── Slug helper (must match PHP slugify() in blog-post.php) ── */
+    function slugify(str) {
+      return String(str).toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/[\s-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
 
     /* ── HTML escape helper ── */
     function escHtml(str) {
