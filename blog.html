@@ -166,12 +166,36 @@
       transform: translateY(-6px);
       box-shadow: 0 8px 24px rgba(88,98,163,0.12), 0 24px 56px rgba(88,98,163,0.14);
     }
-    .blogCardImg {
+    .blogCardImgHero {
+      position: relative;
       width: 100%;
       height: 200px;
+      overflow: hidden;
+      background: #0d0b2b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .blogCardImgBg {
+      position: absolute;
+      inset: -20px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(22px);
+      opacity: 0.55;
+      transform: scale(1.15);
+      pointer-events: none;
+    }
+    .blogCardImg {
+      position: relative;
+      height: 100%;
+      width: auto;
+      max-width: 90%;
       object-fit: contain;
-      background: #f1f3f8;
       display: block;
+      z-index: 1;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.40));
     }
     .blogCardImgPlaceholder {
       width: 100%;
@@ -380,13 +404,51 @@
     .blogModal.open .blogModalCard {
       transform: translateY(0);
     }
-    .blogModalImg {
+    /* Reading progress bar — gold line at very top of modal card */
+    .blogModalProgress {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--colorSecondary);
+      border-radius: 0 2px 2px 0;
+      z-index: 20;
+      transition: width 0.1s linear;
+      flex-shrink: 0;
+    }
+
+    /* Image hero — blurred backdrop fills grey space (iOS/Spotify style) */
+    .blogModalImgHero {
+      position: relative;
       width: 100%;
-      height: 280px;
-      object-fit: contain;
-      background: #f1f3f8;
-      display: block;
+      height: 300px;
+      overflow: hidden;
       border-radius: 20px 20px 0 0;
+      background: #0d0b2b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .blogModalImgBg {
+      position: absolute;
+      inset: -30px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(28px);
+      opacity: 0.55;
+      transform: scale(1.15);
+      pointer-events: none;
+    }
+    .blogModalImg {
+      position: relative;
+      height: 100%;
+      width: auto;
+      max-width: 90%;
+      object-fit: contain;
+      display: block;
+      z-index: 1;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.45));
     }
     .blogModalImgPlaceholder {
       width: 100%;
@@ -403,37 +465,89 @@
     }
     .blogModalBody {
       padding: var(--spaceLg);
+      padding-top: var(--spaceMd);
     }
     .blogModalMeta {
       display: flex;
       align-items: center;
-      gap: var(--spaceXs);
-      margin-bottom: var(--spaceMd);
+      gap: 0.5rem;
+      margin-bottom: 0.875rem;
       flex-wrap: wrap;
     }
     .blogModalCategory {
       font-family: var(--fontBody);
-      font-size: 0.68rem;
-      font-weight: 600;
+      font-size: 0.65rem;
+      font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--colorPrimary);
-      background: rgba(88,98,163,0.08);
+      color: #fff;
+      background: var(--colorPrimary);
       border-radius: 100px;
       padding: 3px 12px;
     }
     .blogModalDate {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--colorTextOnLight);
-      opacity: 0.5;
+      opacity: 0.45;
+    }
+    .blogModalReadingTime {
+      font-size: 0.8rem;
+      color: var(--colorTextOnLight);
+      opacity: 0.45;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .blogModalReadingTime::before {
+      content: '·';
     }
     .blogModalTitle {
       font-family: var(--fontDisplay);
-      font-size: clamp(1.625rem, 3vw, 2.25rem);
+      font-size: clamp(1.625rem, 3vw, 2.375rem);
       font-weight: 700;
       color: var(--colorTextOnLight);
-      line-height: 1.2;
+      line-height: 1.18;
+      margin-bottom: 0.625rem;
+      letter-spacing: -0.01em;
+    }
+    /* Author byline */
+    .blogModalAuthor {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       margin-bottom: var(--spaceMd);
+    }
+    .blogModalAuthorAvatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--colorPrimary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fontDisplay);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .blogModalAuthorInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .blogModalAuthorName {
+      font-family: var(--fontBody);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--colorTextOnLight);
+    }
+    .blogModalAuthorCreds {
+      font-family: var(--fontBody);
+      font-size: 0.68rem;
+      color: var(--colorTextOnLight);
+      opacity: 0.45;
+      letter-spacing: 0.02em;
     }
     .blogModalRule {
       display: block;
@@ -443,13 +557,26 @@
       border-radius: 2px;
       margin-bottom: var(--spaceMd);
     }
+    /* Content — enhanced reading typography */
     .blogModalContent {
-      font-size: var(--fontSizeBody);
+      font-size: 1.0625rem;
       color: var(--colorTextOnLight);
-      line-height: 1.85;
-      opacity: 0.85;
+      line-height: 1.95;
+      opacity: 0.88;
     }
-    .blogModalContent p { margin-bottom: 1em; }
+    .blogModalContent p { margin-bottom: 1.15em; }
+
+    /* Drop cap on opening paragraph */
+    .blogModalContent > p:first-of-type::first-letter {
+      font-family: var(--fontDisplay);
+      font-size: 3.5em;
+      font-weight: 700;
+      color: var(--colorPrimary);
+      float: left;
+      line-height: 0.78;
+      margin-right: 0.08em;
+      margin-top: 0.06em;
+    }
 
     /* Headings — brand purple */
     .blogModalContent h2,
@@ -457,10 +584,34 @@
       font-family: var(--fontDisplay);
       font-weight: 600;
       color: #5862a3;
-      margin-top: 1.5em;
+      margin-top: 1.75em;
       margin-bottom: 0.5em;
       opacity: 1;
+      line-height: 1.25;
     }
+    .blogModalContent h2 { font-size: 1.375rem; }
+    .blogModalContent h3 { font-size: 1.125rem; }
+
+    /* Blockquotes — gold left border */
+    .blogModalContent blockquote {
+      border-left: 3px solid var(--colorSecondary);
+      margin: 1.5em 0;
+      padding: 0.75em 1.25em;
+      background: rgba(201,149,42,0.05);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: #4a5568;
+    }
+    .blogModalContent blockquote p { margin-bottom: 0; }
+
+    /* Lists */
+    .blogModalContent ul,
+    .blogModalContent ol {
+      padding-left: 1.5em;
+      margin-bottom: 1.15em;
+    }
+    .blogModalContent li { margin-bottom: 0.4em; }
+    .blogModalContent ul li::marker { color: var(--colorSecondary); }
 
     /* Images — always responsive, never overflow the modal */
     .blogModalContent img {
@@ -468,7 +619,8 @@
       height: auto;
       display: block;
       border-radius: 10px;
-      margin: 1.25em 0;
+      margin: 1.5em auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
     /* Links — brand purple, no underline, subtle hover */
@@ -505,6 +657,31 @@
     .blogModalClose:hover { background: rgba(0,0,0,0.55); }
 
     /* ── Modal share bar ── */
+    .blogModalShareTop {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: var(--spaceMd);
+    }
+    .blogModalShareBtnTop {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--fontBody);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.875rem;
+      border-radius: 100px;
+      border: 1px solid rgba(88,98,163,0.22);
+      background: transparent;
+      color: var(--colorPrimary);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .blogModalShareBtnTop:hover {
+      background: var(--colorPrimary);
+      color: #fff;
+      border-color: var(--colorPrimary);
+    }
     .blogModalShare {
       margin-top: var(--spaceMd);
       padding-top: var(--spaceMd);
@@ -701,6 +878,7 @@
   <div class="blogModal" id="blogModal" role="dialog" aria-modal="true" aria-labelledby="blogModalTitleEl">
     <div class="blogModalOverlay" id="blogModalOverlay"></div>
     <div class="blogModalCard" id="blogModalCard" tabindex="-1">
+      <div class="blogModalProgress" id="blogModalProgress" aria-hidden="true"></div>
       <button class="blogModalClose" id="blogModalClose" aria-label="Close article">
         <i class="ri-close-line" aria-hidden="true"></i>
       </button>
@@ -709,9 +887,25 @@
         <div class="blogModalMeta">
           <span class="blogModalCategory" id="blogModalCat"></span>
           <span class="blogModalDate" id="blogModalDateEl"></span>
+          <span class="blogModalReadingTime" id="blogModalReadingTime"></span>
         </div>
         <h2 class="blogModalTitle" id="blogModalTitleEl"></h2>
+        <div class="blogModalAuthor">
+          <div class="blogModalAuthorAvatar" aria-hidden="true">NH</div>
+          <div class="blogModalAuthorInfo">
+            <span class="blogModalAuthorName">Nyema Hermiston</span>
+            <span class="blogModalAuthorCreds">RN ND Adv Dip Hom, BScHons</span>
+          </div>
+        </div>
         <span class="blogModalRule" aria-hidden="true"></span>
+        <div class="blogModalShareTop">
+          <button class="blogModalShareBtnTop" id="blogModalCopyBtnTop">
+            <i class="ri-links-line" aria-hidden="true"></i> Copy Link
+          </button>
+          <button class="blogModalShareBtnTop" id="blogModalNativeShareBtn">
+            <i class="ri-share-forward-line" aria-hidden="true"></i> Share
+          </button>
+        </div>
         <div class="blogModalContent" id="blogModalContent"></div>
         <div class="blogModalShare">
           <span class="blogModalShareLabel">Share</span>
@@ -968,7 +1162,10 @@
         card.setAttribute('tabindex', '0');
 
         var imgHtml = post.image
-          ? '<img src="' + escHtml(post.image) + '" alt="" class="blogCardImg" loading="lazy" onerror="blogCardImgFallback(this)">'
+          ? '<div class="blogCardImgHero">' +
+              '<div class="blogCardImgBg" style="background-image:url(\'' + escHtml(post.image) + '\')"></div>' +
+              '<img src="' + escHtml(post.image) + '" alt="" class="blogCardImg" loading="lazy" onerror="blogCardImgFallback(this)">' +
+            '</div>'
           : '<div class="blogCardImgPlaceholder" aria-hidden="true"><i class="ri-article-line"></i></div>';
 
         var dateStr = formatDate(post.date);
@@ -1016,7 +1213,10 @@
       var card    = document.getElementById('blogModalCard');
 
       imgWrap.innerHTML = post.image
-        ? '<img src="' + escHtml(post.image) + '" alt="" class="blogModalImg" loading="lazy">'
+        ? '<div class="blogModalImgHero">' +
+            '<div class="blogModalImgBg" style="background-image:url(\'' + escHtml(post.image) + '\')"></div>' +
+            '<img src="' + escHtml(post.image) + '" alt="" class="blogModalImg" loading="lazy">' +
+          '</div>'
         : '<div class="blogModalImgPlaceholder" aria-hidden="true"><i class="ri-article-line"></i></div>';
 
       cat.textContent     = post.category || '';
@@ -1045,8 +1245,16 @@
           '</p>';
       }
 
+      /* Reading time */
+      var wordCount = (post.content || '').replace(/<[^>]+>/g, '').trim().split(/\s+/).length;
+      var mins = Math.max(1, Math.round(wordCount / 200));
+      document.getElementById('blogModalReadingTime').textContent = mins + ' min read';
+
       var postUrl = 'https://nyemahermiston.com.au/blog/' + slugify(post.title);
       document.getElementById('blogModalCopyBtn').dataset.url = postUrl;
+      document.getElementById('blogModalCopyBtnTop').dataset.url = postUrl;
+      document.getElementById('blogModalNativeShareBtn').dataset.url = postUrl;
+      document.getElementById('blogModalNativeShareBtn').dataset.title = post.title;
       document.getElementById('blogModalFbBtn').href =
         'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(postUrl);
       document.getElementById('blogModalLinkedInBtn').href =
@@ -1056,6 +1264,15 @@
       document.body.style.overflow = 'hidden';
       card.scrollTop = 0;
       card.focus();
+
+      /* Scroll progress bar */
+      var progress = document.getElementById('blogModalProgress');
+      progress.style.width = '0%';
+      card.onscroll = function() {
+        var scrollable = card.scrollHeight - card.clientHeight;
+        var pct = scrollable > 0 ? Math.min(100, (card.scrollTop / scrollable) * 100) : 100;
+        progress.style.width = pct + '%';
+      };
     }
 
     function closeModal() {
@@ -1069,28 +1286,34 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    document.getElementById('blogModalCopyBtn').addEventListener('click', function() {
-      var btn = this;
+    document.getElementById('blogModalCopyBtn').addEventListener('click', function() { doCopy(this); });
+
+    function doCopy(btn) {
       var url = btn.dataset.url || '';
       if (!url) return;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(function() {
           btn.innerHTML = '<i class="ri-check-line" aria-hidden="true"></i> Copied!';
-          setTimeout(function() {
-            btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link';
-          }, 2000);
+          setTimeout(function() { btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link'; }, 2000);
         });
       } else {
         var inp = document.createElement('input');
-        inp.value = url;
-        document.body.appendChild(inp);
-        inp.select();
-        document.execCommand('copy');
-        document.body.removeChild(inp);
+        inp.value = url; document.body.appendChild(inp); inp.select();
+        document.execCommand('copy'); document.body.removeChild(inp);
         btn.innerHTML = '<i class="ri-check-line" aria-hidden="true"></i> Copied!';
-        setTimeout(function() {
-          btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link';
-        }, 2000);
+        setTimeout(function() { btn.innerHTML = '<i class="ri-links-line" aria-hidden="true"></i> Copy Link'; }, 2000);
+      }
+    }
+
+    document.getElementById('blogModalCopyBtnTop').addEventListener('click', function() { doCopy(this); });
+
+    document.getElementById('blogModalNativeShareBtn').addEventListener('click', function() {
+      var url = this.dataset.url || '';
+      var title = this.dataset.title || '';
+      if (navigator.share) {
+        navigator.share({ title: title, url: url });
+      } else {
+        doCopy(document.getElementById('blogModalCopyBtnTop'));
       }
     });
 
@@ -1116,7 +1339,9 @@
       placeholder.className = 'blogCardImgPlaceholder';
       placeholder.setAttribute('aria-hidden', 'true');
       placeholder.innerHTML = '<i class="ri-article-line"></i>';
-      imgEl.parentNode.replaceChild(placeholder, imgEl);
+      var hero = imgEl.closest('.blogCardImgHero');
+      if (hero) hero.parentNode.replaceChild(placeholder, hero);
+      else imgEl.parentNode.replaceChild(placeholder, imgEl);
     }
 
     /* ── Kick off on page load ── */
